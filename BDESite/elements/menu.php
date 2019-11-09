@@ -1,12 +1,3 @@
-<?php 
-$i=true;
-if(/*connecté*/$i=true){
-  //génère la page en mode connecté
- 
-}else{
-  //redirige vers le module de connexion
-}
-?>
 
  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <a class="navbar-brand" href="#"><img src="https://ecole-ingenieurs.cesi.fr/wp-content/uploads/sites/5/2018/10/logo-cesi-ecole-ingenieurs.png" class="custom-logo" alt="CESI École d'ingénieurs" width="200" height="55"></a>
