@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <h1>Ajout d'un produit</h1>
-    <form method="post" action="AjoutArticle.php" enctype="multipart/form-data"
+    <form method="post" action="AjoutArticle.php" enctype="multipart/form-data">
         <h4>Nom :</h4><input type="text" name="nom"/><br>
         <h4>Categorie :</h4><input type="text" name="categorie"/><br>
         <h4>Description :</h4><textarea name="description"></textarea><br>
