@@ -1,4 +1,4 @@
-<footer class="pt-4 my-md-5 pt-md-5 border-top ">
+<footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
       <div class="col-12 col-md">
         <img class="mb-2" src="https://ecole-ingenieurs.cesi.fr/wp-content/uploads/sites/5/2018/10/logo-cesi-ecole-ingenieurs.png" alt="CESI École d'ingénieurs" width="100" height="30">
@@ -33,5 +33,16 @@
           <li><a class="text-muted" href="#">Terms</a></li>
         </ul>
       </div>
+    </div>
+    <div class="row">
+    <div class="col-6 col-md">
+        <h5><a class="text-muted" href="#">Politique de protection des données personelles</a></h5>
+        </ul>
+    </div>
+    <div class="col-6 col-md">
+        <h5><a class="text-muted" href="#">Mentions légales</a></h5>
+    </div>
+    <div class="col-6 col-md">    
+        <h5><a class="text-muted" href="#">Politique de protection des données personelles</a></h5>
     </div>
   </footer>

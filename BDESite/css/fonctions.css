@@ -1,0 +1,10 @@
+.nomargin{
+    margin:0px;
+}
+.centrer{
+    margin-left: auto;
+    margin-right: auto;
+}
+.fondnoir{
+    background-color: black;
+}
