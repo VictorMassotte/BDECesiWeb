@@ -5,17 +5,37 @@
 
 include('bdd.php'); 
 
-$select = $bdd->prepare('SELECT * FROM produits');
-$select->execute();
+if(isset($_GET['categorie'])){
+    
+    $categorie = $_GET['categorie'];
+    $select = $bdd->prepare('SELECT * FROM produits WHERE CATEGORIE=:categorie');
+    $select->bindValue(':categorie', $categorie, PDO::PARAM_STR);
+    $select->execute();
+    
+    
+    while($s=$select->fetch(PDO::FETCH_OBJ)){
+        
+        ?>
+        <img src="admin/imgs/<?php echo $s->NOM; ?>.jpg"/>
+        <h2><?php echo $s->NOM;?></h2>
+        <h3><?php echo $s->DESCRIPTION; ?></h3>
+        <h3><?php echo $s->PRIX; ?>€</h3><br>
+        <?php
+    }
+    
+}else{
 
-while($s=$select->fetch(PDO::FETCH_OBJ)){
-
-    ?>
-    <img src="admin/imgs/<?php echo $s->NOM; ?>.jpg"/>
-    <h2><?php echo $s->NOM;?></h2>
-    <h3><?php echo $s->DESCRIPTION; ?></h3>
-    <h3><?php echo $s->PRIX; ?>€</h3><br>
-
-<?php
+    $select = $bdd->prepare('SELECT * FROM categorie');
+    $select->execute();
+    
+    while($s=$select->fetch(PDO::FETCH_OBJ)){
+        
+        ?>
+        <a href="?categorie=<?php echo $s->nom; ?>"><h3><?php echo $s->nom ?></h3></a>
+        
+        <?php
+    }
+    
 }
+
 ?>
