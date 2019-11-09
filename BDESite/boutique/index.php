@@ -11,6 +11,7 @@ $select->execute();
 while($s=$select->fetch(PDO::FETCH_OBJ)){
 
     ?>
+    <img src="admin/imgs/<?php echo $s->NOM; ?>.jpg"/>
     <h2><?php echo $s->NOM;?></h2>
     <h3><?php echo $s->DESCRIPTION; ?></h3>
     <h3><?php echo $s->PRIX; ?>€</h3><br>
