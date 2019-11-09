@@ -30,8 +30,11 @@ if(isset($_SESSION['mail'])){
 
         <div id="barre_boutons_admin">
 
-            <a href="AjoutArticle.php">Ajouter un article</a>
-            <a href="visu.php">Modifier / Supprimer</a>
+            <a href="AjoutArticle.php">Ajouter un article</a><br>
+            <a href="visu.php">Modifier / Supprimer un article</a><br><br>
+
+            <a href="addcategorie.php">Ajouter une categorie</a><br>
+            <a href="edit_deletecategorie.php">Modifier / Supprimer une categorie</a><br>
       
         </div>
     </div>  

@@ -1,16 +1,27 @@
-<?php include('verif.php'); ?>
+<?php include('verif.php');
+include('../bdd.php'); 
+?>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 <h1>Ajout d'un produit</h1>
     <form method="post" action="AjoutArticle.php" enctype="multipart/form-data">
         <h4>Nom :</h4><input type="text" name="nom"/><br>
-        <h4>Categorie :</h4><input type="text" name="categorie"/><br>
-        <h4>Description :</h4><textarea name="description"></textarea><br>
+        <h4>Description :</h4><textarea name="description"></textarea><br><br>
+        <h4>Categorie :</h4><select name="categorie">
+
+        <?php $select=$bdd->query("SELECT * FROM categorie");
+            while($s = $select->fetch(PDO::FETCH_OBJ)){
+                ?>
+            <option><?php echo $s->nom; ?></option>
+
+            <?php } ?>
+
+        </select><br><br>
+
         <h4>Prix :</h4><input type="text" name="prix"/><br>
         <h4>Stock :</h4><input type="text" name="stock"/><br><br>
         <input type="file" name="img"/><br><br>
-
         <input type="submit" name="submit"/>
     </form>
 
