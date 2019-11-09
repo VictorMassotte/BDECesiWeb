@@ -1,5 +1,8 @@
-<?php session_start();
-      setcookie('user', $_POST['email'], time() + 5*365*24*3600, null, null, false, true); //cookie pour une durée de cinq ans
+<?php session_start(); 
+      if(strtolower($email) == strtolower($result['email']) && password_verify($motdepasse, $data[0]['PASSWORD'])){
+        $cookie_value=$_POST['email'];
+        setcookie('user',$cookie_value, time() + 5*365*24*3600, null, null, false, true); //cookie pour une durée de cinq ans
+      }
  ?>
 <!DOCTYPE html>
 <html lang="fr">
