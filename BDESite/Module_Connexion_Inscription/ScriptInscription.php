@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-define('BDD_PATH', '/boutique');
-include BDD_PATH . '/bdd.php'; 
+include $_SERVER['DOCUMENT_ROOT']."/BDECESIWEB/BDESite/boutique/bdd.php";
 
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];
