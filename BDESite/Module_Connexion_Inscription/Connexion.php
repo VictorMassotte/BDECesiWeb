@@ -1,4 +1,4 @@
-<?php session_start(); 
+<?php 
       if(isset($email) && !empty($email)){
         $cookie_value=$email;
         setcookie('user',$cookie_value, time() + 5*365*24*3600, null, null, false, true); //cookie pour une durée de cinq ans
