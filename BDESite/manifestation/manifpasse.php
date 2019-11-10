@@ -7,4 +7,8 @@ if($interval->format('%R%a')<0){
 }else{
     echo"positif <br> donc à placer dans evenements passés";
 }
+//ajouter la récupération de la date pour un événement
+//récuperer chaque element dans un json
+//apliquer cette condition à toutes les manifestations de la bdd, et les mettre en page (faire en sorte que ça s'affiche sous forme de tableau avec des pages différentes)
+
 ?>
