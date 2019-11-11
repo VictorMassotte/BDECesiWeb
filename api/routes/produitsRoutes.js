@@ -30,7 +30,7 @@ module.exports = function(router) {
       .catch(err => res.json(err));
   });
 
-  router.put("/produits/:id",VerifyToken, (req, res) => {
+  router.put("/produits/:id",VerifyToken, (req, res) => {   
     Produit.update({ NOM: req.body.nom, DESCRIPTION: req.body.description,
          CATEGORIE: req.body.categorie, PRIX: req.body.prix, STOCK: req.body.stock }, { where: { ID: req.params.id } })
       .then(updateProduit => {
