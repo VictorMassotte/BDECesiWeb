@@ -17,7 +17,7 @@
 <br><br><br>
 <div class="jumbotron">
   <div class="container">
-    <h1 class="display-3">Boutique du BDE CESI</h1>
+    <h1 class="display">Boutique du BDE CESI</h1>
     </div>
 </div>
 
@@ -51,6 +51,7 @@ if(isset($_GET['show'])){
                 <h5 class="card-title"><?php echo $s->NOM; ?></h5>
                 <p class="card-text">Description du Produit: <?php echo $s->DESCRIPTION; ?></p>
                 <p class="card-text"><?php echo $s->PRIX; ?>€</p>
+                
                 <?php
                 if($s->STOCK!=0){?><a  class="btn btn-primary" href="panier.php?action=ajout&amp;l=<?php echo $s->NOM; ?>&amp;q=1&amp;p=<?php echo $s->PRIX; ?>">Ajouter au panier</a><br><br>
                     <?php
