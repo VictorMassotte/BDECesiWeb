@@ -7,39 +7,46 @@ $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];
 $localisation = $_POST['campus'];
 $email = $_POST['email'];
-$motdepasse = $_POST['password'];
+$hashpass = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $err_msg="Adresse mail non valide";
 
-if(isset($_POST['submit'])){
-    $requete = $bdd->prepare('SELECT MAIL, PASSWORD  FROM `users` WHERE email=:email and motdepasse="'.$_POST['password'].'"');
-    $requete->bindParam(':email', $email, PDO::PARAM_STR);
-    $requete->execute();
-    $login=$requete->fetch();
-
-        if($email == strtolower($login['email']))
-        {
-            echo $err_msg;
+if(isset($_POST['submit']))
+{
+           
+        if(!preg_match('#^[a-z.]+@cesi\.fr$#', $email)) //vérifie si elle se termine bien par "@cesi.fr"
+        {  
+            if(!preg_match('#^[a-z.]+@viacesi\.fr$#', $email)) //vérifie si elle se termine bien par "@viacesi.fr"
+            { 
+            echo $err_msg;                                          
+            }                                                  
         }
-        if(!preg_match('#^[a-z.]+@viacesi\.fr|cesi\.fr$#', $email)){ //vérifie si elle contient des lettres de l'alphabet
-            echo $err_msg;                                          //la présence d'arobase et d'un point
-        }
-        if(!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$#', $motdepasse)) //exige la presence de minuscule et de majuscules ainsi que de chiffre avec une taille minimum de 6 caractères
-        {
-            echo "Mot de passe invalide";  
-        }
-        if(preg_match('#@viacesi.fr#', $email))
+        elseif(preg_match('#@cesi.fr#', $email))
         {
             $requete3 = $bdd->prepare("INSERT INTO `users` (`STATUS`) VALUES('Eleve')'");
             $requete3->execute();
         }
-        if(preg_match('#@cesi.fr#', $email))
+       
+        elseif(preg_match('#@viacesi.fr#', $email))
         {
-            $requete4 = $bdd->prepare("INSERT INTO `users` (`STATUS`) VALUES('Intervenant')");
+            $requete4 = $bdd->prepare("INSERT INTO `users` (`STATUS`) VALUES('intervenant')'");
             $requete4->execute();
         }
-        
-        else
+
+        if(!preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$#', $hashpass)) //exige la presence de minuscule et de majuscules ainsi que de chiffre avec une taille minimum de 6 caractères
         {
+            echo "Mot de passe invalide";  
+        }
+        $requete = $bdd->prepare('SELECT MAIL FROM `users` WHERE MAIL=:email');
+        $requete->bindParam(':email', $email, PDO::PARAM_STR);
+        $requete->execute();
+        $login=$requete->fetch();
+
+        if($login)
+        {
+            exit($err_msg);
+        }    
+            else 
+            {
             try
             {
             $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -48,19 +55,19 @@ if(isset($_POST['submit'])){
             $requete2->bindParam(':prenom', $prenom, PDO::PARAM_STR);
             $requete2->bindParam(':localisation', $localisation, PDO::PARAM_STR);
             $requete2->bindParam(':email', $email, PDO::PARAM_STR);
-            $requete2->bindParam(':motdepasse', $motdepasse, PDO::PARAM_STR);
+            $requete2->bindParam(':motdepasse', $hashpass, PDO::PARAM_STR);
             $requete2->execute();
+            //print_r($login);
             }
             catch (PDOException $ex) {
                 echo  $ex->getMessage();
                 print_r($bdd->errorInfo());
             }
-            require_once 'Connexion.php';
-            
-	
+            require_once 'Connexion.php';   
+        }
             /*$msg = $requete2->execute();
             var_dump($msg);*/
-        }
+        
 
     }
 

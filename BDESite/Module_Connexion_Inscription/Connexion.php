@@ -31,8 +31,8 @@
    
    <label for="inputPassword" class="sr-only">Mot de Passe</label>
    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mot de passe" required>
-    <button name="submit" class="btn btn-success btn-block" type="submit">Connexion</button>
-    <a href="Inscription.php" target="blank">Je m'inscris </a>
+   <button name="submit" class="btn btn-success btn-block" type="submit">Connexion</button>
+   <a href="Inscription.php">Je m'inscris </a>
  </form>
 
 </div>

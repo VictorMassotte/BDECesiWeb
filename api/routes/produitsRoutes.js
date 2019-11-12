@@ -1,8 +1,8 @@
 const Produit = require("../models").produits;
-var VerifyToken = require(__root + 'auth/VerifyToken');
+var VerifyToken = require("../auth/VerifyToken");
 
 module.exports = function(router) {
-  router.get("/produits", (req, res) => {
+  router.get("/produits",VerifyToken, (req, res) => {
     Produit.findAll()
       .then(Produits => {
         res.json(Produits);
@@ -10,7 +10,7 @@ module.exports = function(router) {
       .catch(err => res.json(err));
   });
 
-  router.get("/produits/:id", (req, res) => {
+  router.get("/produits/:id",VerifyToken, (req, res) => {
     Produit.findAll({
       where: { ID: req.params.id }
     })
@@ -30,7 +30,7 @@ module.exports = function(router) {
       .catch(err => res.json(err));
   });
 
-  router.put("/produits/:id",VerifyToken, (req, res) => {
+  router.put("/produits/:id",VerifyToken, (req, res) => {   
     Produit.update({ NOM: req.body.nom, DESCRIPTION: req.body.description,
          CATEGORIE: req.body.categorie, PRIX: req.body.prix, STOCK: req.body.stock }, { where: { ID: req.params.id } })
       .then(updateProduit => {
@@ -39,7 +39,7 @@ module.exports = function(router) {
       .catch(err => res.json(err));
   });
 
-  router.delete("/produits/:id", VerifyToken,(req, res) => {
+  router.delete("/produits/:id",VerifyToken,(req, res) => {
     Produit.destroy({
       where: { ID: req.params.id }
     })

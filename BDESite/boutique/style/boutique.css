@@ -1,0 +1,29 @@
+.photo_produit{
+    width: 200px;
+    height: 200px;
+}
+
+.photo_produit_grand{
+    width: 450px;
+
+}
+
+.wrapper {
+    list-style: none;
+    margin-top: 50px;
+    display: inline-block;
+
+}
+
+.test{
+    text-align: center;
+    margin: 10px;
+}
+
+.panier{
+
+
+
+}
+
+
