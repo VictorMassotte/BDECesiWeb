@@ -23,7 +23,7 @@ module.exports = function(router) {
   router.post("/produits",VerifyToken, (req, res) => {
     if (req.userStatus == "membreBDE"){
     Produit.create({
-    NOM: req.body.nom, DESCRIPTION: req.body.description, CATEGORIE: req.body.categorie, PRIX: req.body.prix, STOCK: req.body.stock
+    NOM: req.body.name, DESCRIPTION: req.body.description, CATEGORIE: req.body.categorie, PRIX: req.body.price, STOCK: req.body.stock
     })
       .then(res => {
         res.json(res);
@@ -37,8 +37,8 @@ module.exports = function(router) {
 
   router.put("/produits/:id",VerifyToken, (req, res) => {   
     if (req.userStatus == "membreBDE"){
-    Produit.update({ NOM: req.body.nom, DESCRIPTION: req.body.description,
-         CATEGORIE: req.body.categorie, PRIX: req.body.prix, STOCK: req.body.stock }, { where: { ID: req.params.id } })
+    Produit.update({ NOM: req.body.name, DESCRIPTION: req.body.description,
+         CATEGORIE: req.body.categorie, PRIX: req.body.price, STOCK: req.body.stock }, { where: { ID: req.params.id } })
       .then(updateProduit => {
         res.json(updateProduit);
       })

@@ -50,7 +50,7 @@ router.post('/login', (req, res) =>{
         PASSWORD: hashedPassword,
         STATUS: req.body.status
     }).then(user =>{
-        var token = jwt.sign({ id: user.id }, config.secret, {
+        var token = jwt.sign({ id: user.id, , status: user.STATUS }, config.secret, {
             expiresIn: 86400 // expires in 24 hours
           });
       
