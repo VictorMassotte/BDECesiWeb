@@ -8,66 +8,67 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var config = require('../config');
 var VerifyToken = require('./VerifyToken');
-router.post('/login', function(req, res) {
+router.post('/login', (req, res) =>{
+    
+    User.findOne({ where:{ MAIL: req.body.mail} }
+    ).then(user => {  
+        var passwordIsValid = bcrypt.compareSync(req.body.password, user.PASSWORD);
+    if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
 
-    User.findOne({ MAIL: req.body.email }, function (err, user) {
-      if (err) return res.status(500).send('Error on the server.');
-      if (!user) return res.status(404).send('No user found.');
-      
-      // check if the password is valid
-      var passwordIsValid = bcrypt.compareSync(req.body.password, user.PASSWORD);
-      if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
-  
-      // if user is found and password is valid
-      // create a token
-      var token = jwt.sign({ id: user._id }, config.secret, {
-        expiresIn: 86400 // expires in 24 hours
-      });
-  
-      // return the information including token as JSON
-      res.status(200).send({ auth: true, token: token });
+    // if user is found and password is valid
+    // create a token
+    var token = jwt.sign({ id: user.id }, config.secret, {
+      expiresIn: 86400 // expires in 24 hours
     });
-  
-  });
+
+    // return the information including token as JSON
+    res.status(200).send({ auth: true, token: token }); 
+     }     )
+        .catch(err => res.status(500).send('Error on the server.'));
+        
+      
+      
+    }); 
+      // check if the password is valid
+    
+     
+   
   
   router.get('/logout', function(req, res) {
     res.status(200).send({ auth: false, token: null });
   });
   
-  router.post('/register', function(req, res) {
+  router.post('/register', (req, res) =>{
   
-    var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+    var hashedPassword = bcrypt.hashSync(req.body.password, 10);
   
     User.create({
         NOM: req.body.name,
         PRENOM: req.body.firstname,
         LOCALISATION: req.body.localisation,
         MAIL: req.body.mail,
-        PASSWORD: req.body.password,
+        PASSWORD: hashedPassword,
         STATUS: req.body.status
-    }, 
-    function (err, user) {
-      if (err) return res.status(500).send("There was a problem registering the user`.");
-  
-      // if user is registered without errors
-      // create a token
-      var token = jwt.sign({ id: user._id }, config.secret, {
-        expiresIn: 86400 // expires in 24 hours
-      });
-  
-      res.status(200).send({ auth: true, token: token });
-    });
+    }).then(user =>{
+        var token = jwt.sign({ id: user.id }, config.secret, {
+            expiresIn: 86400 // expires in 24 hours
+          });
+      
+          res.status(200).send({ auth: true, token: token });
+    }).catch(err => res.status(500).send("There was a problem registering the user`."));
+    
   
   });
   
-  router.get('/me', VerifyToken, function(req, res, next) {
-  
-    User.findById(req.userId, { password: 0 }, function (err, user) {
-      if (err) return res.status(500).send("There was a problem finding the user.");
-      if (!user) return res.status(404).send("No user found.");
-      res.status(200).send(user);
-    });
-  
+  router.get('/me',VerifyToken, (req, res, next) =>{
+    console.log(req.userId);
+    User.findByPk(req.userId, { attributes: { exclude: ['PASSWORD'] }})
+    .then(user =>{
+        res.json(user);
+    })
+    .catch(err => res.json(err)); 
+      
+    
   });
   
   module.exports = router;

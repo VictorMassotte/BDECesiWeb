@@ -3,8 +3,6 @@ session_start();
 
 include $_SERVER['DOCUMENT_ROOT']."/BDECESIWEB/BDESite/boutique/bdd.php";
 //include_once $_SERVER['DOCUMENT_ROOT']."/BDECESIWEB/BDESite/Acceuil.php";
-
-
 $email = $_POST['email'];
 $hashpass = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
@@ -14,7 +12,8 @@ $hashpass = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $response->bindParam(':email', $email, PDO::PARAM_STR);
         $response->execute();
         $result = $response->fetch();
-        
+    }
+
     if($email == $result['MAIL'] && password_verify($hashpass, $result['PASSWORD']))
     {      
         header('location: ../acceuil.php');
@@ -22,8 +21,7 @@ $hashpass = password_hash($_POST['password'], PASSWORD_DEFAULT);
     }
     elseif($email !== $result['MAIL'] && $hashpass !== password_verify($hashpass, $result['PASSWORD']))
     {
-        echo ;
-        echo "Vos identifiants sont incorrect";
+    }else{
+        
     }
-}
 ?>
