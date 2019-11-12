@@ -8,22 +8,50 @@
 
 }
 
-.wrapper {
-    list-style: none;
-    margin-top: 50px;
-    display: inline-block;
-
-}
-
 .test{
     text-align: center;
     margin: 10px;
 }
 
-.panier{
-
-
-
+.ongletadmin{
+    display: inline-block;
+    text-align: center;
 }
+
+.search-bar {
+	position: relative;
+    margin: 0 auto;
+    width: 95%;
+    max-width: 344px;
+    height: 48px;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.searchinbar {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    height: 40px;
+    left: 172px;
+    margin: 4px 0;
+    border: 0;
+    border-radius: 0;
+    outline: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.wrapper {
+    list-style: none;
+    display: inline-block;
+    margin-top: 50px;
+	text-align: center;
+}
+
 
 

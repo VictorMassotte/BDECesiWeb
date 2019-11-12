@@ -149,19 +149,9 @@ if (!$erreur){
         <div class="input-group-append">
                <button type="submit" class="btn btn-secondary">Rafraichir le panier</button>
                <input type="hidden" name="action" value="refresh"/>
-               <a class="btn btn-primary btn-lg btn-block "href="<?php echo $paypal; ?>">Payer la commande </a>
          </div>
         </li>
-                <?php
-                
-                if(isset($_SESSION['user_id'])){
-
-                 ?>
-               <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-               <a class="btn btn-primary btn-lg btn-block "href="<?php echo $paypal; ?>">Payer la commande </a>
-                <?php } else{ ?>
-                  <h4 class="btn btn-danger btn-lg btn-block" class="panier">Vous devez etre connecté pour payer !</h4>
-                  <?php } ?>
+                  <a class="btn btn-primary btn-lg btn-block "href="<?php echo $paypal; ?>">Payer la commande </a>
               </td>
 
             <?php

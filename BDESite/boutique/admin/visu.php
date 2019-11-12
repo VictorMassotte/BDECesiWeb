@@ -24,7 +24,8 @@ if(isset ($_GET['action'])){
     if($_GET['action'] == "delete"){
         
         $id = $_GET['id'];
-        $delete = $bdd->prepare("DELETE FROM produits WHERE ID=$id");
+        $delete = $bdd->prepare("DELETE FROM produits WHERE ID=:id");
+        $delete->bindValue(':id', $id, PDO::PARAM_STR);
         $delete->execute();
         
         echo "Article bien supprime !";
@@ -33,7 +34,8 @@ if(isset ($_GET['action'])){
     if($_GET['action'] == 'modify'){
 
         $id = $_GET['id'];
-        $select = $bdd->prepare("SELECT * FROM produits WHERE ID=$id");
+        $select = $bdd->prepare("SELECT * FROM produits WHERE ID=:id");
+        $select->bindValue(':id', $id, PDO::PARAM_STR);
         $select->execute();
 
         $data = $select->fetch(PDO::FETCH_OBJ);
@@ -60,7 +62,13 @@ if(isset($_POST['submit'])){
     $prix = $_POST['prix'];
     $stock = $_POST['stock'];
     
-    $update = $bdd->prepare("UPDATE produits SET NOM='$nom',CATEGORIE='$categorie',DESCRIPTION='$description',PRIX='$prix',STOCK='$stock' WHERE ID=$id");
+    $update = $bdd->prepare("UPDATE produits SET NOM=:nom,CATEGORIE=:categorie,DESCRIPTION=:description,PRIX=:prix,STOCK=:stock WHERE ID=:id");
+    $update->bindValue(':nom', $nom, PDO::PARAM_STR);
+    $update->bindValue(':categorie', $categorie, PDO::PARAM_STR);
+    $update->bindValue(':description', $description, PDO::PARAM_STR);
+    $update->bindValue(':prix', $prix, PDO::PARAM_STR);
+    $update->bindValue(':stock', $stock, PDO::PARAM_STR);
+    $update->bindValue(':id', $id, PDO::PARAM_STR);
     $update->execute();
 
     header('Location: visu.php');

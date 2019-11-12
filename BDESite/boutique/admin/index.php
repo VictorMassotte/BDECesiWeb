@@ -3,7 +3,7 @@
 session_start();
 
 $email="victor@cesi.fr";
-$password_definit = '1234';
+$password_definit = '$2y$10$rtu/dTEu8F96JbcZ6eOKuOBad0UNTHDw40FTZW44YevCxSawZzX9K';
 
 $mail = $_POST['mail'];
 $password = $_POST['password'];
@@ -14,9 +14,9 @@ if(isset($_POST['submit'])){
     
     if($mail && $password){
         
-        if($mail == $email && $password == $password_definit){
+        if($mail == $email && password_verify($password, $password_definit)){
             
-            $_SESSION['mail'] = $mail;
+            $_SESSION['membre_BDE'] = $mail;
             echo 'Connecter !';
             header('Location: admin.php');
             
