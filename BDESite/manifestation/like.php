@@ -1,5 +1,5 @@
 <?php
-    $bdd = new PDO('mysql:host=localhost;dbname=projet_web1;charset=utf8', 'root', '');
+    $bdd = new PDO('mysql:host=localhost;dbname=projet_web;charset=utf8', 'root', '');
 
     //get l'utilisateur (id)($user)
     $user=2;//Gauthier Sannier

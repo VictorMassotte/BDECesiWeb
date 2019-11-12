@@ -18,7 +18,7 @@
     </header>
     <!--corps du site-->
 <?php
-$bdd = new PDO('mysql:host=localhost;dbname=projet_web1;charset=utf8', 'root', '');
+$bdd = new PDO('mysql:host=localhost;dbname=projet_web;charset=utf8', 'root', '');
 $response = $bdd->query('SELECT ID,DATEE FROM manifestations ORDER BY DATEE desc');
 
 $id = array();
