@@ -7,6 +7,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/inscrit.js"></script>
         <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements passés</title>
 </head>
@@ -63,7 +64,7 @@ while ($ligne = $response->fetch()) {
             //partie affichage
             echo "
             <div class=\"card text-center text-white bg-dark\">
-            <div class=\"card-header\">
+            <div class=\"card-header\" id=\"nom\">
             $nom
             </div>
             <div class=\"card-body\">
@@ -72,7 +73,12 @@ while ($ligne = $response->fetch()) {
             <p class=\"card-text\">$desc</p>
             <p class=\"card-text text-muted\">".$interval->format('il y a %a jours')."<p>
             </div>
-            <div><button type=\"button\" class=\"btn btn-outline-primary\" id=\"like\">J'aime</button></div>
+            <div>
+            
+            <button type=\"button\" name=\"like\" class=\"btn btn-outline-primary\" id=\"like".$identifiant."\">J'aime</button>
+            
+            </div>
+
             <div class=\"card-footer\">
             </div>";
             //nous allons faire la partie affichage des commentaires
@@ -122,15 +128,12 @@ while ($ligne = $response->fetch()) {
             
            // echo $contenu.$value.$key;
             $identifiant=$value;
-            echo $user_Nom." ".$user_Prenom." ".$manif_Nom[$key]." ".$contenu;
+            
             $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Nom."', '".$user_Prenom."', '".$contenu."')");
             $contenu ="";
-            
-            
-            
-
         }
     }
+    
      
     $rqt->closeCursor();
     $response->closeCursor();

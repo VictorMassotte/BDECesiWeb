@@ -27,8 +27,10 @@
 
 
 <?php
+
 session_start();
 require_once('bdd.php');
+
 
 if(isset($_GET['show'])){
     
