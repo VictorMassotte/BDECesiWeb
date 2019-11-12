@@ -22,13 +22,9 @@
        <h1 class="display-4">Boutique BDE CESI</h1>
     </div>
   
-
-
-
-
 <?php
 
-session_start();
+require_once('admin/verif.php');
 require_once('bdd.php');
 
 

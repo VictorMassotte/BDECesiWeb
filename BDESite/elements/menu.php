@@ -38,7 +38,7 @@
 
       <?php } ?>
       <li class="nav-item my-2 my-lg-0">
-        <a class="nav-link" href="#">Deconnexion</a>
+        <a class="nav-link" href="http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Deconnexion.php">Deconnexion</a>
       </li>
 
       <li class="nav-item my-2 my-lg-0">

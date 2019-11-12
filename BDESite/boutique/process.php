@@ -3,7 +3,7 @@
 session_start();
 include_once("fonctions_panier.php");
 include_once("paypal.php");
-include_once('admin/bdd.php');
+include_once('bdd.php');
 
 //$_SESSION['user_id'] = '1';
 

@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require_once('../boutique/bdd.php');
 
 if(isset($_POST['submit'])){
@@ -29,8 +30,6 @@ if(isset($_POST['submit'])){
                         $_SESSION['user_id'] = $id;
                         $_SESSION['membre_BDE'] = $mail;
 
-                        var_dump($_SESSION['user_id']);
-                        var_dump($_SESSION['membre_BDE']);
                         require_once('Accueil.php');
 
                     }else if($resultat['STATUS'] == 2){

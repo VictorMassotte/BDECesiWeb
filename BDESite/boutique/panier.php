@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('bdd.php');
 include_once("fonctions_panier.php");
 include_once("paypal.php");
 require_once('../elements/menu.php');
@@ -154,9 +155,49 @@ if (!$erreur){
                   <a class="btn btn-primary btn-lg btn-block "href="<?php echo $paypal; ?>">Payer la commande </a>
               </td>
 
+              <form action="" method="POST">
+                  <h4>Nom de la sauvegarde :</h4><input type="text" name="save_nom"/><br><br>
+                 <input type="submit" name="save" value="Sauvegarrder">
+              </form>
+
             <?php
 
+
+
        }
+    }
+
+
+    if(isset($_POST['save'])){
+
+      $produit = $_SESSION['panier']['libelleProduit'];
+
+      for($i = 0;$i<count($_SESSION['panier']['libelleProduit']); $i++){
+          $produit = $_SESSION['panier']['libelleProduit'][$i];
+  
+          if(count($_SESSION['panier']['libelleProduit']) > 1){
+              $produit = ', ';
+          }
+      }
+
+      $user_id = $_SESSION['user_id'];
+      $nom = $_POST['save_nom'];
+
+      if($nom){
+         $insert =$bdd->prepare("INSERT INTO save_pannier (NOM, PRODUIT, MONTANT, USER_ID) VALUES (:nom,:produit,:montant,:user)");
+  
+         $insert->bindValue(':nom', $nom, PDO::PARAM_STR);
+         $insert->bindValue(':produit', $produit, PDO::PARAM_STR);
+         $insert->bindValue(':montant', $total, PDO::PARAM_STR);
+         $insert->bindValue(':user', $user_id, PDO::PARAM_STR);
+         $insert->execute();
+   
+         echo 'Bien save';
+
+      }else{
+         echo 'Merci de remplir le champs de sauvegarde';
+      }
+
     }
 
 	?>
