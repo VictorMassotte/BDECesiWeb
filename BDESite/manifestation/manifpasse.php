@@ -72,7 +72,12 @@ while ($ligne = $response->fetch()) {
             <p class=\"card-text\">$desc</p>
             <p class=\"card-text text-muted\">".$interval->format('il y a %a jours')."<p>
             </div>
-            <div><button type=\"button\" class=\"btn btn-outline-primary\" id=\"like\">J'aime</button></div>
+            <div>
+            <form method=\"post\">
+            <button type=\"button\" name=\"like".$identifiant."\" class=\"btn btn-outline-primary\" id=\"like\">J'aime</button>
+            </form>
+            </div>
+
             <div class=\"card-footer\">
             </div>";
             //nous allons faire la partie affichage des commentaires
@@ -122,15 +127,22 @@ while ($ligne = $response->fetch()) {
             
            // echo $contenu.$value.$key;
             $identifiant=$value;
-            echo $user_Nom." ".$user_Prenom." ".$manif_Nom[$key]." ".$contenu;
+            
             $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Nom."', '".$user_Prenom."', '".$contenu."')");
             $contenu ="";
-            
-            
-            
-
         }
     }
+    foreach($id as $key=>$value){
+        //echo $key.$value;
+         if(!empty($_POST["like".$value])){
+             //echo $key.$value;
+             $like=$_POST["like".$value];
+             echo $like;
+            // echo $contenu.$value.$key;
+             $identifiant=$value;
+            
+         }
+     }
      
     $rqt->closeCursor();
     $response->closeCursor();

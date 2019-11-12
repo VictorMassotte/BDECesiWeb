@@ -26,7 +26,7 @@
 
 <?php
 
-require_once('bdd.php');
+require_once('admin/bdd.php');
 
 if(isset($_GET['show'])){
     

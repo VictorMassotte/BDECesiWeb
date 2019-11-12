@@ -1,8 +1,12 @@
 $(function() {
-    var $inscrit;
-  $inscrit = $('#like');
-  $inscrit.on('click', function(){
-      
+     
+  var inscrit = $('#like');
+  inscrit.on('load', function(){
+    $.ajax({
+      url: '../manifestations/like.php',
+
+    });
+      inscrit.text('Aimé!');
   });
    
   });
