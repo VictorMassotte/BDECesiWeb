@@ -17,7 +17,7 @@ router.post('/login', (req, res) =>{
 
     // if user is found and password is valid
     // create a token
-    var token = jwt.sign({ id: user.id }, config.secret, {
+    var token = jwt.sign({ id: user.id, status: user.STATUS }, config.secret, {
       expiresIn: 86400 // expires in 24 hours
     });
 
@@ -61,7 +61,7 @@ router.post('/login', (req, res) =>{
   });
   
   router.get('/me',VerifyToken, (req, res, next) =>{
-    console.log(req.userId);
+    //console.log(req.userStatus);
     User.findByPk(req.userId, { attributes: { exclude: ['PASSWORD'] }})
     .then(user =>{
         res.json(user);

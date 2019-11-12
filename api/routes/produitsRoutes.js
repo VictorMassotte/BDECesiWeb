@@ -21,6 +21,7 @@ module.exports = function(router) {
   });
 
   router.post("/produits",VerifyToken, (req, res) => {
+    if (req.userStatus == "membreBDE"){
     Produit.create({
     NOM: req.body.nom, DESCRIPTION: req.body.description, CATEGORIE: req.body.categorie, PRIX: req.body.prix, STOCK: req.body.stock
     })
@@ -28,18 +29,28 @@ module.exports = function(router) {
         res.json(res);
       })
       .catch(err => res.json(err));
+  }
+  else{
+    res.status(500).send({ permission: false, message: "You don't have the permissions." });
+  }
   });
 
   router.put("/produits/:id",VerifyToken, (req, res) => {   
+    if (req.userStatus == "membreBDE"){
     Produit.update({ NOM: req.body.nom, DESCRIPTION: req.body.description,
          CATEGORIE: req.body.categorie, PRIX: req.body.prix, STOCK: req.body.stock }, { where: { ID: req.params.id } })
       .then(updateProduit => {
         res.json(updateProduit);
       })
       .catch(err => res.json(err));
+    }
+    else{
+      res.status(500).send({ permission: false, message: "You don't have the permissions." });
+    }
   });
 
   router.delete("/produits/:id",VerifyToken,(req, res) => {
+    if (req.userStatus == "membreBDE"){
     Produit.destroy({
       where: { ID: req.params.id }
     })
@@ -47,5 +58,9 @@ module.exports = function(router) {
         res.json(Produit);
       })
       .catch(err => res.json(err));
+    }
+    else{
+      res.status(500).send({ permission: false, message: "You don't have the permissions." });
+    }
   });
 };
