@@ -149,6 +149,7 @@ if (!$erreur){
         <div class="input-group-append">
                <button type="submit" class="btn btn-secondary">Rafraichir le panier</button>
                <input type="hidden" name="action" value="refresh"/>
+               <a class="btn btn-primary btn-lg btn-block "href="<?php echo $paypal; ?>">Payer la commande </a>
          </div>
         </li>
                 <?php
