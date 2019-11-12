@@ -17,12 +17,9 @@
     $ligne = $rqtSpe->fetch();
     if($ligne){
     if($ligne['ID']==$manif){
-        //l'utilisateur à deja liké, on ne fait rien ou on suggère de dislike
-        echo"déja liké";
+        $liked=true;                    
     }else{
-        //on envoie la requête dans la bdd
-        $rqtInsertion = $bdd->exec("CALL liker_Manif('".$manif_Nom."', '".$user_Nom."', '".$user_Prenom."')");
-        echo "Requête exécutée avec succés";
+        $liked=false;
     }
 }
     
