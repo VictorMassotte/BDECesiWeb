@@ -7,6 +7,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/inscrit.js"></script>
         <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements passés</title>
 </head>
@@ -63,7 +64,7 @@ while ($ligne = $response->fetch()) {
             //partie affichage
             echo "
             <div class=\"card text-center text-white bg-dark\">
-            <div class=\"card-header\">
+            <div class=\"card-header\" id=\"nom\">
             $nom
             </div>
             <div class=\"card-body\">
@@ -73,9 +74,9 @@ while ($ligne = $response->fetch()) {
             <p class=\"card-text text-muted\">".$interval->format('il y a %a jours')."<p>
             </div>
             <div>
-            <form method=\"post\">
-            <button type=\"button\" name=\"like".$identifiant."\" class=\"btn btn-outline-primary\" id=\"like\">J'aime</button>
-            </form>
+            
+            <button type=\"button\" name=\"like\" class=\"btn btn-outline-primary\" id=\"like".$identifiant."\">J'aime</button>
+            
             </div>
 
             <div class=\"card-footer\">
@@ -132,17 +133,7 @@ while ($ligne = $response->fetch()) {
             $contenu ="";
         }
     }
-    foreach($id as $key=>$value){
-        //echo $key.$value;
-         if(!empty($_POST["like".$value])){
-             //echo $key.$value;
-             $like=$_POST["like".$value];
-             echo $like;
-            // echo $contenu.$value.$key;
-             $identifiant=$value;
-            
-         }
-     }
+    
      
     $rqt->closeCursor();
     $response->closeCursor();
