@@ -24,10 +24,9 @@ if(isset ($_GET['action'])){
     if($_GET['action'] == "delete"){
         
         $id = $_GET['id'];
-        $delete = $bdd->prepare("DELETE FROM categorie WHERE ID=$id");
+        $delete = $bdd->prepare("DELETE FROM categorie WHERE ID=:id");
+        $delete->bindValue(':id', $id, PDO::PARAM_STR);
         $delete->execute();
-        
-        echo "Article bien supprime !";
 
         header('Location: edit_deletecategorie.php');
     }
@@ -35,7 +34,8 @@ if(isset ($_GET['action'])){
     if($_GET['action'] == 'modify'){
 
         $id = $_GET['id'];
-        $select = $bdd->prepare("SELECT * FROM categorie WHERE ID=$id");
+        $select = $bdd->prepare("SELECT * FROM categorie WHERE ID=:id");
+        $select->bindValue(':id', $id, PDO::PARAM_STR);
         $select->execute();
 
         $data = $select->fetch(PDO::FETCH_OBJ);
@@ -43,7 +43,7 @@ if(isset ($_GET['action'])){
     }?>
 
     <form method="post" action="">
-        <h4>Nom :</h4><input value="<?php echo $data->nom; ?>" type="text" name="nom"/><br>
+        <br><h4>Nom de l'article à modifier :</h4><input value="<?php echo $data->nom; ?>" type="text" name="nom"/><br><br>
         <input type="submit" name="submit" value="Modifier"/>
     </form>
 
@@ -53,7 +53,23 @@ if(isset ($_GET['action'])){
 if(isset($_POST['submit'])){
        
     $nom = $_POST['nom']; 
-    $update = $bdd->prepare("UPDATE categorie SET nom='$nom' WHERE ID=$id");
+
+    $select = $bdd->prepare("SELECT nom FROM categorie WHERE ID=:id");
+    $select->bindValue(':id', $id, PDO::PARAM_STR);
+    $select->execute();
+
+    $result = $select->fetch(PDO::FETCH_OBJ);
+
+    $update = $bdd->prepare("UPDATE categorie SET nom=:nom WHERE ID=:id");
+    $update->bindValue(':nom', $nom, PDO::PARAM_STR);
+    $update->bindValue(':id', $id, PDO::PARAM_STR);
+    $update->execute();
+
+    $id = $_GET['id'];
+
+    $update = $bdd->prepare("UPDATE produits SET CATEGORIE=:nom WHERE CATEGORIE=:categorie");
+    $update->bindValue(':nom', $nom, PDO::PARAM_STR);
+    $update->bindValue(':categorie', $result->nom, PDO::PARAM_STR);
     $update->execute();
 
     header('Location: edit_deletecategorie.php');

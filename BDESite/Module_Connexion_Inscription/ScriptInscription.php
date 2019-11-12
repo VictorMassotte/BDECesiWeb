@@ -1,12 +1,12 @@
 <?php
 
-include $_SERVER['DOCUMENT_ROOT']."/BDECESIWEB/BDESite/boutique/admin/bdd.php";
+include $_SERVER['DOCUMENT_ROOT']."/BDECESIWEB/BDESite/boutique/bdd.php";
 
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];
 $localisation = $_POST['campus'];
 $email = $_POST['email'];
-$hashpass = password_hash($_POST['password'], PASSWORD_BCRYPT);
+$hashpass = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $status = $_POST['status'];
 $err_msg="Adresse mail non valide";
 

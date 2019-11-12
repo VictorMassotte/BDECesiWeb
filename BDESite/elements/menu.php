@@ -1,4 +1,5 @@
 
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -28,6 +29,18 @@
       <li class="nav-item my-2 my-lg-0">
         <a class="nav-link" href="#">Mon profil</a>
       </li>
+      <?php if(!isset($_SESSION['membre_BDE'])) {
+
+      }else{ ?>
+            <li class="nav-item my-2 my-lg-0">
+        <a class="nav-link" href="http://localhost/BDECesiWeb/BDESite/boutique/admin/admin.php">Page Administration Boutique</a>
+      </li>
+
+      <?php } ?>
+      <li class="nav-item my-2 my-lg-0">
+        <a class="nav-link" href="#">Deconnexion</a>
+      </li>
+
       <li class="nav-item my-2 my-lg-0">
         <a class="nav-link" href="#">Contact</a>
       </li>

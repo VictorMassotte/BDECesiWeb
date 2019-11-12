@@ -8,24 +8,26 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
     <link href="jumbotron.css" rel="stylesheet">
     <link href="style/boutique.css" rel="stylesheet">
+    <script src="js/recherche.js" type="text/javascript"></script>
 
   </head>
 
 <body>
 <main>
+
 <?php require_once('../elements/menu.php'); ?>
+
 <br><br><br>
 <div class="jumbotron">
-  <div class="container">
-    <h1 class="display">Boutique du BDE CESI</h1>
+       <h1 class="display-4">Boutique BDE CESI</h1>
     </div>
-</div>
+  
 
 
 
 
 <?php
-
+session_start();
 require_once('bdd.php');
 
 if(isset($_GET['show'])){
@@ -76,13 +78,16 @@ if(isset($_GET['show'])){
         
         ?>
 
-
+<div class="search-bar">
+        <input class="searchinbar" type="text" name="search" value="" id="myinput" onkeyup="searchFunction()" placeholder="Rechercher un vehicule">
+    </div> 
 
         <?php
         while($s=$select->fetch(PDO::FETCH_OBJ)){
             
             ?>
-            <ul class="wrapper">
+
+        <ul class="wrapper">
             <li class="test">
             <div class="card" style="width: 18rem;">
             <img src="admin/imgs/<?php echo $s->NOM; ?>.jpg" class="card-img-top" alt="Photo Produit">
