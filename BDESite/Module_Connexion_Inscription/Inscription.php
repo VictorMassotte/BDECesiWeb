@@ -60,6 +60,14 @@
    
    <label for="inputPassword" class="sr-only">Mot de Passe</label>
    <input type="password" id="inputPassword" name="password" class="form-control"  pattern=".{6,}" placeholder="Mot de passe" required>
+
+   <label for="inputStatus" class="sr-only">Status</label>
+   <select name="status" required>
+    <option value="1">Elève</option>
+    <option value="2">Membre du BDE</option>
+    <option value="3">Intervenant</option>
+    </select>
+
     <button name="submit" class="btn btn-success btn-block" type="submit">Inscription</button>
     <a href="Connexion.php" target="blank">Déjà enregistré ? </a>
  </form>
