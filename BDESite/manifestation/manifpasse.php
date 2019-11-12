@@ -19,7 +19,13 @@
 <?php
 $bdd = new PDO('mysql:host=localhost;dbname=projet_web;charset=utf8', 'root', '');
 $response = $bdd->query('SELECT ID,DATEE FROM manifestations ORDER BY DATEE desc');
-              
+
+$id = array();
+$nom;
+$manif_Nom= array();
+$identifiant;
+$user_Nom;
+$user_Prenom;
 while ($ligne = $response->fetch()) {
     echo"<br>";
     $dateactuelle = new DateTime('now');
@@ -40,13 +46,18 @@ while ($ligne = $response->fetch()) {
             $datej=$datebrut[2];
             $dateAffichable=$datej."/".$datem."/".$datey;
         
+            $identifiant=$reponse['ID'];
+            
             $nom=$reponse['NOM'];
 
+            
             $desc=$reponse['DESCRIPTION'];
-
+            
             $prix=$reponse['PRIX'];
-
+            
             $urlimg=$reponse['IMAGE'];
+
+                
             //nous allons réaliser la partie envoi de commentaires
             
             //partie affichage
@@ -61,6 +72,7 @@ while ($ligne = $response->fetch()) {
             <p class=\"card-text\">$desc</p>
             <p class=\"card-text text-muted\">".$interval->format('il y a %a jours')."<p>
             </div>
+            <div><button type=\"button\" class=\"btn btn-outline-primary\" id=\"like\">J'aime</button></div>
             <div class=\"card-footer\">
             </div>";
             //nous allons faire la partie affichage des commentaires
@@ -69,26 +81,59 @@ while ($ligne = $response->fetch()) {
             $rqtcom->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
             $rqtcom->execute();
             while($ligne2=$rqtcom->fetch()){
-                $rqtNom=$bdd->prepare('SELECT MAIL FROM users WHERE id=:idu');
+                $rqtNom=$bdd->prepare('SELECT * FROM users WHERE id=:idu');
                 $rqtNom->bindValue(':idu',$ligne2['ID_USERS'],PDO::PARAM_STR);
                 $rqtNom->execute();
                 $nomUser=$rqtNom->fetch();
                 $commentaire = $nomUser['MAIL']." : ".$ligne2['CONTENU']." Le : ".$ligne2['DATEHEURE'];
+                $user_Nom = $nomUser['NOM'];
+                $user_Prenom = $nomUser['PRENOM'];
                 echo $commentaire."<br>";
             }
+            echo "
+            <form method=\"post\">
+            <textarea name=\"contenu".$identifiant."\" cols=\"70\" rows=\"1\" placeholder=\"Entrez votre commentaire\"></textarea>
+            <input type=\"submit\" value=\"Envoyer\" name=\"com\"/>
+            </form>
+            ";
 
             echo"
             </div>
             ";
+            $id[]=$identifiant;
+            $manif_Nom[] = $nom;
+            
 
+        }
+        
+        
+        
+        
+        /*if(isset($identifiant) AND isset($nom) AND !empty($contenu) AND !empty($identifiant) AND !empty($nom)){
+            $com=htmlspecialchars($contenu);
+            echo $com.$identifiant;
+        }*/
+    }
+    foreach($id as $key=>$value){
+       //echo $key.$value;
+        if(!empty($_POST["contenu".$value])){
+            //echo $key.$value;
+            $contenu=$_POST["contenu".$value];
+            
+           // echo $contenu.$value.$key;
+            $identifiant=$value;
+            echo $user_Nom." ".$user_Prenom." ".$manif_Nom[$key]." ".$contenu;
+            $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Nom."', '".$user_Prenom."', '".$contenu."')");
+            $contenu ="";
+            
+            
+            
 
         }
     }
+     
     $rqt->closeCursor();
     $response->closeCursor();
-    function getcomments(){
-        
-    }
 ?>
     <footer>
         <!--pied de page-->
