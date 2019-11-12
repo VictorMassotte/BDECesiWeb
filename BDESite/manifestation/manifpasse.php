@@ -7,7 +7,7 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../js/inscrit.js"></script>
+        <script type="text/javascript" src="../js/like.js"></script>
         <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements passés</title>
 </head>
@@ -18,7 +18,7 @@
     </header>
     <!--corps du site-->
 <?php
-$bdd = new PDO('mysql:host=localhost;dbname=projet_web;charset=utf8', 'root', '');
+$bdd = new PDO('mysql:host=localhost;dbname=projet_web1;charset=utf8', 'root', '');
 $response = $bdd->query('SELECT ID,DATEE FROM manifestations ORDER BY DATEE desc');
 
 $id = array();
@@ -27,6 +27,7 @@ $manif_Nom= array();
 $identifiant;
 $user_Nom;
 $user_Prenom;
+$message ="";
 while ($ligne = $response->fetch()) {
     echo"<br>";
     $dateactuelle = new DateTime('now');
@@ -57,6 +58,24 @@ while ($ligne = $response->fetch()) {
             $prix=$reponse['PRIX'];
             
             $urlimg=$reponse['IMAGE'];
+            $user = 2;
+
+            $rqtSpe = $bdd->prepare('SELECT * FROM liker WHERE ID_USERS=:idU AND ID=:idM');
+            $rqtSpe->bindValue(':idU',$user, PDO::PARAM_STR);
+            $rqtSpe->bindValue(':idM',$identifiant, PDO::PARAM_STR);
+            $rqtSpe->execute();
+            $ligne = $rqtSpe->fetch();
+            if($ligne){  
+                //l'utilisateur à deja liké, on ne fait rien ou on suggère de dislike
+                $message = "Aimé"; 
+            }
+            else{
+                //on envoie la requête dans la bdd
+                $message = "J'aime";
+            }  
+            
+            
+            $rqtSpe->closeCursor();
 
                 
             //nous allons réaliser la partie envoi de commentaires
@@ -75,7 +94,7 @@ while ($ligne = $response->fetch()) {
             </div>
             <div>
             
-            <button type=\"button\" name=\"like\" class=\"btn btn-outline-primary\" id=\"like".$identifiant."\">J'aime</button>
+            <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."-".$nom."\">".$message."</button>
             
             </div>
 
