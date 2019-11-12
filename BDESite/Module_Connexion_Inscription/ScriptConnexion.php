@@ -2,19 +2,28 @@
 session_start();
 
 include $_SERVER['DOCUMENT_ROOT']."/BDECESIWEB/BDESite/boutique/bdd.php";
+//include_once $_SERVER['DOCUMENT_ROOT']."/BDECESIWEB/BDESite/Acceuil.php";
+
 
 $email = $_POST['email'];
-$motdepasse = $_POST['password'];
+$hashpass = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-if(isset($_POST['submit'])){
-$response = $bdd->query('SELECT MAIL, PASSWORD  FROM users WHERE email="'.$_POST['email'].'" and motdepasse="'.$_POST['password'].'"');
-$result = $response->fetch();
-
-if(strtolower($email) == strtolower($result['email']) && password_verify($motdepasse, $data[0]['PASSWORD'])){
-    require_once 'acceuil.php';
- }
- else{
-     echo "Vos identifiants sont incorrect";
- }
+    if(isset($_POST['submit']))
+    {
+        $response = $bdd->prepare('SELECT MAIL, PASSWORD  FROM users WHERE MAIL=:email');
+        $response->bindParam(':email', $email, PDO::PARAM_STR);
+        $response->execute();
+        $result = $response->fetch();
+        
+    if($email == $result['MAIL'] && password_verify($hashpass, $result['PASSWORD']))
+    {      
+        header('location: ../acceuil.php');
+        exit();   
+    }
+    elseif($email !== $result['MAIL'] && $hashpass !== password_verify($hashpass, $result['PASSWORD']))
+    {
+        echo ;
+        echo "Vos identifiants sont incorrect";
+    }
 }
 ?>
