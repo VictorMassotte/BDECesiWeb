@@ -26,22 +26,22 @@ if(isset($_POST['submit'])){
         {
             if ($isPasswordCorrect) {
                 session_start();
-                
+                $_SESSION['user_id'] = $id;
+                $_SESSION['user_Nom'] = $resultat['NOM'];
+                $_SESSION['user_Prenom'] = $resultat['PRENOM'];
+                $_SESSION['user_Status'] = $resultat['STATUS'];
 
-                    if($resultat['STATUS'] == 1){
-                        $_SESSION['user_id'] = $id;
+                    if( $_SESSION['user_Status'] == 1){
                         $_SESSION['etudiant'] = $mail;
 
                         header ('location: Accueil.php');
 
-                    }else if($resultat['STATUS'] == 2){
-                        $_SESSION['user_id'] = $id;
+                    }else if( $_SESSION['user_Status'] == 2){
                         $_SESSION['membre_BDE'] = $mail;
                         header ('location: Accueil.php');
 
 
-                    }else if($resultat['STATUS'] == 3){
-                        $_SESSION['user_id'] = $id;
+                    }else if( $_SESSION['user_Status'] == 3){
                         $_SESSION['intervenant_CESI'] = $mail;
                         header ('location: Accueil.php');
 

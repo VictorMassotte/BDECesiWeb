@@ -28,6 +28,7 @@ $identifiant;
 $user_Nom;
 $user_Prenom;
 $message ="";
+$messagelike = "";
 while ($ligne = $response->fetch()) {
     echo"<br>";
     $dateactuelle = new DateTime('now');

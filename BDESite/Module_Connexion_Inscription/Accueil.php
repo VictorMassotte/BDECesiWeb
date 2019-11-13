@@ -1,6 +1,7 @@
 <?php
 session_start(); // On démarre la session AVANT toute chose
 ?>
+ 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +23,7 @@ session_start(); // On démarre la session AVANT toute chose
     </header>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!--corps du site-->
-    <p>bonjour <?php echo $_SESSION['email'] ?></p>
+    <p>bonjour <?php echo $_SESSION['user_id'] ?></p>
     <footer>
         <?php require_once("../elements/footer.php") ?>
         <!--pied de page-->
