@@ -79,8 +79,7 @@ while ($ligne = $response->fetch()) {
             else{
                 //on envoie la requête dans la bdd
                 $message = "J'aime";
-            }  
-           
+            }
             
             $rqtSpe->closeCursor();
 
