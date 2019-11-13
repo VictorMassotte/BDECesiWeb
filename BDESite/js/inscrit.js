@@ -1,8 +1,8 @@
 $(function() {
  
-    $('button').click(function(){
+    $('#bouton button').click(function(){
       var x = $(this).attr('id');
-      
+      alert (x);
       x = x.replace('inscrit', '');
       
       x = x.split('-');
@@ -20,7 +20,7 @@ $(function() {
       .done(function (data) {
         
            
-       //$(test).html(data);
+       $(test).html(data);
         successFunction(data); })
       .fail(function (jqXHR, textStatus, errorThrown) { 
         alert("fail");

@@ -1,6 +1,6 @@
 $(function() {
  
-  $('button').click(function(){
+  $('#bouton button').click(function(){
     var x = $(this).attr('id');
     
     x = x.replace('like', '');
@@ -19,7 +19,7 @@ $(function() {
     })
     .done(function (data) {
       
-     alert(data);    
+        
      $(test).html(data);
       successFunction(data); })
     .fail(function (jqXHR, textStatus, errorThrown) { 

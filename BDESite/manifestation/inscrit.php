@@ -33,7 +33,7 @@
     }
     else{
     //on envoie la requête dans la bdd
-    //$rqtInsertion = $bdd->exec("CALL inscription('".$manif_Nom."', '".$user_Nom."', '".$user_Prenom."')");
+    $rqtInsertion = $bdd->exec("CALL inscription('".$manif_Nom."', '".$user_Nom."', '".$user_Prenom."')");
     $message = "Inscrit";
     echo $message;
     }  
