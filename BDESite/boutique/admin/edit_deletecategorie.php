@@ -1,20 +1,49 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<h1>Modifier ou supprimer une categorie</h1>
+<?php 
+session_start();
+include('../bdd.php'); 
+require_once('../../elements/menu.php'); 
+
+if(isset($_SESSION['membre_BDE'])){
+    
+}elseif((isset($_SESSION['etudiant'])) || (isset($_SESSION['intervenant_CESI']))){
+    header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Accueil.php');
+
+}else{
+    header('Location: ../Module_Connexion_Inscription/Connexion.php');
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
+    <link href="jumbotron.css" rel="stylesheet">
+    <link href="../style/boutique.css" rel="stylesheet">
+    <title>Menu Admin Boutique</title>
+</head>
+
+<br><br><br>
+<div class="jumbotron">
+       <h1 class="display-4">Visuel des categories de la boutique</h1>
+</div>
 
 <?php 
-include('verif.php'); 
-include('../bdd.php');
 
 $select = $bdd->prepare('SELECT * FROM categorie');
 $select->execute();
 
 while($s=$select->fetch(PDO::FETCH_OBJ)){
 
-    echo $s->nom;
     ?>
 
-    <a href="?action=modify&amp;id=<?php echo $s->ID; ?>">Modifier</a>
-    <a href="?action=delete&amp;id=<?php echo $s->ID; ?>">Supprimer</a><br>
+    <h5 class="text-center"><?php echo $s->nom; ?>
+    <a class="btn btn-warning" href="?action=modify&amp;id=<?php echo $s->ID; ?>">Modifier</a>
+    <a class="btn btn-danger" href="?action=delete&amp;id=<?php echo $s->ID; ?>">Supprimer</a><br><h5>
+
+
 
 <?php
 }
@@ -43,9 +72,13 @@ if(isset ($_GET['action'])){
     }?>
 
     <form method="post" action="">
-        <br><h4>Nom de l'article à modifier :</h4><input value="<?php echo $data->nom; ?>" type="text" name="nom"/><br><br>
-        <input type="submit" name="submit" value="Modifier"/>
+    <div class="form-group text-center">
+        <label for="exampleInput">Nom de l'article à modifier : </label>
+        <input value="<?php echo $data->nom; ?>" type="text" class="form-control" name="nom" id="exampleFormControlInput1" placeholder="Le nom de l'article"><br>
+        <button type="submit" name="submit" class="btn btn-primary mb-2">Modifier la categorie</button>
+    </div>
     </form>
+
 
 
 <?php

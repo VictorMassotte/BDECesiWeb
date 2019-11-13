@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+include('../elements/menu.php');
 
 if(isset($_SESSION['user_id'])){
     
@@ -29,7 +30,6 @@ require_once('bdd.php');
 <body>
 <main>
 
-<?php require_once('../elements/menu.php'); ?>
 
 <br><br><br>
 <div class="jumbotron">
@@ -86,17 +86,18 @@ if(isset($_GET['show'])){
 
         
         ?>
-    <form action="" method="POST">
+    <form class="text-center" action="" method="POST">
         <button type="submit" name="asc" class="btn btn-secondary">Trier produit par le prix croissant</button>
         <button type="submit" name="dsc" class="btn btn-secondary">Trier produit par le prix decroissant</button>
 </form><br>
 
-<div class="recherche">
-<form class="form-inline my-2 my-lg-0" method="POST">
-      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" name="submit_search" type="submit">Search</button>
+<section class="text-center">
+<form class="form-inline my-2 my-lg-0 " method="POST">
+      <input class=" text-center form-control mr-sm-2" type="search" name="search" placeholder="Rechercher un produit dans la boutique" aria-label="Search">
+      <button class=" text-center btn btn-outline-success my-2 my-sm-0" name="submit_search" type="submit">Rechercher</button>
+    </section>
 </form>
-</div>
+</section>
     
 
 
@@ -253,6 +254,7 @@ if(isset($_GET['show'])){
         
     }
 }
+
 
 
 require_once('../elements/footer.php');

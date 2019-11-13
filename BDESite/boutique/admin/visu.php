@@ -1,20 +1,47 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<h1>Visuel des articles</h1>
+<?php 
+session_start();
+include('../bdd.php'); 
+require_once('../../elements/menu.php'); 
+
+if(isset($_SESSION['membre_BDE'])){
+    
+}elseif((isset($_SESSION['etudiant'])) || (isset($_SESSION['intervenant_CESI']))){
+    header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Accueil.php');
+
+}else{
+    header('Location: ../Module_Connexion_Inscription/Connexion.php');
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
+    <link href="jumbotron.css" rel="stylesheet">
+    <link href="../style/boutique.css" rel="stylesheet">
+    <title>Menu Admin Boutique</title>
+</head>
+
+<br><br><br>
+<div class="jumbotron">
+       <h1 class="display-4">Visuel des articles</h1>
+    </div>
 
 <?php 
-include('verif.php'); 
-include('../bdd.php');
 
 $select = $bdd->prepare('SELECT * FROM produits');
 $select->execute();
 
 while($s=$select->fetch(PDO::FETCH_OBJ)){
 
-    echo $s->NOM;
     ?>
 
-    <a href="?action=modify&amp;id=<?php echo $s->ID; ?>">Modifier</a>
-    <a href="?action=delete&amp;id=<?php echo $s->ID; ?>">Supprimer</a><br><br>
+    <h5 class="text-center"><?php echo $s->NOM; ?>
+    <a class="btn btn-warning" href="?action=modify&amp;id=<?php echo $s->ID; ?>">Modifier</a>
+    <a class="btn btn-danger" href="?action=delete&amp;id=<?php echo $s->ID; ?>">Supprimer</a><br><br></h5>
 
 <?php
 }
@@ -29,6 +56,8 @@ if(isset ($_GET['action'])){
         $delete->execute();
         
         echo "Article bien supprime !";
+
+        header('Location: visu.php');
     }
     
     if($_GET['action'] == 'modify'){
@@ -71,12 +100,10 @@ if(isset($_POST['submit'])){
     $update->bindValue(':id', $id, PDO::PARAM_STR);
     $update->execute();
 
-    header('Location: visu.php');
-    
 }
 
 }
 
 ?>
 
-
+</html>
