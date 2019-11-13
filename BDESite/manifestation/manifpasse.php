@@ -25,8 +25,8 @@ $id = array();
 $nom;
 $manif_Nom= array();
 $identifiant;
-$user_Nom;
-$user_Prenom;
+$user_Nom = "";
+$user_Prenom = "";
 $message ="";
 $messagelike = "";
 while ($ligne = $response->fetch()) {
@@ -76,7 +76,7 @@ while ($ligne = $response->fetch()) {
                 //on envoie la requête dans la bdd
                 $message = "J'aime";
             }  
-            echo $ligne['ID'];
+            
             
             $rqtSpe->closeCursor();
 
@@ -93,6 +93,7 @@ while ($ligne = $response->fetch()) {
                     $messagelike=$nblike." personnes aiment la publication";
                 }
             }
+            
                 
             //nous allons réaliser la partie envoi de commentaires
             
@@ -117,10 +118,13 @@ while ($ligne = $response->fetch()) {
             </div>";
             //nous allons faire la partie affichage des commentaires
                 //récupération des commentaires
+            
             $rqtcom =$bdd->prepare('SELECT * FROM commenter WHERE id=:id');
+            
             $rqtcom->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
             $rqtcom->execute();
             while($ligne2=$rqtcom->fetch()){
+              
                 $rqtNom=$bdd->prepare('SELECT * FROM users WHERE id=:idu');
                 $rqtNom->bindValue(':idu',$ligne2['ID_USERS'],PDO::PARAM_STR);
                 $rqtNom->execute();
@@ -128,6 +132,7 @@ while ($ligne = $response->fetch()) {
                 $commentaire = $nomUser['MAIL']." : ".$ligne2['CONTENU']." Le : ".$ligne2['DATEHEURE'];
                 $user_Nom = $nomUser['NOM'];
                 $user_Prenom = $nomUser['PRENOM'];
+                
                 echo $commentaire."<br>";
             }
             echo "
@@ -162,7 +167,7 @@ while ($ligne = $response->fetch()) {
             
            // echo $contenu.$value.$key;
             $identifiant=$value;
-            
+            echo $user_Nom.$user_Prenom;
             $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Nom."', '".$user_Prenom."', '".$contenu."')");
             $contenu ="";
         }
