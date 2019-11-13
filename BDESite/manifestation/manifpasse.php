@@ -80,11 +80,7 @@ while ($ligne = $response->fetch()) {
                 //on envoie la requête dans la bdd
                 $message = "J'aime";
             }  
-<<<<<<< HEAD
-            
-=======
            
->>>>>>> 21f458df36a9c2b150456ab72a47215b5e88aa01
             
             $rqtSpe->closeCursor();
 
@@ -177,7 +173,7 @@ while ($ligne = $response->fetch()) {
             $identifiant=$value;
 
             $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Mail."', '".$contenu."')");
->>>>>>> 21f458df36a9c2b150456ab72a47215b5e88aa01
+
             $contenu ="";
         }
     }
