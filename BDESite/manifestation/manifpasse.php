@@ -175,11 +175,7 @@ while ($ligne = $response->fetch()) {
             
            // echo $contenu.$value.$key;
             $identifiant=$value;
-<<<<<<< HEAD
-            echo $user_Nom.$user_Prenom;
-            $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Nom."', '".$user_Prenom."', '".$contenu."')");
-=======
-            
+
             $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Mail."', '".$contenu."')");
 >>>>>>> 21f458df36a9c2b150456ab72a47215b5e88aa01
             $contenu ="";
