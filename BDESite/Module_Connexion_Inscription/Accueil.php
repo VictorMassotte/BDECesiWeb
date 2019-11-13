@@ -1,3 +1,7 @@
+<?php
+session_start(); // On démarre la session AVANT toute chose
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +22,7 @@
     </header>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!--corps du site-->
-    <p>bonjour $_SESSION['email']</p>
+    <p>bonjour <?php echo $_SESSION['email'] ?></p>
     <footer>
         <?php require_once("../elements/footer.php") ?>
         <!--pied de page-->
