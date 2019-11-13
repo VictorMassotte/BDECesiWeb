@@ -1,5 +1,10 @@
 <?php
 session_start();
+if(isset($_SESSION['login'])){
+
+}else{
+    header('Location: ../Module_Connexion_Inscription/Connexion.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +17,7 @@ session_start();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/like.js"></script>
+        
         <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements passés</title>
 </head>
@@ -33,9 +39,13 @@ $user_Nom = "";
 $user_Prenom = "";
 $message ="";
 $messagelike = "";
+echo "<div id=\"ajout\">
+<button type=\"button\"  class=\"btn btn-outline-primary ajout\" id=\"ajout\"><a href=\"ajout.php\">Poster une photo</a></button>
+
+</div>";
 while ($ligne = $response->fetch()) {
     
-    echo"<br>";
+   
     $dateactuelle = new DateTime('now');
     $datetime1 = new DateTime($ligne['DATEE']);
     $interval = $datetime1->diff($dateactuelle);
@@ -112,6 +122,7 @@ while ($ligne = $response->fetch()) {
             <p class=\"card-text\">$desc</p>
             <p class=\"card-text text-muted\">".$interval->format('il y a %a jours')."<p>
             </div>
+            
             <div id=\"bouton\">
             <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."-".$nom."\">".$message."</button>
             <p>".$messagelike."</p>
@@ -153,7 +164,7 @@ while ($ligne = $response->fetch()) {
             
 
         }
-        
+        echo"<br>";
         
         
         
@@ -180,7 +191,9 @@ while ($ligne = $response->fetch()) {
      
     $rqt->closeCursor();
     $response->closeCursor();
-?>
+
+ ?>
+       
     <footer>
         <!--pied de page-->
     </footer>
