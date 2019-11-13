@@ -71,8 +71,8 @@
     <button  class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#exampleModal">Inscription</button>
     <a href="Connexion.php" target="blank">Déjà enregistré ? </a>
 
-    <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
-        <div class="modal-dialog" role="document">
+    <div class="modal bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Mentions légales</h5>
@@ -81,7 +81,40 @@
                 </button>
                 </div>
         <div class="modal-body">
-                <p>Lol</p>
+                <p>Éditeur : Association CESI<br>
+                SIREN : 775 722 572<br>
+                Siège social :<br>
+                1, avenue du Général de Gaulle
+                Tour PB5
+                92074 Paris La Défense<br>
+                Tél : 01 44 45 92 00
+                Fax : 01 44 45 92 98<br>
+                e-mail : contact@cesi.fr
+
+                Développement & hébergement<br>
+                
+                Respect de la vie privée et collecte des Données Personnelles<br>
+                Soucieux de protéger la vie privée de ses clients, CESI s’engage dans la protection des données personnelles. Une politique sur la protection des données personnelles rappelle nos principes et nos actions visant au respect de la réglementation applicable en matière de protection des données à caractère personnel.<br>
+
+                Sécurité<br>
+                Le CESI s’engage à mettre en œuvre tous les moyens nécessaires au bon fonctionnement du site. Cependant, le CESI ne peut pas garantir la continuité absolue de l’accès aux services proposés par le site. Les adhérents sont informés que les informations et services proposés sur le site pourront être interrompus en cas de force majeure et pourront le cas échéant contenir des erreurs techniques.<br>
+
+                Utilisation de cookies<br>
+                Des cookies sont utilisés sur nos sites.<br>
+
+                Déclarations d’activité<br>
+                CESI SAS – Société par actions simplifiée au capital de 1.1M€<br>  
+                1, avenue du Général de Gaulle – Tour PB5 – 92074 Paris La Défense<br>
+                Tél. : +33(0) 1 44 19 23 45 – Fax : +33(0) 1 42 50 25 06<br>
+                Déclaration d’activité enregistrée sous le numéro 11 75 39666 75 auprès du Préfet de la région Ile-de-France.<br>
+                Cet enregistrement ne vaut pas agrément de l’État.<br>
+
+                CESI – association loi de 1901
+                775 722 572
+                1, avenue du Général de Gaulle – Tour PB5 – 92074 Paris La Défense
+                Tél. : +33(0) 1 44 19 23 45 – Fax : +33(0) 1 42 50 25 06
+                Déclaration d’activité enregistrée sous le numéro 11 75 47883 75 auprès du Préfet de la région Ile-de-France.
+                Cet enregistrement ne vaut pas agrément de l’État.</p>
         </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" >Annuler</button>
