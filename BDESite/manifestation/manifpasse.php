@@ -34,6 +34,7 @@ $user_Prenom;
 $message ="";
 $messagelike = "";
 while ($ligne = $response->fetch()) {
+    
     echo"<br>";
     $dateactuelle = new DateTime('now');
     $datetime1 = new DateTime($ligne['DATEE']);
@@ -41,6 +42,7 @@ while ($ligne = $response->fetch()) {
         if($interval->format('%R%a')<0){
             // ne rien faire
         }else{
+            
             $rqt = $bdd->prepare('SELECT * FROM manifestations WHERE ID=:id');
             $rqt->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
             $rqt->execute();
@@ -69,8 +71,8 @@ while ($ligne = $response->fetch()) {
             $rqtSpe->bindValue(':idU',$user, PDO::PARAM_STR);
             $rqtSpe->bindValue(':idM',$identifiant, PDO::PARAM_STR);
             $rqtSpe->execute();
-            $ligne = $rqtSpe->fetch();
-            if($ligne){  
+            $row = $rqtSpe->fetch();
+            if($row){  
                 //l'utilisateur à deja liké, on ne fait rien ou on suggère de dislike
                 $message = "Aimé"; 
             }
@@ -78,7 +80,7 @@ while ($ligne = $response->fetch()) {
                 //on envoie la requête dans la bdd
                 $message = "J'aime";
             }  
-            
+            echo $ligne['ID'];
             
             $rqtSpe->closeCursor();
 
