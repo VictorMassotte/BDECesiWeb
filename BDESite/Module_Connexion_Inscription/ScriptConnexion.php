@@ -28,18 +28,18 @@ if(isset($_POST['submit'])){
 
                     if($resultat['STATUS'] == 1){
                         $_SESSION['user_id'] = $id;
-                        $_SESSION['membre_BDE'] = $mail;
+                        $_SESSION['etudiant'] = $mail;
 
                         require_once('Accueil.php');
 
                     }else if($resultat['STATUS'] == 2){
-                        $_SESSION['user_id'] = $mail;
+                        $_SESSION['user_id'] = $id;
                         $_SESSION['membre_BDE'] = $mail;
                         require_once('Accueil.php');
 
 
                     }else if($resultat['STATUS'] == 3){
-                        $_SESSION['user_id'] = $mail;
+                        $_SESSION['user_id'] = $id;
                         $_SESSION['intervenant_CESI'] = $mail;
                         require_once('Accueil.php');
 
