@@ -1,4 +1,5 @@
 <?php
+session_start();
     $bdd = new PDO('mysql:host=localhost;dbname=projet_web;charset=utf8', 'root', '');
 
     //get l'utilisateur (id)($user)

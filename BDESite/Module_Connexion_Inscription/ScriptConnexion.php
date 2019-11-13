@@ -26,6 +26,7 @@ if(isset($_POST['submit'])){
         {
             if ($isPasswordCorrect) {
                 session_start();
+                $_SESSION['login'] = true;
                 $_SESSION['user_id'] = $id;
                 $_SESSION['user_Nom'] = $resultat['NOM'];
                 $_SESSION['user_Prenom'] = $resultat['PRENOM'];
