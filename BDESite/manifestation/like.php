@@ -1,7 +1,11 @@
 <?php
+session_start();
     $bdd = new PDO('mysql:host=localhost;dbname=projet_web;charset=utf8', 'root', '');
 
     //get l'utilisateur (id)($user)
+    /*$user=$_SESSION['user_id'];
+    $user_Nom=$_SESSION['user_Nom'];
+    $user_Prenom=$_SESSION['user_Prenom'];*/
     $user=2;//Gauthier Sannier
     $user_Nom=$_POST['name'];
     $user_Prenom=$_POST['firstname'];
