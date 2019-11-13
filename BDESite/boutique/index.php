@@ -1,3 +1,17 @@
+<?php
+
+session_start();
+
+if(isset($_SESSION['user_id'])){
+    
+}else{
+    header('Location: ../Module_Connexion_Inscription/Connexion.php');
+}
+
+require_once('bdd.php');
+
+?>
+
 <!doctype html>
 <html lang="fr">
   <head>
@@ -23,10 +37,6 @@
     </div>
   
 <?php
-
-require_once('admin/verif.php');
-require_once('bdd.php');
-
 
 if(isset($_GET['show'])){
     

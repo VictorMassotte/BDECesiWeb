@@ -1,5 +1,19 @@
-<?php include('verif.php');
+<?php
+session_start();
+require_once('../../elements/menu.php'); 
+include('../bdd.php');
+
+if(isset($_SESSION['membre_BDE'])){
+    
+}elseif((isset($_SESSION['etudiant'])) && (isset($_SESSION['intervenant']))){
+    header('Location: ../index.php');
+
+}else{
+    header('Location: ../../../Module_Connexion_Inscription/Connexion.php');
+}
+
 ?>
+
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
@@ -13,7 +27,7 @@
 
 <?php
 
-include('../bdd.php');
+
 
 if(isset($_POST['submit'])){
     

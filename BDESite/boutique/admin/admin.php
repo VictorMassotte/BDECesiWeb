@@ -1,4 +1,19 @@
-<?php require_once('../../elements/menu.php'); ?>
+<?php 
+session_start();
+
+require_once('../../elements/menu.php'); 
+
+if(isset($_SESSION['membre_BDE'])){
+    
+}elseif((isset($_SESSION['etudiant'])) && (isset($_SESSION['intervenant']))){
+    header('Location: ../index.php');
+
+}else{
+    header('Location: ../../Module_Connexion_Inscription/Connexion.php');
+}
+
+?>
+
 
 <!DOCTYPE html>
 <html>

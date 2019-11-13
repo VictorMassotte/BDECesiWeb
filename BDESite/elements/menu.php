@@ -29,15 +29,17 @@
       <li class="nav-item my-2 my-lg-0">
         <a class="nav-link" href="#">Mon profil</a>
       </li>
-      <?php if(!isset($_SESSION['membre_BDE'])) {
+      <?php if(isset($_SESSION['membre_BDE'])) { ?>
 
-      }else{ ?>
-        <li class="nav-item my-2 my-lg-0">
-        <a class="nav-link" href="../boutique/admin/admin.php">Page Administration Boutique</a>
-        </li>
-        <li class="nav-item my-2 my-lg-0">
-        <a class="nav-link" href="../admin/admin.php">Page Administration Manifestationtion</a>
-        </li>
+          <li class="nav-item my-2 my-lg-0">
+          <a class="nav-link" href="../boutique/admin/admin.php">Page Administration Boutique</a>
+          </li>
+          <li class="nav-item my-2 my-lg-0">
+          <a class="nav-link" href="../admin/admin.php">Page Administration Manifestationtion</a>
+          </li>
+
+      <?php }else{ ?>
+        
 
       <?php } ?>
       <li class="nav-item my-2 my-lg-0">
