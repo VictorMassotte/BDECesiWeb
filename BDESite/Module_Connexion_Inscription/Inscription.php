@@ -66,13 +66,31 @@
     <option value="1">Elève</option>
     <option value="2">Membre du BDE</option>
     <option value="3">Intervenant</option>
-    </select>
+   </select>
 
-    <button name="submit" class="btn btn-success btn-block" type="submit">Inscription</button>
+    <button  class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#exampleModal">Inscription</button>
     <a href="Connexion.php" target="blank">Déjà enregistré ? </a>
- </form>
 
+    <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Mentions légales</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+        <div class="modal-body">
+                <p>Lol</p>
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Annuler</button>
+                <button type="submit" name="submit" class="btn btn-primary" >Accepter</button>
+            </div>
+        </div>
+    </div>
 </div>
-    </body>
-
+</form>
+</div>
+</body>
 </html>

@@ -10,6 +10,7 @@ $hashpass = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $status = $_POST['status'];
 $err_msg="Adresse mail non valide";
 
+
 if(isset($_POST['submit']))
 {
            
