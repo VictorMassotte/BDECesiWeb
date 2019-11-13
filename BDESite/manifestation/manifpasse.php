@@ -77,6 +77,12 @@ while ($ligne = $response->fetch()) {
             
             $rqtSpe->closeCursor();
 
+            //partie comptage de likes
+            $rqtNbLike = $bdd->prepare('SELECT COUNT (ID_USER) AS NBLIKE FROM liker WHERE ID=:idM');
+            $rqtSpe->bindValue(':idM',$identifiant, PDO::PARAM_STR);
+            $rqtNbLike->execute();
+            $ligneLike = $rqtNbLike->fetch();
+            $nblike = $ligneLike['NBLIKE'];
                 
             //nous allons réaliser la partie envoi de commentaires
             
@@ -94,7 +100,7 @@ while ($ligne = $response->fetch()) {
             </div>
             <div>
             
-            <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."-".$nom."\">".$message."</button>
+            <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."-".$nom."\">".$message." ".$nblike."</button>
             
             </div>
 
