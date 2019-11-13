@@ -7,8 +7,8 @@ session_start();
     $user_Nom=$_SESSION['user_Nom'];
     $user_Prenom=$_SESSION['user_Prenom'];*/
     $user=2;//Gauthier Sannier
-    $user_Nom=$_POST['name'];
-    $user_Prenom=$_POST['firstname'];
+    
+    $user_mail = $_POST['mail'];
     //get la manifestation (id)($manif)
     $manif=$_POST['id_manifestation'];//vente de crêpes
     $manif_Nom=$_POST['manif'];
@@ -37,7 +37,7 @@ session_start();
     }
     else{
     //on envoie la requête dans la bdd
-    $rqtInsertion = $bdd->exec("CALL liker_Manif('".$manif_Nom."', '".$user_Nom."', '".$user_Prenom."')");
+    $rqtInsertion = $bdd->exec("CALL liker_Manif('".$manif_Nom."', '".$user_mail."')");
     $message = "Aimé";
    echo $message;
     }  
