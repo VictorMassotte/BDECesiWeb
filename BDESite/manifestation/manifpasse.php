@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,7 +80,11 @@ while ($ligne = $response->fetch()) {
                 //on envoie la requête dans la bdd
                 $message = "J'aime";
             }  
+<<<<<<< HEAD
             
+=======
+           
+>>>>>>> 21f458df36a9c2b150456ab72a47215b5e88aa01
             
             $rqtSpe->closeCursor();
 
@@ -132,7 +140,7 @@ while ($ligne = $response->fetch()) {
                 $commentaire = $nomUser['MAIL']." : ".$ligne2['CONTENU']." Le : ".$ligne2['DATEHEURE'];
                 $user_Nom = $nomUser['NOM'];
                 $user_Prenom = $nomUser['PRENOM'];
-                
+                $user_Mail = $nomUser['MAIL'];
                 echo $commentaire."<br>";
             }
             echo "
@@ -167,8 +175,13 @@ while ($ligne = $response->fetch()) {
             
            // echo $contenu.$value.$key;
             $identifiant=$value;
+<<<<<<< HEAD
             echo $user_Nom.$user_Prenom;
             $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Nom."', '".$user_Prenom."', '".$contenu."')");
+=======
+            
+            $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Mail."', '".$contenu."')");
+>>>>>>> 21f458df36a9c2b150456ab72a47215b5e88aa01
             $contenu ="";
         }
     }

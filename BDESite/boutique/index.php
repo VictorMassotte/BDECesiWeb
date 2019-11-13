@@ -73,40 +73,149 @@ if(isset($_GET['show'])){
         $select = $bdd->prepare('SELECT * FROM produits WHERE CATEGORIE=:categorie');
         $select->bindValue(':categorie', $categorie, PDO::PARAM_STR);
         $select->execute();
+
         
         ?>
+    <form action="" method="POST">
+        <button type="submit" name="asc" class="btn btn-secondary">Trier produit par le prix croissant</button>
+        <button type="submit" name="dsc" class="btn btn-secondary">Trier produit par le prix decroissant</button>
+</form><br>
 
-<div class="search-bar">
-        <input class="searchinbar" type="text" name="search" value="" id="myinput" onkeyup="searchFunction()" placeholder="Rechercher un vehicule">
-    </div> 
+<div class="recherche">
+<form class="form-inline my-2 my-lg-0" method="POST">
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" name="submit_search" type="submit">Search</button>
+</form>
+</div>
+    
+
 
         <?php
-        while($s=$select->fetch(PDO::FETCH_OBJ)){
-            
-            ?>
 
-        <ul class="wrapper">
-            <li class="test">
-            <div class="card" style="width: 18rem;">
-            <img src="admin/imgs/<?php echo $s->NOM; ?>.jpg" class="card-img-top" alt="Photo Produit">
-            <div class="card-body">
-                <h5 class="card-title"><?php echo $s->NOM; ?></h5>
-                <p class="card-text"><?php echo $s->PRIX; ?>€</p>
-                <a href="?show=<?php echo $s->NOM; ?>" class="card-link">Voir plus de details</a><br><br>
-                <?php
-             if($s->STOCK!=0){?><a  class="btn btn-primary" href="panier.php?action=ajout&amp;l=<?php echo $s->NOM; ?>&amp;q=1&amp;p=<?php echo $s->PRIX; ?>">Ajouter au panier</a><br><br>
-                <?php
+            if(isset($_POST['asc'])){
+                $select_trier =$bdd->prepare("SELECT * FROM `produits` WHERE CATEGORIE=:categorie ORDER BY `produits`.`PRIX` ASC");
+                $select_trier->bindValue(':categorie', $categorie, PDO::PARAM_STR);
+                $select_trier->execute();
+
+                while($trier=$select_trier->fetch(PDO::FETCH_OBJ)){
+                ?>
+                    <ul class="wrapper">
+                    <li class="test">
+                    <div class="card" style="width: 18rem;">
+                    <img src="admin/imgs/<?php echo $trier->NOM; ?>.jpg" class="card-img-top" alt="Photo Produit">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $trier->NOM; ?></h5>
+                        <p class="card-text"><?php echo $trier->PRIX; ?>€</p>
+                        <a href="?show=<?php echo $trier->NOM; ?>" class="card-link">Voir plus de details</a><br><br>
+                        <?php
+                     if($trier->STOCK!=0){?><a  class="btn btn-primary" href="panier.php?action=ajout&amp;l=<?php echo $trier->NOM; ?>&amp;q=1&amp;p=<?php echo $trier->PRIX; ?>">Ajouter au panier</a><br><br>
+                        <?php
+                    }else{
+                        echo'<h5>Stock épuisé ! </h5>';
+                    }
+                    ?>
+                    </div>
+                    </div>
+                    </li>
+                </ul>
+        <?php
+
+                }
+                
+            }elseif(isset($_POST['dsc'])){
+
+
+                $select_trier =$bdd->prepare("SELECT * FROM `produits` WHERE CATEGORIE=:categorie ORDER BY `produits`.`PRIX` DESC");
+                $select_trier->bindValue(':categorie', $categorie, PDO::PARAM_STR);
+                $select_trier->execute();
+
+                while($trier=$select_trier->fetch(PDO::FETCH_OBJ)){
+                ?>
+                    <ul class="wrapper">
+                    <li class="test">
+                    <div class="card" style="width: 18rem;">
+                    <img src="admin/imgs/<?php echo $trier->NOM; ?>.jpg" class="card-img-top" alt="Photo Produit">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $trier->NOM; ?></h5>
+                        <p class="card-text"><?php echo $trier->PRIX; ?>€</p>
+                        <a href="?show=<?php echo $trier->NOM; ?>" class="card-link">Voir plus de details</a><br><br>
+                        <?php
+                     if($trier->STOCK!=0){?><a  class="btn btn-primary" href="panier.php?action=ajout&amp;l=<?php echo $trier->NOM; ?>&amp;q=1&amp;p=<?php echo $trier->PRIX; ?>">Ajouter au panier</a><br><br>
+                        <?php
+                    }else{
+                        echo'<h5>Stock épuisé ! </h5>';
+                    }
+                    ?>
+                    </div>
+                    </div>
+                    </li>
+                </ul>
+        <?php
+
+                }
+
+            }elseif(isset($_POST['submit_search'])){
+
+                $search = $_POST['search'];
+                $select_search =$bdd->prepare("SELECT * FROM produits WHERE NOM LIKE CONCAT ('%',:search,'%')");
+                $select_search->bindValue(':search',$search, PDO::PARAM_STR);
+                $select_search->execute();
+
+                while($sea=$select_search->fetch(PDO::FETCH_OBJ)){
+                ?>
+                    <ul class="wrapper">
+                    <li class="test">
+                    <div class="card" style="width: 18rem;">
+                    <img src="admin/imgs/<?php echo $sea->NOM; ?>.jpg" class="card-img-top" alt="Photo Produit">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $sea->NOM; ?></h5>
+                        <p class="card-text"><?php echo $sea->PRIX; ?>€</p>
+                        <a href="?show=<?php echo $sea->NOM; ?>" class="card-link">Voir plus de details</a><br><br>
+                        <?php
+                     if($sea->STOCK!=0){?><a  class="btn btn-primary" href="panier.php?action=ajout&amp;l=<?php echo $sea->NOM; ?>&amp;q=1&amp;p=<?php echo $sea->PRIX; ?>">Ajouter au panier</a><br><br>
+                        <?php
+                    }else{
+                        echo'<h5>Stock épuisé ! </h5>';
+                    }
+                    ?>
+                    </div>
+                    </div>
+                    </li>
+                </ul>
+        <?php
+                }
+    
+                
             }else{
-                echo'<h5>Stock épuisé ! </h5>';
-            }
-            ?>
-            </div>
-            </div>
-            </li>
-        </ul>
 
-<?php
-        }
+                while($s=$select->fetch(PDO::FETCH_OBJ)){
+            
+                    ?>
+        
+                <ul class="wrapper">
+                    <li class="test">
+                    <div class="card" style="width: 18rem;">
+                    <img src="admin/imgs/<?php echo $s->NOM; ?>.jpg" class="card-img-top" alt="Photo Produit">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $s->NOM; ?></h5>
+                        <p class="card-text"><?php echo $s->PRIX; ?>€</p>
+                        <a href="?show=<?php echo $s->NOM; ?>" class="card-link">Voir plus de details</a><br><br>
+                        <?php
+                     if($s->STOCK!=0){?><a  class="btn btn-primary" href="panier.php?action=ajout&amp;l=<?php echo $s->NOM; ?>&amp;q=1&amp;p=<?php echo $s->PRIX; ?>">Ajouter au panier</a><br><br>
+                        <?php
+                    }else{
+                        echo'<h5>Stock épuisé ! </h5>';
+                    }
+                    ?>
+                    </div>
+                    </div>
+                    </li>
+                </ul>
+        
+        <?php
+                }
+
+            }
         
     }else{
         
@@ -134,6 +243,7 @@ if(isset($_GET['show'])){
         
     }
 }
+
 
 require_once('../elements/footer.php');
 
