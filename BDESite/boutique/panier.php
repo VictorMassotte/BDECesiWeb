@@ -5,6 +5,16 @@ include_once("fonctions_panier.php");
 include_once("paypal.php");
 require_once('../elements/menu.php');
 
+require_once('../../elements/menu.php'); 
+
+if(isset($_SESSION['user_id'])){
+    
+}else{
+    header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Connexion.php');
+}
+
+?>
+
 
 $erreur = false;
 

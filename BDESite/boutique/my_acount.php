@@ -1,10 +1,22 @@
+<?php
+session_start();
+include_once("paypal.php");
+include('bdd.php');
+
+if(isset($_SESSION['user_id'])){
+    
+}else{
+    header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Connexion.php');
+}
+
+require_once('bdd.php');
+
+?>
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <h1>Sauvegardes Panier</h1>
 
 <?php 
-session_start();
-include_once("paypal.php");
-include('bdd.php');
 
 $user_id = $_SESSION['user_id'];
 

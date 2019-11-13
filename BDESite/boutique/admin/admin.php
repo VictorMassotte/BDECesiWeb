@@ -9,7 +9,7 @@ if(isset($_SESSION['membre_BDE'])){
     header('Location: ../index.php');
 
 }else{
-    header('Location: ../../Module_Connexion_Inscription/Connexion.php');
+    header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Connexion.php');
 }
 
 ?>
