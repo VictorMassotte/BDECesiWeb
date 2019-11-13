@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,10 +29,12 @@ $id = array();
 $nom;
 $manif_Nom= array();
 $identifiant;
-$user_Nom;
-$user_Prenom;
+$user_Nom = "";
+$user_Prenom = "";
 $message ="";
+$messagelike = "";
 while ($ligne = $response->fetch()) {
+    
     echo"<br>";
     $dateactuelle = new DateTime('now');
     $datetime1 = new DateTime($ligne['DATEE']);
@@ -36,6 +42,7 @@ while ($ligne = $response->fetch()) {
         if($interval->format('%R%a')<0){
             // ne rien faire
         }else{
+            
             $rqt = $bdd->prepare('SELECT * FROM manifestations WHERE ID=:id');
             $rqt->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
             $rqt->execute();
@@ -64,16 +71,15 @@ while ($ligne = $response->fetch()) {
             $rqtSpe->bindValue(':idU',$user, PDO::PARAM_STR);
             $rqtSpe->bindValue(':idM',$identifiant, PDO::PARAM_STR);
             $rqtSpe->execute();
-            $ligne = $rqtSpe->fetch();
-            if($ligne){  
+            $row = $rqtSpe->fetch();
+            if($row){  
                 //l'utilisateur à deja liké, on ne fait rien ou on suggère de dislike
                 $message = "Aimé"; 
             }
             else{
                 //on envoie la requête dans la bdd
                 $message = "J'aime";
-            }  
-            
+            }
             
             $rqtSpe->closeCursor();
 
@@ -83,6 +89,14 @@ while ($ligne = $response->fetch()) {
             $rqtNbLike->execute();
             $ligneLike = $rqtNbLike->fetch();
             $nblike = $ligneLike['NBLIKE'];
+            if($ligneLike['NBLIKE']){
+                if($nblike>=1){
+                    $messagelike=$nblike." personne aime la manifestation";
+                }else{
+                    $messagelike=$nblike." personnes aiment la publication";
+                }
+            }
+            
                 
             //nous allons réaliser la partie envoi de commentaires
             
@@ -100,17 +114,20 @@ while ($ligne = $response->fetch()) {
             </div>
             <div id=\"bouton\">
             <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."-".$nom."\">".$message."</button>
-            <p>".$nblike." personne(s) aime(nt) cette manifestation </p>
+            <p>".$messagelike."</p>
             </div>
 
             <div class=\"card-footer\">
             </div>";
             //nous allons faire la partie affichage des commentaires
                 //récupération des commentaires
+            
             $rqtcom =$bdd->prepare('SELECT * FROM commenter WHERE id=:id');
+            
             $rqtcom->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
             $rqtcom->execute();
             while($ligne2=$rqtcom->fetch()){
+              
                 $rqtNom=$bdd->prepare('SELECT * FROM users WHERE id=:idu');
                 $rqtNom->bindValue(':idu',$ligne2['ID_USERS'],PDO::PARAM_STR);
                 $rqtNom->execute();
@@ -118,6 +135,7 @@ while ($ligne = $response->fetch()) {
                 $commentaire = $nomUser['MAIL']." : ".$ligne2['CONTENU']." Le : ".$ligne2['DATEHEURE'];
                 $user_Nom = $nomUser['NOM'];
                 $user_Prenom = $nomUser['PRENOM'];
+                $user_Mail = $nomUser['MAIL'];
                 echo $commentaire."<br>";
             }
             echo "
@@ -152,8 +170,9 @@ while ($ligne = $response->fetch()) {
             
            // echo $contenu.$value.$key;
             $identifiant=$value;
-            
-            $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Nom."', '".$user_Prenom."', '".$contenu."')");
+
+            $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Mail."', '".$contenu."')");
+
             $contenu ="";
         }
     }

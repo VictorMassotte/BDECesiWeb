@@ -1,6 +1,6 @@
 <?php
 
-include $_SERVER['DOCUMENT_ROOT']."/BDECESIWEB/BDESite/boutique/bdd.php";
+require_once('../boutique/bdd.php');
 
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];

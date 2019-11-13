@@ -32,13 +32,16 @@
       <?php if(!isset($_SESSION['membre_BDE'])) {
 
       }else{ ?>
-            <li class="nav-item my-2 my-lg-0">
-        <a class="nav-link" href="http://localhost/BDECesiWeb/BDESite/boutique/admin/admin.php">Page Administration Boutique</a>
-      </li>
+        <li class="nav-item my-2 my-lg-0">
+        <a class="nav-link" href="../boutique/admin/admin.php">Page Administration Boutique</a>
+        </li>
+        <li class="nav-item my-2 my-lg-0">
+        <a class="nav-link" href="../admin/admin.php">Page Administration Manifestationtion</a>
+        </li>
 
       <?php } ?>
       <li class="nav-item my-2 my-lg-0">
-        <a class="nav-link" href="http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Deconnexion.php">Deconnexion</a>
+        <a class="nav-link" href="../Module_Connexion_Inscription/Deconnexion.php">Deconnexion</a>
       </li>
 
       <li class="nav-item my-2 my-lg-0">

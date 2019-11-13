@@ -21,7 +21,7 @@ module.exports = function(router) {
   });
 
   router.post("/produits",VerifyToken, (req, res) => {
-    if (req.userStatus == "membreBDE"){
+    if (req.userStatus == 2){
     Produit.create({
     NOM: req.body.name, DESCRIPTION: req.body.description, CATEGORIE: req.body.categorie, PRIX: req.body.price, STOCK: req.body.stock
     })
@@ -36,7 +36,7 @@ module.exports = function(router) {
   });
 
   router.put("/produits/:id",VerifyToken, (req, res) => {   
-    if (req.userStatus == "membreBDE"){
+    if (req.userStatus == 2){
     Produit.update({ NOM: req.body.name, DESCRIPTION: req.body.description,
          CATEGORIE: req.body.categorie, PRIX: req.body.price, STOCK: req.body.stock }, { where: { ID: req.params.id } })
       .then(updateProduit => {
@@ -50,7 +50,7 @@ module.exports = function(router) {
   });
 
   router.delete("/produits/:id",VerifyToken,(req, res) => {
-    if (req.userStatus == "membreBDE"){
+    if (req.userStatus == 2){
     Produit.destroy({
       where: { ID: req.params.id }
     })

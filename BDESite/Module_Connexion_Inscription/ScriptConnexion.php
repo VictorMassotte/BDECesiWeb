@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+
 require_once('../boutique/bdd.php');
 
 if(isset($_POST['submit'])){
@@ -25,23 +25,25 @@ if(isset($_POST['submit'])){
         else
         {
             if ($isPasswordCorrect) {
+                session_start();
+                $_SESSION['user_id'] = $id;
+                $_SESSION['user_Nom'] = $resultat['NOM'];
+                $_SESSION['user_Prenom'] = $resultat['PRENOM'];
+                $_SESSION['user_Status'] = $resultat['STATUS'];
 
-                    if($resultat['STATUS'] == 1){
-                        $_SESSION['user_id'] = $id;
+                    if( $_SESSION['user_Status'] == 1){
                         $_SESSION['etudiant'] = $mail;
 
-                        require_once('Accueil.php');
+                        header ('location: Accueil.php');
 
-                    }else if($resultat['STATUS'] == 2){
-                        $_SESSION['user_id'] = $id;
+                    }else if( $_SESSION['user_Status'] == 2){
                         $_SESSION['membre_BDE'] = $mail;
-                        require_once('Accueil.php');
+                        header ('location: Accueil.php');
 
 
-                    }else if($resultat['STATUS'] == 3){
-                        $_SESSION['user_id'] = $id;
+                    }else if( $_SESSION['user_Status'] == 3){
                         $_SESSION['intervenant_CESI'] = $mail;
-                        require_once('Accueil.php');
+                        header ('location: Accueil.php');
 
                     }else{
                         die();

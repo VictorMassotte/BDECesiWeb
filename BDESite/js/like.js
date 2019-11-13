@@ -1,5 +1,5 @@
 $(function() {
- 
+  
   $('#bouton button').click(function(){
     var x = $(this).attr('id');
     
@@ -10,12 +10,13 @@ $(function() {
     nom = x[1];
     test = ".like";
     test = test.concat('', id);
+   ;
   
    
     $.ajax({
       url: '../manifestation/like.php',
       type: 'POST',
-      data: { id_manifestation: id, manif: nom, name: "Sannier", firstname: "Gauthier" },
+      data: { id_manifestation: id, manif: nom, mail: "gauthiersannier@viacesi.fr" },
     })
     .done(function (data) {
       

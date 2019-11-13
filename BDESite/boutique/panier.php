@@ -176,7 +176,7 @@ if (!$erreur){
           $produit = $_SESSION['panier']['libelleProduit'][$i];
   
           if(count($_SESSION['panier']['libelleProduit']) > 1){
-              $produit = ', ';
+
           }
       }
 
@@ -187,7 +187,7 @@ if (!$erreur){
          $insert =$bdd->prepare("INSERT INTO save_pannier (NOM, PRODUIT, MONTANT, USER_ID) VALUES (:nom,:produit,:montant,:user)");
   
          $insert->bindValue(':nom', $nom, PDO::PARAM_STR);
-         $insert->bindValue(':produit', $produit, PDO::PARAM_STR);
+         $insert->bindValue(':produit', $str, PDO::PARAM_STR);
          $insert->bindValue(':montant', $total, PDO::PARAM_STR);
          $insert->bindValue(':user', $user_id, PDO::PARAM_STR);
          $insert->execute();
