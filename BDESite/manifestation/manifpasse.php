@@ -83,6 +83,13 @@ while ($ligne = $response->fetch()) {
             $rqtNbLike->execute();
             $ligneLike = $rqtNbLike->fetch();
             $nblike = $ligneLike['NBLIKE'];
+            if($ligneLike['NBLIKE']){
+                if($nblike>=1){
+                    $messagelike=$nblike." personne aime la manifestation";
+                }else{
+                    $messagelike=$nblike." personnes aiment la publication";
+                }
+            }
                 
             //nous allons réaliser la partie envoi de commentaires
             
@@ -100,7 +107,7 @@ while ($ligne = $response->fetch()) {
             </div>
             <div id=\"bouton\">
             <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."-".$nom."\">".$message."</button>
-            <p>".$nblike." personne(s) aime(nt) cette manifestation </p>
+            <p>".$messagelike."</p>
             </div>
 
             <div class=\"card-footer\">
