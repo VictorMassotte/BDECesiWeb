@@ -39,10 +39,19 @@ $user_Nom = "";
 $user_Prenom = "";
 $message ="";
 $messagelike = "";
-echo "<div id=\"ajout\">
-<button type=\"button\"  class=\"btn btn-outline-primary ajout\" id=\"ajout\"><a href=\"ajout.php\">Poster une photo</a></button>
+if(isset($_SESSION['etudiant']) || isset($_SESSION['membre_BDE'])){
+    echo "<div id=\"ajout\">
+    <button type=\"button\"  class=\"btn btn-outline-primary ajout\" id=\"ajout\"><a href=\"ajout.php\">Poster une photo</a></button>
+    
+    </div>";
+    
+}else{
+    echo "<div id=\"télécharger\">
+    <button type=\"button\"  class=\"btn btn-outline-primary télécharger\" id=\"télécharger\"><a href=\"télécharger.php\">Télécharger les photos</a></button>
+    
+    </div>";
+}
 
-</div>";
 while ($ligne = $response->fetch()) {
     
    
