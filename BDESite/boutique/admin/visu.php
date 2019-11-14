@@ -44,7 +44,8 @@ while($s=$select->fetch(PDO::FETCH_OBJ)){
     <a class="btn btn-danger" href="?action=delete&amp;id=<?php echo $s->ID; ?>">Supprimer</a><br><br></h5>
 
 <?php
-}
+
+    }
 
 if(isset ($_GET['action'])){  
     
@@ -54,10 +55,9 @@ if(isset ($_GET['action'])){
         $delete = $bdd->prepare("DELETE FROM produits WHERE ID=:id");
         $delete->bindValue(':id', $id, PDO::PARAM_STR);
         $delete->execute();
-        
-        echo "Article bien supprime !";
-
         header('Location: visu.php');
+
+
     }
     
     if($_GET['action'] == 'modify'){
@@ -68,10 +68,30 @@ if(isset ($_GET['action'])){
         $select->execute();
 
         $data = $select->fetch(PDO::FETCH_OBJ);
-        
-    }?>
 
-    <form method="post" action="">
+        if(isset($_POST['submit'])){
+    
+            $nom = $_POST['nom'];
+            $categorie = $_POST['categorie'];
+            $description = $_POST['description'];
+            $prix = $_POST['prix'];
+            $stock = $_POST['stock'];
+            
+            $update = $bdd->prepare("UPDATE produits SET NOM=:nom,CATEGORIE=:categorie,DESCRIPTION=:description,PRIX=:prix,STOCK=:stock WHERE ID=:id");
+            $update->bindValue(':nom', $nom, PDO::PARAM_STR);
+            $update->bindValue(':categorie', $categorie, PDO::PARAM_STR);
+            $update->bindValue(':description', $description, PDO::PARAM_STR);
+            $update->bindValue(':prix', $prix, PDO::PARAM_STR);
+            $update->bindValue(':stock', $stock, PDO::PARAM_STR);
+            $update->bindValue(':id', $id, PDO::PARAM_STR);
+            $update->execute();
+            
+            header('Location: visu.php');
+
+        }
+
+     ?>
+    <form method="POST" action="">
         <h4>Nom :</h4><input value="<?php echo $data->NOM; ?>" type="text" name="nom"/><br>
         <h4>Categorie :</h4><input value="<?php echo $data->CATEGORIE; ?>" type="text" name="categorie"/><br>
         <h4>Description :</h4><textarea name="description"><?php echo $data->DESCRIPTION; ?></textarea><br>
@@ -83,27 +103,8 @@ if(isset ($_GET['action'])){
 
 <?php
 
-if(isset($_POST['submit'])){
-       
-    $nom = $_POST['nom'];
-    $categorie = $_POST['categorie'];
-    $description = $_POST['description'];
-    $prix = $_POST['prix'];
-    $stock = $_POST['stock'];
-    
-    $update = $bdd->prepare("UPDATE produits SET NOM=:nom,CATEGORIE=:categorie,DESCRIPTION=:description,PRIX=:prix,STOCK=:stock WHERE ID=:id");
-    $update->bindValue(':nom', $nom, PDO::PARAM_STR);
-    $update->bindValue(':categorie', $categorie, PDO::PARAM_STR);
-    $update->bindValue(':description', $description, PDO::PARAM_STR);
-    $update->bindValue(':prix', $prix, PDO::PARAM_STR);
-    $update->bindValue(':stock', $stock, PDO::PARAM_STR);
-    $update->bindValue(':id', $id, PDO::PARAM_STR);
-    $update->execute();
 
 }
-
 }
 
 ?>
-
-</html>

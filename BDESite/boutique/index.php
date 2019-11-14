@@ -274,6 +274,7 @@ if(isset($_GET['show'])){
       <center><img src="admin/imgs/<?php echo $tops->NOM; ?>.jpg" class="card-img" alt="Photo Produit" style="width: 18rem; height: 18rem;"></center>
       <div class="card-body">
         <h5 class="card-title"><?php echo $tops->NOM; ?></h5>
+        <a href="?show=<?php echo $tops->NOM; ?>" class="card-link">Voir plus de details</a><br><br>
         <?php
                      if($tops->STOCK!=0){?><a  class="btn btn-primary" href="panier.php?action=ajout&amp;l=<?php echo $tops->NOM; ?>&amp;q=1&amp;p=<?php echo $tops->PRIX; ?>">Ajouter au panier</a><br><br>
                         <?php
