@@ -36,12 +36,10 @@ $zip = new ZipArchive();
 	
         // Et on referme l'archive.
     $zip->close();
-    mail( "qbutel97@gmail.com" , "Sujet" , "Contenu du message" );
- 
-    echo "L'email a été envoyé.";
-    //header('Location: Zip.zip');
+    
+    header('Location: Zip.zip');
 
-    //echo "<a href=\"Zip.zip\">lien</a>";
+   
       }
       else
       {

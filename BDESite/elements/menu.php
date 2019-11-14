@@ -35,7 +35,7 @@
         <a class="nav-link" href="http://localhost/BDECesiWeb/BDESite/boutique/admin/admin.php">Page Administration Boutique</a>
         </li>
         <li class="nav-item my-2 my-lg-0">
-        <a class="nav-link" href="http://localhost/BDECesiWeb/BDESite/admin/admin.php">Page Administration Manifestationtion</a>
+        <a class="nav-link" href="http://localhost/BDECesiWeb/BDESite/admin/admin.php">Page Administration Manifestation</a>
         </li>
 
      <?php } ?>
