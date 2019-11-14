@@ -6,7 +6,7 @@ if(isset($_SESSION['membre_BDE'])){
     echo "<a href=\"ajoutManifestation.php\">Poster une manifestation</a>";
     
     //liste des inscrits aux manifestations
-    echo "<h1>Liste des inscrits aux manifestations</h1>";
+    echo "<a href=\"membreInscrits.php\">Lister les membres inscrits à une manifestation</a>";
     //génération d'un formulaire qui prends en entrée la manifestation (selon une liste déroulante, pour eviter les fautes de frappe)
     //traitement de la requête
     
