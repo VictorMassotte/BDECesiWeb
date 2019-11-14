@@ -17,7 +17,7 @@ if(isset($_SESSION['login'])){
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/like.js"></script>
-        <script type="text/javascript" src="../js/supprimer.js"></script>
+       
         <script type="text/javascript" src="../js/signaler.js"></script>
         
         <link rel="stylesheet" href="css/fonction.css">
@@ -43,12 +43,20 @@ $user_Prenom = $_SESSION['user_Prenom'];;
 $user_Mail=$_SESSION['user_Mail'];;
 $message ="";
 $messagelike = "";
-if(isset($_SESSION['etudiant']) || isset($_SESSION['membre_BDE'])){
-    echo "<div id=\"ajout\">
+echo "<div id=\"ajout\">
     <button type=\"button\"  class=\"btn btn-outline-primary ajout\" id=\"ajout\"><a href=\"ajout.php\">Poster une photo</a></button>
     
     </div>";
+if( isset($_SESSION['membre_BDE'])){
     
+    echo "<div id=\"suppPhoto\">
+    <button type=\"button\"  class=\"btn btn-outline-primary suppPhoto\" id=\"suppPhoto\"><a href=\"suppPhoto.php\">Supprimer une photo</a></button>
+    
+    </div>";
+    echo "<div id=\"suppCommentaire\">
+    <button type=\"button\"  class=\"btn btn-outline-primary suppCommentaire\" id=\"suppCommentaire\"><a href=\"supprimer.php\">Supprimer un commentaire</a></button>
+    
+    </div>";
 }else{
     echo "<div id=\"télécharger\">
     <button type=\"button\"  class=\"btn btn-outline-primary télécharger\" id=\"télécharger\"><a href=\"télécharger.php\">Télécharger les photos</a></button>
@@ -167,12 +175,7 @@ while ($ligne = $response->fetch()) {
                 $id_user = $ligne2['ID_USERS'];
                               
                 echo $commentaire;
-                if (isset($_SESSION['membre_BDE'])){
-                    echo "<div id=\"supprimer\">
-                    <button type=\"button\"  class=\"btn btn-outline-primary supprimer\" id=\"supprimer".$id_com."\">Supp</button>
-                    
-                    </div>";
-                }elseif(isset($_SESSION['intervenant_CESI'])){
+               if(isset($_SESSION['intervenant_CESI'])){
                     echo "<div id=\"signaler\">
                     <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$id_com."\">Signaler</button>
                     

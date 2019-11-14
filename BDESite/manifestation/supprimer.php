@@ -1,28 +1,39 @@
 <?php
 session_start();
-if(isset($_SESSION['login'])){
+if(isset($_SESSION['membre_BDE'])){
     include('../boutique/bdd.php');
 }else{
     header('Location: ../Module_Connexion_Inscription/Connexion.php');
-}
-   
-    //get l'utilisateur (id)($user)
-    if (isset($_POST['id_Com'])){
-    
-    
-    $id_com = $_POST['id_Com'];
-    $rqtSpe = $bdd->prepare('DELETE FROM `commenter` WHERE ID_COMMENTAIRE=:idc ');
-    $rqtSpe->bindValue(':idc',$id_com, PDO::PARAM_STR);
-    $rqtSpe->execute();
+}?>
+<h1>Suppresion d'une photo</h1>
+    <form method="post" enctype="multipart/form-data" action="supprimer.php" >
+        <h4>Commentaire</h4>
+        <input type="number" name="id"/>
+        
+        <input type="submit" name="submit"/>
+    </form>
 
-    
-    
-    
-    
-    $rqtSpe->closeCursor();
-    
-    
+<?php
+   
+    if(isset($_POST['submit'])){
+    $id = $_POST['id'];
+
+    $select = $bdd->query("SELECT * FROM `commenter` WHERE ID_COMMENTAIRE='".$id."'");
+    if($ligne=$select->fetch()){
+    $rqtDelete = $bdd->query("DELETE FROM `commenter` WHERE ID_COMMENTAIRE='".$id."'");
+   // $rqtDelete->bindValue(':photo',$photo, PDO::PARAM_STR);
+    //$rqtDelete->execute();
+    $rqtDelete->closeCursor();
+    header('Location: manifpasse.php');
+    }else{
+        //header('Location:supprimer.php');
+        echo "renseignez un id valide";
+    }
     
     }
-    header('Location: manifpasse.php');
+    
+
+   
 ?>
+
+
