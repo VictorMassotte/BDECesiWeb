@@ -32,8 +32,10 @@ if(isset($_SESSION['login'])){
     </form>
 
 <?php
-    $user=2;//Gauthier Sannier
-    $user_mail = "gauthiersannier@viacesi.fr";
+   $user=$_SESSION['user_id'];
+    
+   //Gauthier Sannier
+   $user_mail = $_SESSION['user_Mail'];
     if(isset($_POST['submit'])){
     //$photo = $_POST['img'];
     $nom = $_POST['manif'];

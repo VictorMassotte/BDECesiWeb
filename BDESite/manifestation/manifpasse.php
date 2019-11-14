@@ -19,6 +19,7 @@ if(isset($_SESSION['login'])){
         <script type="text/javascript" src="../js/like.js"></script>
         <script type="text/javascript" src="../js/supprimer.js"></script>
         <script type="text/javascript" src="../js/signaler.js"></script>
+        
         <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements passés</title>
 </head>
@@ -134,7 +135,10 @@ while ($ligne = $response->fetch()) {
             <p class=\"card-text\">$desc</p>
             <p class=\"card-text text-muted\">".$interval->format('il y a %a jours')."<p>
             </div>
+            <div id=\"photo\">
+            <button type=\"button\"  class=\"btn btn-outline-primary photo\" id=\"photo\"><a href=\"listePhoto.php\">Photo</a></button>
             
+            </div>
             <div id=\"bouton\">
             <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."-".$nom."\">".$message."</button>
             <p>".$messagelike."</p>

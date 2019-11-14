@@ -10,7 +10,7 @@ $(function() {
     nom = x[1];
     test = ".like";
     test = test.concat('', id);
-   ;
+  
   
    
     $.ajax({
