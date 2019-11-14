@@ -1,8 +1,7 @@
 <?php
 session_start();
 require_once('bdd.php');
-include_once("fonctions_panier.php");
-include_once("paypal.php");
+require_once("fonctions_panier.php");
 include('../elements/menu.php');
 
 if(isset($_SESSION['user_id'])){
@@ -222,11 +221,11 @@ if (!$erreur){
           <strong><?php echo $stotal->TOTAL."€";?></strong>
         </li>
 
-        <a href="http://localhost/BDECesiWeb/BDESite/boutique/success.php" type="submit" name="commander" class="btn btn-primary btn-lg btn-block" >Payer la commande </a>
+          <?php } ?>
 
-         <?php } 
+            <a href="http://localhost/BDECesiWeb/BDESite/boutique/payment.php" type="submit" name="commander" class="btn btn-primary btn-lg btn-block" >Payer la commande </a>
          
-
+      <?php
          if(isset($_POST['commander'])){
 
             $update_stock = $bdd->prepare("UPDATE produits SET NB_COMMANDE = NB_COMMANDE+1 WHERE NOM = :produit");

@@ -2,13 +2,69 @@
 session_start();
 require_once('bdd.php');
 include_once("fonctions_panier.php");
-include_once("paypal.php");
+require('../../vendor/autoload.php');
+
+$ids = require('paypal.php');
+
 
 if(isset($_SESSION['user_id'])){
     
 }else{
     header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Connexion.php');
 }
+
+$apiContext = new \PayPal\Rest\ApiContext(
+  new \PayPal\Auth\OAuthTokenCredential(
+      $ids['id'],
+      $ids['secret']
+
+  )
+);
+
+$payment = \PayPal\Api\Payment::get($_GET['paymentId'], $apiContext);
+
+$execution = (new \PayPal\Api\PaymentExecution())
+  ->setPayerId($_GET['PayerID'])
+  ->setTransactions($payment->getTransactions());
+
+
+
+try{
+  $payment->execute($execution, $apiContext);
+  var_dump($payment->getTransactions()[0]->getCustom());
+  var_dump($payment);
+}catch(\PayPal\Exception\PayPalConnectionException $e){
+  var_dump(json_decode($e->getData()));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ?>
 
