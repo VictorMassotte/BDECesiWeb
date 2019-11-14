@@ -21,8 +21,8 @@
         });  
         </script>
 </head>
-<body>
-<form method="POST" action="ScriptAccueil.php" onsubmit="$('#exampleModal').modal('hide');">
+<body id="monbody">
+<form method="POST" action="ScriptAccueil.php">
 <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
 <div class="modal-dialog" id="customPopup" role="document">
  <div class="modal-content">
@@ -39,7 +39,7 @@ En naviguant sur notre site, vous acceptez l'utilisation de cookies de type mark
    </div>
     <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Autres Options</button>
-    <button type="submit" name="Cookiebtn" class="btn btn-primary">Accepter</button>
+    <button type="submit" name="Cookiebtn" onclick="$('#exampleModal').modal('hide');" class="btn btn-primary"><a href="#monbody" style="color:white;">Accepter</a></button>
    </div>
  </div>
 </div>
