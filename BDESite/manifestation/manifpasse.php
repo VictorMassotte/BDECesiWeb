@@ -17,6 +17,7 @@ if(isset($_SESSION['login'])){
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/like.js"></script>
+        <script type="text/javascript" src="../js/supprimer.js"></script>
         
         <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements passés</title>
@@ -32,11 +33,13 @@ $bdd = new PDO('mysql:host=localhost;dbname=projet_web;charset=utf8', 'root', ''
 $response = $bdd->query('SELECT ID,DATEE FROM manifestations ORDER BY DATEE desc');
 
 $id = array();
+
 $nom;
 $manif_Nom= array();
 $identifiant;
-$user_Nom = "";
-$user_Prenom = "";
+$user_Nom = $_SESSION['user_Nom'];
+$user_Prenom = $_SESSION['user_Prenom'];;
+$user_Mail=$_SESSION['user_Mail'];;
 $message ="";
 $messagelike = "";
 if(isset($_SESSION['etudiant']) || isset($_SESSION['membre_BDE'])){
@@ -84,7 +87,7 @@ while ($ligne = $response->fetch()) {
             $prix=$reponse['PRIX'];
             
             $urlimg=$reponse['IMAGE'];
-            $user = 2;
+            $user = $_SESSION['user_id'];
 
             $rqtSpe = $bdd->prepare('SELECT * FROM liker WHERE ID_USERS=:idU AND ID=:idM');
             $rqtSpe->bindValue(':idU',$user, PDO::PARAM_STR);
@@ -146,17 +149,26 @@ while ($ligne = $response->fetch()) {
             
             $rqtcom->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
             $rqtcom->execute();
+
             while($ligne2=$rqtcom->fetch()){
               
-                $rqtNom=$bdd->prepare('SELECT * FROM users WHERE id=:idu');
-                $rqtNom->bindValue(':idu',$ligne2['ID_USERS'],PDO::PARAM_STR);
-                $rqtNom->execute();
-                $nomUser=$rqtNom->fetch();
-                $commentaire = $nomUser['MAIL']." : ".$ligne2['CONTENU']." Le : ".$ligne2['DATEHEURE'];
-                $user_Nom = $nomUser['NOM'];
-                $user_Prenom = $nomUser['PRENOM'];
-                $user_Mail = $nomUser['MAIL'];
-                echo $commentaire."<br>";
+                
+                $commentaire = $user_Mail." : ".$ligne2['CONTENU']." Le : ".$ligne2['DATEHEURE'];
+                $id_com = $ligne2['ID_COMMENTAIRE'];
+                $id_user = $ligne2['ID_USERS'];
+                              
+                echo $commentaire;
+                if (isset($_SESSION['membre_BDE'])){
+                    echo "<div id=\"supprimer\">
+                    <button type=\"button\"  class=\"btn btn-outline-primary supprimer".$identifiant."\" id=\"supprimer".$identifiant."-".$id_com."-".$id_user."\"><a href=\"supprimer.php\">Supp</a></button>
+                    
+                    </div>";
+                }elseif(isset($_SESSION['intervenant_CESI'])){
+                    echo "<div id=\"signaler\">
+                    <button type=\"button\"  class=\"btn btn-outline-primary signaler".$identifiant."\" id=\"signaler".$identifiant."-".$id_com."-".$id_user."\"><a href=\"signaler.php\">Signaler</a></button>
+                    
+                    </div>";
+                }
             }
             echo "
             <form method=\"post\">
@@ -184,6 +196,7 @@ while ($ligne = $response->fetch()) {
     }
     foreach($id as $key=>$value){
        //echo $key.$value;
+       if (isset($_POST['com'])){
         if(!empty($_POST["contenu".$value])){
             //echo $key.$value;
             $contenu=$_POST["contenu".$value];
@@ -194,12 +207,15 @@ while ($ligne = $response->fetch()) {
             $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Mail."', '".$contenu."')");
 
             $contenu ="";
+            
         }
+    }
     }
     
      
     $rqt->closeCursor();
     $response->closeCursor();
+    
 
  ?>
        

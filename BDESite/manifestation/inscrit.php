@@ -3,11 +3,10 @@ session_start();
     $bdd = new PDO('mysql:host=localhost;dbname=projet_web;charset=utf8', 'root', '');
 
     //get l'utilisateur (id)($user)
-    /*$user=$_SESSION['user_id'];
-    $user_Nom=$_SESSION['user_Nom'];
-    $user_Prenom=$_SESSION['user_Prenom'];*/
-    $user=2;//Gauthier Sannier
-    $user_mail = $_POST['mail'];
+    $user=$_SESSION['user_id'];
+    
+    //Gauthier Sannier
+    $user_mail = $_SESSION['user_Mail'];
     //get la manifestation (id)($manif)
     $manif=$_POST['id_manifestation'];//vente de crêpes
     $manif_Nom=$_POST['manif'];
