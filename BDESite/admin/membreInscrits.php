@@ -31,20 +31,27 @@ echo "<h1> Lister les membres inscrits pour une manifestation</h1>";
         $rqtListe = $bdd->prepare('SELECT users.NOM,PRENOM,MAIL,LOCALISATION FROM inscrire,manifestations,users WHERE manifestations.ID = inscrire.ID AND users.ID = inscrire.ID_USERS AND manifestations.ID=:id; ');
         $rqtListe->bindValue(':id',$choixManif, PDO::PARAM_STR);
         $rqtListe->execute();
-            //il y a qlq chose
+        //on crée la ligne d'en-tête
+        $entete =array("nom","prenom","mail","localisation");
+        //crétion du contenu du tableau    
+        $contenu=array();
             $i=-1;
             while($user=$rqtListe->fetch()){
                 $nom=$user['NOM'];
                 $prenom=$user['PRENOM'];
                 $mail=$user['MAIL'];
                 $localisation=$user['LOCALISATION'];
+                //ajout du contenu au tableau
+                $contenu[]=array($nom,$prenom,$mail,$localisation);
                 echo $nom." ".$prenom." ".$mail." ".$localisation;
                 $i=$i+1;
             }
         if($i==-1){
             echo "il n'y a pas d'incrits";
+        }else{
+           echo "<br> fin de liste";
         }
-        echo "<br> fin de liste";
+        
         $rqtListe->closeCursor();
     }
 ?>      
