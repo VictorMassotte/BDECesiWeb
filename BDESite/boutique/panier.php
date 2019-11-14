@@ -18,7 +18,7 @@ $errors = false;
 $action = (isset($_POST['action'])? $_POST['action']:  (isset($_GET['action'])? $_GET['action']:null )) ;
 if($action !== null)
 {
-   if(!in_array($action,array('ajout', 'suppression', 'refresh')))
+   if(!in_array($action,array('ajout', 'suppression', 'refresh', 'add', 'payer')))
    $erreur=true;
 
    //récuperation des variables en POST ou GET
@@ -42,27 +42,114 @@ if($action !== null)
    }
    else
    $q = intval($q);
-    
+        
 }
 
 if (!$erreur){
    switch($action){
       Case "ajout":
-         ajouterArticle($l,$q,$p);
-         break;
+      ajouterArticle($l,$q,$p);
 
-      Case "suppression":
+      $l = preg_replace('#\v#', '',$l);
+      //On verifie que $p soit un float
+      $p = floatval($p);
+
+      $id_user = ($_SESSION['user_id']);
+      $produit = $l;
+      $quantite = $q;
+      $prix = $p;
+      
+      $insert = $bdd->prepare("INSERT INTO panier (ID_USER, NOM_PRODUIT, QUANTITE, PRIX, PRIX_TOTAl) VALUES (:id_user, :produit, :quantite, :prix, :prix)");
+      $insert->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+      $insert->bindValue(':produit', $produit, PDO::PARAM_STR);
+      $insert->bindValue(':quantite', $quantite, PDO::PARAM_STR);
+      $insert->bindValue(':prix', $prix, PDO::PARAM_STR);
+      $insert->bindValue(':prix', $prix, PDO::PARAM_STR);
+      $insert->execute();
+
+      echo "Produit dans le panier";
+      header('Location: index.php');
+      
+   break;
+   
+   Case "suppression":
          supprimerArticle($l);
+
+         $l = preg_replace('#\v#', '',$l);
+
+         $id_user = ($_SESSION['user_id']);
+         $produit = $l;
+         
+         $delete = $bdd->prepare("DELETE FROM panier WHERE NOM_PRODUIT =:produit AND ID_USER=:id_user");
+         $delete->bindValue(':produit', $produit, PDO::PARAM_STR);
+         $delete->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+         $delete->execute();
+
+         header('Location: index.php');
+
          break;
 
       Case "refresh" :
          for ($i = 0 ; $i < count($QteArticle) ; $i++)
          {
             modifierQTeArticle($_SESSION['panier']['libelleProduit'][$i],round($QteArticle[$i]));
+
+            $produit = ($_SESSION['panier']['libelleProduit']);
+            $id_user = ($_SESSION['user_id']);
+
+            $updt = $bdd->prepare("UPDATE panier SET QUANTITE = q[] WHERE NOM_PRODUIT =:produit AND ID_USER=:id_user;");
+            $updt->bindValue(':produit', $produit, PDO::PARAM_STR);
+            $updt->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+            $updt->execute();
+            
          }
          break;
 
+      Case "add" : 
+
+      $l = preg_replace('#\v#', '',$l);
+
+      $id_user = ($_SESSION['user_id']);
+      $produit = $l;
+      
+      $delete = $bdd->prepare("UPDATE panier SET QUANTITE = QUANTITE+1 WHERE NOM_PRODUIT =:produit AND ID_USER=:id_user");
+      $delete->bindValue(':produit', $produit, PDO::PARAM_STR);
+      $delete->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+      $delete->execute();
+
+      $total_article = $bdd->prepare("UPDATE panier SET PRIX_TOTAL=(SELECT PRIX * QUANTITE) WHERE ID_USER=:id_user");
+      $total_article->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+      $total_article->execute();
+
+      header('Location: panier.php');
+      break;
+
+      Case "payer" : 
+
+      $l = preg_replace('#\v#', '',$l);
+
+      $id_user = ($_SESSION['user_id']);
+      $produit = $l;
+
       Default:
+
+         $id_user = ($_SESSION['user_id']);
+         $select_view = $bdd->prepare("SELECT * FROM panier WHERE ID_USER=:id_user");
+         $select_view->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+         $select_view->execute();
+
+         $id_user = ($_SESSION['user_id']);
+         $paymentstock = $bdd->prepare("SELECT * FROM panier WHERE ID_USER=:id_user");
+         $paymentstock->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+         $paymentstock->execute();
+
+         $id_user = ($_SESSION['user_id']);
+         $alltotal = $bdd->prepare("SELECT SUM(PRIX_TOTAL) AS TOTAL FROM panier WHERE ID_USER =:id_user");
+         $alltotal->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+         $alltotal->execute();
+
+         
+         
          break;
    }
 }
@@ -94,137 +181,56 @@ if (!$erreur){
    <div class="col-md">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
         <span class="text-muted">Votre Panier</span>
+  
       </h4><hr>
 
 
+
 	<?php
-    if (creationPanier())
+    if (creationPanier()){
 
-	{
+        while($s=$select_view->fetch(PDO::FETCH_OBJ)){
 
-	   $nbArticles=count($_SESSION['panier']['libelleProduit']);
-	   if ($nbArticles <= 0)
-	   echo "<tr><td>Votre panier est vide </ td></tr>";
-	   else
-	   {
-        
-        $total = MontantGlobal();
-        $paypal = new Paypal();
-
-        $params = array(
-
-            'RETURNURL' => 'http://127.0.0.1/BDECesiWeb/BDESite/boutique/process.php',
-            'CANCELURL' => 'http://127.0.0.1/BDECesiWeb/BDESite/boutique/cancel.php',
-            'PAYMENTREQUEST_0_AMT' => $total,
-            'PAYMENTREQUEST_0_CURRENCYCODE' => 'EUR'
-
-        );
-
-        $response = $paypal->request('SetExpressCheckout', $params);
-
-        if($response){
-
-         $paypal = 'https://sandbox.paypal.com/webscr?cmd=_express-checkout&useraction=commit&token='.$response['TOKEN'].'';
-
-        }else{
-         var_dump($paypal->$errors);
-           die('Erreur');
-
-        }
-
-	      for ($i=0 ;$i < $nbArticles ; $i++)
-	      {
-
-            ?>
-
+         ?>
+         <form action="" method="POST">
             <ul class="list-group mb-3">
                <li class="list-group-item d-flex justify-content-between lh-condensed">
                <div>
-                  <h6 class="my-0"><?php echo $_SESSION['panier']['libelleProduit'][$i]; ?></h6>
-                     <small class="text-muted">Quantite</small>
-                     <small class="text-muted"><input name="q[]" value="<?php echo $_SESSION['panier']['qteProduit'][$i]; ?>" size="5"/></small>
+                  <h6 class="my-0"><?php echo $s->NOM_PRODUIT; ?></h6>
                </div>
-               <span class="text-muted"><?php echo $_SESSION['panier']['prixProduit'][$i]; ?>€</span>
-               <span class="text-muted"><a href="panier.php?action=suppression&amp;l=<?php echo rawurlencode($_SESSION['panier']['libelleProduit'][$i]); ?>">Supprimer l'article</a></span>
+               <span class="text-muted"><?php echo $s->PRIX; ?>€</span>
+               <a class="badge badge-primary text-center" href="panier.php?action=add&amp;l=<?php echo $s->NOM_PRODUIT ?>">Augmenter la quantité</a>
+               
+               <button type="button" class="btn btn-primary">Quantite :  <span class="badge badge-light"><?php echo $s->QUANTITE ?></span></button>
+
+               <span class="text-muted"><a href="panier.php?action=suppression&amp;l=<?php echo $s->NOM_PRODUIT ?>">Supprimer l'article</a></span>
             </li>
-          <?php } ?>
+            </ul>
+         </form>
+          <?php } 
+
+         while($stotal=$alltotal->fetch(PDO::FETCH_OBJ)){
+          
+          ?>
 
          <li class="list-group-item d-flex justify-content-between">
           <span>Total</span>
-          <strong><?php echo $total."€";?></strong>
+          <strong><?php echo $stotal->TOTAL."€";?></strong>
         </li>
-        <li class="list-group-item d-flex">
-        <div class="input-group-append">
-               <button type="submit" class="btn btn-secondary">Rafraichir le panier</button>
-               <input type="hidden" name="action" value="refresh"/>
-         </div>
-         </li>
-         <form action="" method="POST">
-                  <a href="<?php echo $paypal;?>" type="submit" name="commander" class="btn btn-primary btn-lg btn-block" >Payer la commande </a>
-              </td>
-         </form>
 
-              <form action="" method="POST">
-                  <h4>Nom de la sauvegarde :</h4><input type="text" name="save_nom"/><br><br>
-                 <input type="submit" name="save" value="Sauvegarder">
-              </form>
-              }
+         <?php } 
+         
 
-            <?php
+         if(isset($_POST['commander'])){
 
-
-
-       }
-    }
-    //
-    if(isset($_POST['commander'])){
-
-      echo 'test';
-
-
-      $produit = $_SESSION['panier']['libelleProduit'];
-
-      for($i = 0;$i<count($_SESSION['panier']['libelleProduit']); $i++){
-         $produit = $_SESSION['panier']['libelleProduit'][$i];
-
-      }
-      $update = $bdd->prepare("UPDATE produits SET NB_COMMANDE = NB_COMMANDE+1 WHERE NOM = :produit");
-      $update->bindValue(':produit', $produit, PDO::PARAM_STR);
-      $update->execute();
-
-      header($paypal);
-    }
-
-
-    if(isset($_POST['save'])){
-
-      $produit = $_SESSION['panier']['libelleProduit'];
-
-      for($i = 0;$i<count($_SESSION['panier']['libelleProduit']); $i++){
-          $produit = $_SESSION['panier']['libelleProduit'][$i];
-  
-          if(count($_SESSION['panier']['libelleProduit']) > 1){
-
+            $update_stock = $bdd->prepare("UPDATE produits SET NB_COMMANDE = NB_COMMANDE+1 WHERE NOM = :produit");
+            $update_stock->bindValue(':produit', $produit, PDO::PARAM_STR);
+            $update_stock->execute();
+      
+            header($paypal);
           }
-      }
+      
 
-      $user_id = $_SESSION['user_id'];
-      $nom = $_POST['save_nom'];
-
-      if($nom){
-         $insert =$bdd->prepare("INSERT INTO save_pannier (NOM, PRODUIT, MONTANT, USER_ID) VALUES (:nom,:produit,:montant,:user)");
-  
-         $insert->bindValue(':nom', $nom, PDO::PARAM_STR);
-         $insert->bindValue(':produit', $produit, PDO::PARAM_STR);
-         $insert->bindValue(':montant', $total, PDO::PARAM_STR);
-         $insert->bindValue(':user', $user_id, PDO::PARAM_STR);
-         $insert->execute();
-   
-         echo 'Bien save';
-
-      }else{
-         echo 'Merci de remplir le champs de sauvegarde';
-      }
 
     }
 

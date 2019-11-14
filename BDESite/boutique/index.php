@@ -248,15 +248,54 @@ if(isset($_GET['show'])){
             </div>
             
     </main>
-</body>
             <?php
         }
         
     }
 }
 
+ $top = $bdd->prepare("SELECT * FROM `produits` ORDER BY `produits`.`NB_COMMANDE` DESC LIMIT 3");
+ $top->execute();
+
+ ?>
+
+<hr> <h5 class="text-center">Top des ventes</h5><br>
+     <div class="card-deck">
+
+
+ <?php
+
+ while($tops=$top->fetch(PDO::FETCH_OBJ)){
+
+    ?>
+
+
+    <div class="card text-center">
+      <center><img src="admin/imgs/<?php echo $tops->NOM; ?>.jpg" class="card-img" alt="Photo Produit" style="width: 18rem; height: 18rem;"></center>
+      <div class="card-body">
+        <h5 class="card-title"><?php echo $tops->NOM; ?></h5>
+        <?php
+                     if($tops->STOCK!=0){?><a  class="btn btn-primary" href="panier.php?action=ajout&amp;l=<?php echo $tops->NOM; ?>&amp;q=1&amp;p=<?php echo $tops->PRIX; ?>">Ajouter au panier</a><br><br>
+                        <?php
+                    }else{
+                        echo'<h5>Stock épuisé ! </h5>';
+                    }
+                    ?>
+      </div>
+    </div>
+
+
+<?php
+ }
+
+?>
+</div>
+</body>
+
+<?php
 
 
 require_once('../elements/footer.php');
 
 ?>
+

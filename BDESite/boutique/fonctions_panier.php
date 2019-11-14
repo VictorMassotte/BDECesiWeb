@@ -13,7 +13,8 @@ function creationPanier(){
 
 
 function ajouterArticle($libelleProduit,$qteProduit,$prixProduit){
-   
+
+
    //Si le panier existe
    if (creationPanier() && !isVerrouille()){
 
@@ -28,6 +29,7 @@ function ajouterArticle($libelleProduit,$qteProduit,$prixProduit){
          array_push( $_SESSION['panier']['libelleProduit'],$libelleProduit);
          array_push( $_SESSION['panier']['qteProduit'],$qteProduit);
          array_push( $_SESSION['panier']['prixProduit'],$prixProduit);
+
       }
 
    }else{
