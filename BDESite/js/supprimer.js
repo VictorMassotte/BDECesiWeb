@@ -6,20 +6,20 @@ $(function() {
       
       x = x.replace('supprimer', '');
       
-      x = x.split('-');
-      id = x[0];
-      id_com = x[1];
-      id_user = x[2];
+     // x = x.split('-');
+     // id = x[0];
+      id_com = x;
+      //id_user = x[2];
       
     
      
-     ;
+    
     
      
       $.ajax({
         url: '../manifestation/supprimer.php',
         type: 'POST',
-        data: { id_manifestation: id, id_Com: id_com, id_User: id_user},
+        data: { id_Com: id_com},
       })
       .done(function (data) {
        
@@ -30,7 +30,7 @@ $(function() {
           }, 1000);
           alert('commentaire');
         successFunction(data); })
-      .fail(function (jqXHR, textStatus, errorThrown,data) { 
+      .fail(function (jqXHR, textStatus, errorThrown) { 
         
         serrorFunction(); 
       });

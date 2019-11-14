@@ -27,6 +27,8 @@ echo "<h1> Lister les membres inscrits pour une manifestation</h1>";
 
 <?php
     if(isset($_POST['envoyer'])&&isset($_POST['manif'])){
+        $info = array();
+        $fichier_csv = fopen('inscrit.csv', 'w+');
         $choixManif=$_POST['manif'];
         $rqtListe = $bdd->prepare('SELECT users.NOM,PRENOM,MAIL,LOCALISATION FROM inscrire,manifestations,users WHERE manifestations.ID = inscrire.ID AND users.ID = inscrire.ID_USERS AND manifestations.ID=:id; ');
         $rqtListe->bindValue(':id',$choixManif, PDO::PARAM_STR);
@@ -39,12 +41,16 @@ echo "<h1> Lister les membres inscrits pour une manifestation</h1>";
                 $mail=$user['MAIL'];
                 $localisation=$user['LOCALISATION'];
                 echo $nom." ".$prenom." ".$mail." ".$localisation;
+                $info[] = $nom." ".$prenom." ".$mail." ".$localisation;
+                
                 $i=$i+1;
             }
         if($i==-1){
             echo "il n'y a pas d'incrits";
         }
         echo "<br> fin de liste";
+        fputcsv($fichier_csv, $info, ';');
         $rqtListe->closeCursor();
+        header('Location: inscrit.csv');
     }
 ?>      

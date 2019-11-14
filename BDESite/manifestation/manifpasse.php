@@ -18,7 +18,7 @@ if(isset($_SESSION['login'])){
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/like.js"></script>
         <script type="text/javascript" src="../js/supprimer.js"></script>
-        
+        <script type="text/javascript" src="../js/signaler.js"></script>
         <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements passés</title>
 </head>
@@ -151,24 +151,28 @@ while ($ligne = $response->fetch()) {
             $rqtcom->execute();
 
             while($ligne2=$rqtcom->fetch()){
-              
-                
-                $commentaire = $user_Mail." : ".$ligne2['CONTENU']." Le : ".$ligne2['DATEHEURE'];
+                $rqtUser =$bdd->prepare('SELECT * FROM users WHERE id=:id');
+            
+                $rqtUser->bindValue(':id',$ligne2['ID_USERS'], PDO::PARAM_STR);
+                $rqtUser->execute();
+                if ($ligne3=$rqtUser->fetch()){
+                $commentaire = $ligne3['MAIL']." : ".$ligne2['CONTENU']." Le : ".$ligne2['DATEHEURE'];
                 $id_com = $ligne2['ID_COMMENTAIRE'];
                 $id_user = $ligne2['ID_USERS'];
                               
                 echo $commentaire;
                 if (isset($_SESSION['membre_BDE'])){
                     echo "<div id=\"supprimer\">
-                    <button type=\"button\"  class=\"btn btn-outline-primary supprimer".$identifiant."\" id=\"supprimer".$identifiant."-".$id_com."-".$id_user."\"><a href=\"supprimer.php\">Supp</a></button>
+                    <button type=\"button\"  class=\"btn btn-outline-primary supprimer\" id=\"supprimer".$id_com."\">Supp</button>
                     
                     </div>";
                 }elseif(isset($_SESSION['intervenant_CESI'])){
                     echo "<div id=\"signaler\">
-                    <button type=\"button\"  class=\"btn btn-outline-primary signaler".$identifiant."\" id=\"signaler".$identifiant."-".$id_com."-".$id_user."\"><a href=\"signaler.php\">Signaler</a></button>
+                    <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$id_com."\">Signaler</button>
                     
                     </div>";
                 }
+            }
             }
             echo "
             <form method=\"post\">
