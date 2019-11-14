@@ -1,7 +1,7 @@
 <?php
 
 
-require_once('../boutique/bdd.php');
+require_once('../boutique/admin/bdd.php');
 
 if(isset($_POST['submit'])){
 

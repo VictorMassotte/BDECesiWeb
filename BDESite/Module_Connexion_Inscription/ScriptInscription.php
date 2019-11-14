@@ -1,6 +1,6 @@
 <?php
 
-require_once('../boutique/bdd.php');
+require_once('../boutique/admin/bdd.php');
 
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];

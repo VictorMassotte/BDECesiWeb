@@ -1,5 +1,15 @@
-<?php 
-session_start();
+<?php
+$newid = session_create_id('myprefix-');
+if(!session_id($newid))
+{
+    $NewName = ini_set('session.name','newname');
+    session_name($NewName);
+    session_start();
+    if(session_status()=== PHP_SESSION_ACTIVE)
+    {
+        echo "YES C ACTIVE"; 
+    }  // On démarre la session AVANT toute chose
+}
      /* if(isset($email) && !empty($email)){
         $cookie_value=$email;
         setcookie('user',$cookie_value, time() + 5*365*24*3600, null, null, false, true); //cookie pour une durée de cinq ans

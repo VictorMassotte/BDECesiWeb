@@ -1,5 +1,7 @@
 <?php
-session_start(); // On démarre la session AVANT toute chose
+    //echo session_id($newid);
+    session_start();
+      // On démarre la session AVANT toute chose
 ?>
  
 
@@ -14,9 +16,15 @@ session_start(); // On démarre la session AVANT toute chose
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/fonction.css">
         <title>Acceuil</title>
+        <script> $(document).ready(function(){ 
+        $('#exampleModal').modal('show');
+        });  
+        </script>
 </head>
-<body onload="<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
-<div class="modal-dialog" role="document">
+<body id="monbody">
+<form method="POST" action="ScriptAccueil.php">
+<div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+<div class="modal-dialog" id="customPopup" role="document">
  <div class="modal-content">
   <div class="modal-header">
    <h5 class="modal-title" id="exampleModalLabel">Consentement sur l'utilisation de cookie</h5>
@@ -25,42 +33,26 @@ session_start(); // On démarre la session AVANT toute chose
     </button>
   </div>
    <div class="modal-body">
-   <p>En naviguant sur notre site, vous accepter l'utilisation de cookie de type marketing pour permettre 
-   une expérience plus enrichissante lors de votre visite.
+   <p>
+En naviguant sur notre site, vous acceptez l'utilisation de cookies de type marketing pour permettre 
+   une expérience plus enrichissante lors de votre visite.</p>
    </div>
     <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Autres Options</button>
-    <button type="submit" name="Cookiebtn" class="btn btn-primary">Accepter</button>
+    <button type="submit" name="Cookiebtn" onclick="$('#exampleModal').modal('hide');" class="btn btn-primary"><a href="#monbody" style="color:white;">Accepter</a></button>
    </div>
  </div>
 </div>
-</div>">
-<?php 
-include 'ScriptAccueil.php'; 
-
-if(isset($_POST['Cookiebtn']))
-{
-    $_SESSION['user_id'] = $id;
-    $req1 = $bdd->prepare('SELECT MAIL FROM `users` WHERE ID = :id');
-    $req1->execute(array(
-        'id' => $id));  
-    $resultat = $req1->fetch();
-
-    $cookie_value=$resultat['MAIL'];
-    setcookie('user',$cookie_value, time() + 5*365*24*3600, null, null, false, true); //cookie pour une durée de cinq ans
-    echo $resultat; 
-} 
-?>
-
-
+</div>
+</form>
     <header>
         <!--en tête-->
         <!--menu-->
         <?php require_once("../elements/menu.php") ?>
     </header>
+    
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!--corps du site-->
-    <p>bonjour <?php echo $_SESSION['user_id'] ?></p>
     <footer>
         <?php require_once("../elements/footer.php") ?>
         <!--pied de page-->
