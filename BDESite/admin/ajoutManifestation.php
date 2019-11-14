@@ -1,8 +1,11 @@
 <?php 
-if(!isset($_SESSION['flag'])) {
-    session_start();
-    $_SESSION['flag'] = true;
-    }
+session_start();
+if(isset($_SESSION['login'])){
+    include('../boutique/bdd.php');
+}else{
+    header('Location: ../Module_Connexion_Inscription/Connexion.php');
+}
+   
     echo "<h1>Poster une manifestation</h1>";
     if(isset($_SESSION['membre_BDE'])){
         //fonction poster manifestation
@@ -79,7 +82,7 @@ if(!isset($_SESSION['flag'])) {
                         //vérification des champs
                         
                         //on vérifie que cette manifestation n'existe pas déja
-                        include('../boutique/bdd.php');
+                       
                         $testExistance = $bdd->prepare("SELECT * FROM manifestations WHERE NOM=:nom AND DATEE=:datee AND RECURRENCE=:recurence AND PRIX=:prix");
                         $testExistance->bindValue(':nom',$_POST['nom'], PDO::PARAM_STR);
                         $testExistance->bindValue(':recurence',$_POST['recurrence'], PDO::PARAM_STR);

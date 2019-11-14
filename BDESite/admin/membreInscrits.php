@@ -1,10 +1,16 @@
 <?php
 session_start();
+if(isset($_SESSION['login'])){
+    include('../boutique/bdd.php');
+}else{
+    header('Location: ../Module_Connexion_Inscription/Connexion.php');
+}
+   
 echo "<h1> Lister les membres inscrits pour une manifestation</h1>";
 ?>
 <form method="post" action="membreInscrits.php">
     <select name="manif">
-    <?php include("../boutique/bdd.php");?>
+    
     <!--on récupère sous forme d'une liste déroulante l'ensemble des manifestations à venir-->
     <?php
         $listeManif = $bdd->query("SELECT * FROM manifestations");

@@ -34,8 +34,8 @@ $id_user = ($_SESSION['user_id']);
           Manifestations
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Manifestations passées</a>
-          <a class="dropdown-item" href="#">Manifestation à venir</a>
+          <a class="dropdown-item" href="http://localhost/BDECesiWeb/BDESite/manifestation/manifpasse.php">Manifestations passées</a>
+          <a class="dropdown-item" href="http://localhost/BDECesiWeb/BDESite/manifestation/manifavenir.php">Manifestation à venir</a>
         </div>
       </li>
       <li class="nav-item my-2 my-lg-0">

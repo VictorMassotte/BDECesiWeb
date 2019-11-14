@@ -1,7 +1,11 @@
 <?php
 session_start();
-    $bdd = new PDO('mysql:host=localhost;dbname=projet_web;charset=utf8', 'root', '');
-
+if(isset($_SESSION['login'])){
+    include('../boutique/bdd.php');
+}else{
+    header('Location: ../Module_Connexion_Inscription/Connexion.php');
+}
+   
     //get l'utilisateur (id)($user)
     /*$user=$_SESSION['user_id'];
     $user_Nom=$_SESSION['user_Nom'];

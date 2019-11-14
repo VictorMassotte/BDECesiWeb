@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(isset($_SESSION['user_id'])){
+if(isset($_SESSION['login'])){
     
 }else{
     header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Connexion.php');
