@@ -29,7 +29,7 @@ if(!isset($_SESSION['flag'])) {
             }
             echo"
             </select><br>
-            <label for=\"prix\">Prix</label><input type=\"text\" name=\"prix\"><br>";
+            <label for=\"prix\">Prix</label><input type=\"number\" name=\"prix\"><br>";
             //partie génération des jours dans le formulaire en liste déroulante
             echo"<label for=\"jour\">Jour</label><select name=\"jour\">";
             $i=1;
@@ -70,15 +70,13 @@ if(!isset($_SESSION['flag'])) {
             <input type=\"submit\" name=\"Envoyer\"><br>
             <form/><br>";
                 //traitement du formulaire
-                if(!empty($_POST['nom']) && !empty($_POST['descr']) && !empty($_POST['recurence']) && !empty($_POST['instance']) && !empty($_POST['prix'])&& !empty($_POST['jour']) && !empty($_POST['mois']) && !empty($_POST['annee'])){
+                if(isset($_POST['nom']) && isset($_POST['descr']) && isset($_POST['recurence']) && isset($_POST['instance']) && isset($_POST['prix'])&& isset($_POST['jour']) && isset($_POST['mois']) && isset($_POST['annee'])){
                     //le formulaire a des valeurs et n'a aucun champ vide
-                    echo "we are in";
                     //nous allons concatener les différents _POST relatif à la date pour obtenir une date
                     $jour=str_replace("jour","",$_POST['jour']);
                     $mois=$_POST['mois'];
                     $annee=str_replace("annee","",$_POST['annee']);
                     $dateChoisie=$annee."-".$mois."-".$jour;
-                    echo $dateChoisie;
 
                     //vérification des champs
 
@@ -102,7 +100,8 @@ if(!isset($_SESSION['flag'])) {
                     }
                 }else{
                     //erreur
-                        echo"Veuillez remplir tous les champs s'il vous plait";
+                    echo"remplir touss les champs";
+                    
                 }
             
 
