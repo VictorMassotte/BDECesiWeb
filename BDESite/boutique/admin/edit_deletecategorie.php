@@ -69,7 +69,7 @@ if(isset ($_GET['action'])){
 
         $data = $select->fetch(PDO::FETCH_OBJ);
         
-    }?>
+    } ?>
 
     <form method="post" action="">
     <div class="form-group text-center">
