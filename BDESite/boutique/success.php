@@ -30,11 +30,7 @@ if(isset($_SESSION['user_id'])){
 <?php
 
 $id_user = ($_SESSION['user_id']);
-$update = $bdd->prepare("UPDATE produits SET NB_COMMANDE = NB_COMMANDE+1 WHERE NOM = :produit");
-$update->bindValue(':produit', $produit, PDO::PARAM_STR);
-$update->execute();
-
-$delete = $bdd->prepare("DELETE FROM panier WHERE USER_ID =:user_id");
+$delete = $bdd->prepare("DELETE FROM panier WHERE ID_USER =:id_user");
 $delete->bindValue(':id_user', $id_user, PDO::PARAM_STR);
 $delete->execute();
 

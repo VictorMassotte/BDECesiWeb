@@ -218,6 +218,8 @@ if (!$erreur){
           <strong><?php echo $stotal->TOTAL."€";?></strong>
         </li>
 
+        <a href="http://localhost/BDECesiWeb/BDESite/boutique/success.php" type="submit" name="commander" class="btn btn-primary btn-lg btn-block" >Payer la commande </a>
+
          <?php } 
          
 
