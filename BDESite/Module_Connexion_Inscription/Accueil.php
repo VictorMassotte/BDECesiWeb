@@ -1,7 +1,11 @@
 <?php
-    //echo session_id($newid);
-    session_start();
-      // On démarre la session AVANT toute chose
+session_start();
+
+if(isset($_SESSION['user_id'])){
+    
+}else{
+    header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Connexion.php');
+}
 ?>
  
 

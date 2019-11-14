@@ -47,6 +47,10 @@
       <li class="nav-item my-2 my-lg-0">
         <a class="nav-link" href="#">Contact</a>
       </li>
+      <button type="hiden" class="btn btn-dark"><a href="http://localhost/BDECesiWeb/BDESite/boutique/panier.php">
+        Mon Panier</a>
+      </button>
+
     </ul>
   </div>
 </nav>
