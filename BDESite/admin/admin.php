@@ -3,7 +3,7 @@ session_start();
 
 if(isset($_SESSION['membre_BDE'])){
     //fonction poster manifestation
-    include('ajoutManifestation.php');
+    echo "<a href=\"ajoutManifestation.php\">Poster une manifestation</a>";
     
     //liste des inscrits aux manifestations
     echo "<h1>Liste des inscrits aux manifestations</h1>";

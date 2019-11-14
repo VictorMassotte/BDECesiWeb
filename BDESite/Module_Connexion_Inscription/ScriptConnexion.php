@@ -31,19 +31,20 @@ if(isset($_POST['submit'])){
                 $_SESSION['user_Nom'] = $resultat['NOM'];
                 $_SESSION['user_Prenom'] = $resultat['PRENOM'];
                 $_SESSION['user_Status'] = $resultat['STATUS'];
+                $_SESSION['user_Mail'] = $resultat['MAIL'];
 
                     if( $_SESSION['user_Status'] == 1){
-                        $_SESSION['etudiant'] = $mail;
+                        $_SESSION['etudiant'] = true;
 
                         header ('location: Accueil.php');
 
                     }else if( $_SESSION['user_Status'] == 2){
-                        $_SESSION['membre_BDE'] = $mail;
+                        $_SESSION['membre_BDE'] = true;
                         header ('location: Accueil.php');
 
 
                     }else if( $_SESSION['user_Status'] == 3){
-                        $_SESSION['intervenant_CESI'] = $mail;
+                        $_SESSION['intervenant_CESI'] = true;
                         header ('location: Accueil.php');
 
                     }else{
