@@ -57,7 +57,7 @@ if( isset($_SESSION['membre_BDE'])){
     <button type=\"button\"  class=\"btn btn-outline-primary suppCommentaire\" id=\"suppCommentaire\"><a href=\"supprimer.php\">Supprimer un commentaire</a></button>
     
     </div>";
-}else{
+}elseif (isset($_SESSION['intervenant_CESI'])){
     echo "<div id=\"télécharger\">
     <button type=\"button\"  class=\"btn btn-outline-primary télécharger\" id=\"télécharger\"><a href=\"télécharger.php\">Télécharger les photos</a></button>
     

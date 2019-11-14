@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION['login'])){
+if(isset($_SESSION['intervenant_CESI'])){
     include('../boutique/bdd.php');
 }else{
     header('Location: ../Module_Connexion_Inscription/Connexion.php');
