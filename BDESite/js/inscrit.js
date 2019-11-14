@@ -15,7 +15,7 @@ $(function() {
       $.ajax({
         url: '../manifestation/inscrit.php',
         type: 'POST',
-        data: { id_manifestation: id, manif: nom, mail: "gauthiersannier@viacesi.fr" },
+        data: { id_manifestation: id, manif: nom },
       })
       .done(function (data) {
         

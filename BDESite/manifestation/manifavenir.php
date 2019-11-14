@@ -54,7 +54,7 @@ while ($ligne = $response->fetch()) {
             $prix=$reponse['PRIX'];
             
             $urlimg=$reponse['IMAGE'];
-            $user = 2;
+            $user =$_SESSION['user_id'];
 
             $rqtSpe = $bdd->prepare('SELECT * FROM inscrire WHERE ID_USERS=:idU AND ID=:idM');
             $rqtSpe->bindValue(':idU',$user, PDO::PARAM_STR);
