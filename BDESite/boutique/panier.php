@@ -3,9 +3,7 @@ session_start();
 require_once('bdd.php');
 include_once("fonctions_panier.php");
 include_once("paypal.php");
-require_once('../elements/menu.php');
-
-require_once('../../elements/menu.php'); 
+include('../elements/menu.php');
 
 if(isset($_SESSION['user_id'])){
     
@@ -13,10 +11,9 @@ if(isset($_SESSION['user_id'])){
     header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Connexion.php');
 }
 
-?>
-
 
 $erreur = false;
+$errors = false;
 
 $action = (isset($_POST['action'])? $_POST['action']:  (isset($_GET['action'])? $_GET['action']:null )) ;
 if($action !== null)
@@ -161,20 +158,41 @@ if (!$erreur){
                <button type="submit" class="btn btn-secondary">Rafraichir le panier</button>
                <input type="hidden" name="action" value="refresh"/>
          </div>
-        </li>
-                  <a class="btn btn-primary btn-lg btn-block "href="<?php echo $paypal; ?>">Payer la commande </a>
+         </li>
+         <form action="" method="POST">
+                  <a href="<?php echo $paypal;?>" type="submit" name="commander" class="btn btn-primary btn-lg btn-block" >Payer la commande </a>
               </td>
+         </form>
 
               <form action="" method="POST">
                   <h4>Nom de la sauvegarde :</h4><input type="text" name="save_nom"/><br><br>
-                 <input type="submit" name="save" value="Sauvegarrder">
+                 <input type="submit" name="save" value="Sauvegarder">
               </form>
+              }
 
             <?php
 
 
 
        }
+    }
+    //
+    if(isset($_POST['commander'])){
+
+      echo 'test';
+
+
+      $produit = $_SESSION['panier']['libelleProduit'];
+
+      for($i = 0;$i<count($_SESSION['panier']['libelleProduit']); $i++){
+         $produit = $_SESSION['panier']['libelleProduit'][$i];
+
+      }
+      $update = $bdd->prepare("UPDATE produits SET NB_COMMANDE = NB_COMMANDE+1 WHERE NOM = :produit");
+      $update->bindValue(':produit', $produit, PDO::PARAM_STR);
+      $update->execute();
+
+      header($paypal);
     }
 
 
@@ -197,7 +215,7 @@ if (!$erreur){
          $insert =$bdd->prepare("INSERT INTO save_pannier (NOM, PRODUIT, MONTANT, USER_ID) VALUES (:nom,:produit,:montant,:user)");
   
          $insert->bindValue(':nom', $nom, PDO::PARAM_STR);
-         $insert->bindValue(':produit', $str, PDO::PARAM_STR);
+         $insert->bindValue(':produit', $produit, PDO::PARAM_STR);
          $insert->bindValue(':montant', $total, PDO::PARAM_STR);
          $insert->bindValue(':user', $user_id, PDO::PARAM_STR);
          $insert->execute();

@@ -5,8 +5,8 @@ require_once('../../elements/menu.php');
 
 if(isset($_SESSION['membre_BDE'])){
     
-}elseif((isset($_SESSION['etudiant'])) && (isset($_SESSION['intervenant']))){
-    header('Location: ../index.php');
+}elseif((isset($_SESSION['etudiant'])) || (isset($_SESSION['intervenant_CESI']))){
+    header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Accueil.php');
 
 }else{
     header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Connexion.php');
@@ -29,14 +29,13 @@ if(isset($_SESSION['membre_BDE'])){
 
 <body>
     <div class="jumbotron">
-        <br><br><br> <h1 class="display-4">Boutique BDE CESI</h1>
+        <br><br><br> <h1 class="display-4">Panal Administration de la Boutique</h1>
     </div>
     
     <main>
         
-        <h1> Menu Admin Boutique</h1></div>
         <div>
-        <p>
+        <p class="text-center">
             <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Les Articles</a>
             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Les categories</button>
         </p>

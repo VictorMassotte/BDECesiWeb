@@ -2,10 +2,12 @@
 session_start();
 include('../bdd.php'); 
 
+require_once('../../elements/menu.php'); 
+
 if(isset($_SESSION['membre_BDE'])){
     
-}elseif((isset($_SESSION['etudiant'])) && (isset($_SESSION['intervenant']))){
-    header('Location: ../index.php');
+}elseif((isset($_SESSION['etudiant'])) || (isset($_SESSION['intervenant_CESI']))){
+    header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Accueil.php');
 
 }else{
     header('Location: ../Module_Connexion_Inscription/Connexion.php');
@@ -13,30 +15,60 @@ if(isset($_SESSION['membre_BDE'])){
 
 ?>
 
-?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
+    <link href="jumbotron.css" rel="stylesheet">
+    <link href="../style/boutique.css" rel="stylesheet">
+    <title>Menu Admin Boutique</title>
+</head>
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<br><br><br>
+<div class="jumbotron">
+       <h1 class="display-4">Boutique BDE CESI</h1>
+    </div>
+
 
 <h1>Ajout d'un produit</h1>
-    <form method="post" action="AjoutArticle.php" enctype="multipart/form-data">
-        <h4>Nom :</h4><input type="text" name="nom"/><br>
-        <h4>Description :</h4><textarea name="description"></textarea><br><br>
-        <h4>Categorie :</h4><select name="categorie">
-
-        <?php $select=$bdd->query("SELECT * FROM categorie");
+<section class="text-center col-md-6 mb-3">
+<form method="post" action="AjoutArticle.php" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="exampleInput">Nom : </label>
+        <input type="text" class="form-control" name="nom" id="exampleFormControlInput1" placeholder="Le nom du produit">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Description : </label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="description"  placeholder="La description du produit" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Categorie : </label>
+        <select class="form-control" name="categorie" id="exampleFormControlSelect1">
+            <?php $select=$bdd->query("SELECT * FROM categorie");
             while($s = $select->fetch(PDO::FETCH_OBJ)){
                 ?>
-            <option><?php echo $s->nom; ?></option>
-
-            <?php } ?>
-
-        </select><br><br>
-
-        <h4>Prix :</h4><input type="text" name="prix"/><br>
-        <h4>Stock :</h4><input type="text" name="stock"/><br><br>
-        <input type="file" name="img"/><br><br>
-        <input type="submit" name="submit"/>
-    </form>
+                <option><?php echo $s->nom; ?></option>
+                
+                <?php } ?>
+            </select>
+        </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Prix :  </label>
+            <input type="text" class="form-control" name="prix" id="exampleFormControlInput1" placeholder="Le prix du produit">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Stock :  </label>
+            <input type="text" class="form-control" name="stock" id="exampleFormControlInput1" placeholder="Le stock du produit">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlFile1">Image du produit : </label>
+        <input type="file" name='img' class="form-control-file" id="exampleFormControlFile1">
+    </div>   
+    <button type="submit" name="submit" class="btn btn-primary mb-2">Ajouter l'article</button>
+</form>
+</section>
 
 
 <?php
@@ -101,3 +133,5 @@ if(isset($_POST['submit'])){
 }
 
 ?>
+
+</html>

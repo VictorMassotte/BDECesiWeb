@@ -5,29 +5,42 @@ include('../bdd.php');
 
 if(isset($_SESSION['membre_BDE'])){
     
-}elseif((isset($_SESSION['etudiant'])) && (isset($_SESSION['intervenant']))){
-    header('Location: ../index.php');
+}elseif((isset($_SESSION['etudiant'])) || (isset($_SESSION['intervenant_CESI']))){
+    header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Accueil.php');
 
 }else{
     header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Connexion.php');
 }
 
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
+    <link href="jumbotron.css" rel="stylesheet">
+    <link href="../style/boutique.css" rel="stylesheet">
+    <title>Menu Admin Boutique</title>
+</head>
 
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-<h1>Ajouter une categorie</h1>
+<br><br><br>
+<div class="jumbotron">
+       <h1 class="display-4">Ajouter une categorie à la boutique</h1>
+</div>
 
     <form method="post" action="">
-        <h4>Nom de la categorie :</h4><input type="text" name="nom"/><br><br>
-        <input type="submit" name="submit" value="Ajouter"/>
+
+    <div class="form-group text-center">
+        <label for="exampleInput">Nom de la categorie : </label>
+        <input type="text" class="form-control" name="nom" id="exampleFormControlInput1" placeholder="Le nom du produit"><br>
+        <button type="submit" name="submit" class="btn btn-primary mb-2">Ajouter une categorie</button>
+    </div>
+
     </form>
 
 
 <?php
-
-
 
 if(isset($_POST['submit'])){
     

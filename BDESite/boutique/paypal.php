@@ -3,8 +3,8 @@
 class Paypal{
     
     private $user='sb-zftho528535_api1.business.example.com';
-    private $pwd = 'VCUN9YR9CCY87WCU';
-    private $signature = 'AsOk0ctu7BTPOcQDYumQFaJWZkruA6Eg78Yo6lCwtIgPeNB-teBahQM1';
+    private $pwd = 'PP63668GAQW9FJ8T';
+    private $signature = 'AUwWYvQ-h1VwmvFV.hzMGmfA5yMPA..C0zufwZHPtPgdCVeoK-QT5G1S';
     public $endpoint = 'https://api-3t.sandbox.paypal.com/nvp';
     public $errors = array();
     
@@ -30,7 +30,7 @@ class Paypal{
         
         $params = array_merge($params, array(
             'METHOD' => $method,
-            'VERSION' => '95',
+            'VERSION' => '93',
             'USER' => $this->user,
             'PWD' => $this->pwd,
             'SIGNATURE' => $this->signature
