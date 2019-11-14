@@ -1,7 +1,8 @@
 <?php
 session_start();
+require_once('bdd.php');
 require_once('../../elements/menu.php'); 
-include('../bdd.php');
+
 
 if(isset($_SESSION['membre_BDE'])){
     

@@ -1,4 +1,14 @@
 
+  <?php
+
+$id_user = ($_SESSION['user_id']);
+         $compt_menu = $bdd->prepare("SELECT * FROM panier WHERE ID_USER=:id_user");
+         $compt_menu->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+         $compt_menu->execute();;
+
+         $comptmenu=$compt_menu->fetchAll();
+
+?>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -11,6 +21,8 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+
+
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -47,10 +59,15 @@
       <li class="nav-item my-2 my-lg-0">
         <a class="nav-link" href="#">Contact</a>
       </li>
+
+
+
       <button type="hiden" class="btn btn-dark"><a href="http://localhost/BDECesiWeb/BDESite/boutique/panier.php">
-        Mon Panier</a>
+        Mon Panier </a><span class="badge badge-light"><?php echo count($comptmenu) ?></span>
       </button>
 
     </ul>
   </div>
 </nav>
+
+

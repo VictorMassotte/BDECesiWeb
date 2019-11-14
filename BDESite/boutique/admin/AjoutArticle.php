@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include('../bdd.php'); 
+require_once('bdd.php'); 
 
 require_once('../../elements/menu.php'); 
 
@@ -109,16 +109,27 @@ if(isset($_POST['submit'])){
                 echo 'Veuillez rentrer une image valide !';
                 
             }
-            $image_finale = $image_src;
-            imagejpeg($image_finale,'imgs/'.$nom.'.jpg');
-            $response = $bdd->prepare("INSERT INTO `produits` (`NOM`, `DESCRIPTION`, `CATEGORIE`, `PRIX`, `STOCK`) VALUES (:nom, :description, :categorie, :prix, :stock)");
+
+
+            $response = $bdd->prepare("INSERT INTO `produits` (`NOM`, `DESCRIPTION`, `CATEGORIE`, `PRIX`, `STOCK`, NB_COMMANDE) VALUES (:nom, :description, :categorie, :prix, :stock, '0')");
             $response->bindValue(':nom', $nom, PDO::PARAM_STR);
             $response->bindValue(':description', $description, PDO::PARAM_STR);
             $response->bindValue(':categorie', $categorie, PDO::PARAM_STR);
             $response->bindValue(':prix', $prix, PDO::PARAM_STR);
             $response->bindValue(':stock', $stock, PDO::PARAM_STR);
             $response->execute();
-            
+
+            $nom = $_POST['nom'];
+            $select_photos = $bdd->prepare("SELECT * FROM produits WHERE NOM=:nom");
+            $select_photos->bindValue(':nom', $nom, PDO::PARAM_STR);
+            $select_photos->execute();
+
+            $s=$select_photos->fetch(PDO::FETCH_OBJ);
+            $id_image = $s->ID;
+            $image_finale = $image_src;
+            imagejpeg($image_finale,'imgs/'.$id_image.'.jpg');
+
+
             echo "Vous avez bien enregistrer un nouveau produit";
             
             $response->closeCursor();

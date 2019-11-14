@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+require_once('bdd.php');
 include('../elements/menu.php');
 
 if(isset($_SESSION['user_id'])){
@@ -9,7 +10,6 @@ if(isset($_SESSION['user_id'])){
     header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Connexion.php');
 }
 
-require_once('bdd.php');
 
 ?>
 
@@ -54,7 +54,7 @@ if(isset($_GET['show'])){
         <div class="card mb-5" style="max-width: 2000px;">
         <div class="row no-gutters">
             <div class="col-md-4">
-            <img src="admin/imgs/<?php echo $s->NOM; ?>.jpg" class="card-img" alt="Photo Produit">
+            <img src="admin/imgs/<?php echo $s->ID; ?>.jpg" class="card-img" alt="Photo Produit">
             </div>
             <div class="col-md-8">
             <div class="card-body">
@@ -113,7 +113,7 @@ if(isset($_GET['show'])){
                     <ul class="wrapper">
                     <li class="test">
                     <div class="card" style="width: 18rem;">
-                    <img src="admin/imgs/<?php echo $trier->NOM; ?>.jpg" class="card-img-top" alt="Photo Produit">
+                    <img src="admin/imgs/<?php echo $trier->ID; ?>.jpg" class="card-img-top" alt="Photo Produit">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $trier->NOM; ?></h5>
                         <p class="card-text"><?php echo $trier->PRIX; ?>€</p>
@@ -145,7 +145,7 @@ if(isset($_GET['show'])){
                     <ul class="wrapper">
                     <li class="test">
                     <div class="card" style="width: 18rem;">
-                    <img src="admin/imgs/<?php echo $trier->NOM; ?>.jpg" class="card-img-top" alt="Photo Produit">
+                    <img src="admin/imgs/<?php echo $trier->ID; ?>.jpg" class="card-img-top" alt="Photo Produit">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $trier->NOM; ?></h5>
                         <p class="card-text"><?php echo $trier->PRIX; ?>€</p>
@@ -177,7 +177,7 @@ if(isset($_GET['show'])){
                     <ul class="wrapper">
                     <li class="test">
                     <div class="card" style="width: 18rem;">
-                    <img src="admin/imgs/<?php echo $sea->NOM; ?>.jpg" class="card-img-top" alt="Photo Produit">
+                    <img src="admin/imgs/<?php echo $sea->ID; ?>.jpg" class="card-img-top" alt="Photo Produit">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $sea->NOM; ?></h5>
                         <p class="card-text"><?php echo $sea->PRIX; ?>€</p>
@@ -206,7 +206,7 @@ if(isset($_GET['show'])){
                 <ul class="wrapper">
                     <li class="test">
                     <div class="card" style="width: 18rem;">
-                    <img src="admin/imgs/<?php echo $s->NOM; ?>.jpg" class="card-img-top" alt="Photo Produit">
+                    <img src="admin/imgs/<?php echo $s->ID; ?>.jpg" class="card-img-top" alt="Photo Produit">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $s->NOM; ?></h5>
                         <p class="card-text"><?php echo $s->PRIX; ?>€</p>
@@ -271,7 +271,7 @@ if(isset($_GET['show'])){
 
 
     <div class="card text-center">
-      <center><img src="admin/imgs/<?php echo $tops->NOM; ?>.jpg" class="card-img" alt="Photo Produit" style="width: 18rem; height: 18rem;"></center>
+      <center><img src="admin/imgs/<?php echo $tops->ID; ?>.jpg" class="card-img" alt="Photo Produit" style="width: 18rem; height: 18rem;"></center>
       <div class="card-body">
         <h5 class="card-title"><?php echo $tops->NOM; ?></h5>
         <a href="?show=<?php echo $tops->NOM; ?>" class="card-link">Voir plus de details</a><br><br>

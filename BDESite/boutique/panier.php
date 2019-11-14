@@ -18,7 +18,7 @@ $errors = false;
 $action = (isset($_POST['action'])? $_POST['action']:  (isset($_GET['action'])? $_GET['action']:null )) ;
 if($action !== null)
 {
-   if(!in_array($action,array('ajout', 'suppression', 'refresh', 'add', 'payer')))
+   if(!in_array($action,array('ajout', 'suppression', 'add', 'payer')))
    $erreur=true;
 
    //récuperation des variables en POST ou GET
@@ -67,7 +67,10 @@ if (!$erreur){
       $insert->bindValue(':prix', $prix, PDO::PARAM_STR);
       $insert->execute();
 
-      echo "Produit dans le panier";
+      $insert_commande = $bdd->prepare("UPDATE produits SET NB_COMMANDE = NB_COMMANDE+1 WHERE NOM = :produit");
+      $insert_commande->bindValue(':produit', $produit, PDO::PARAM_STR);
+      $insert_commande->execute();
+
       header('Location: index.php');
       
    break;
@@ -85,24 +88,12 @@ if (!$erreur){
          $delete->bindValue(':id_user', $id_user, PDO::PARAM_STR);
          $delete->execute();
 
+         $delete_commande = $bdd->prepare("UPDATE produits SET NB_COMMANDE = NB_COMMANDE-1 WHERE NOM = :produit");
+         $delete_commande->bindValue(':produit', $produit, PDO::PARAM_STR);
+         $delete_commande->execute();
+
          header('Location: index.php');
 
-         break;
-
-      Case "refresh" :
-         for ($i = 0 ; $i < count($QteArticle) ; $i++)
-         {
-            modifierQTeArticle($_SESSION['panier']['libelleProduit'][$i],round($QteArticle[$i]));
-
-            $produit = ($_SESSION['panier']['libelleProduit']);
-            $id_user = ($_SESSION['user_id']);
-
-            $updt = $bdd->prepare("UPDATE panier SET QUANTITE = q[] WHERE NOM_PRODUIT =:produit AND ID_USER=:id_user;");
-            $updt->bindValue(':produit', $produit, PDO::PARAM_STR);
-            $updt->bindValue(':id_user', $id_user, PDO::PARAM_STR);
-            $updt->execute();
-            
-         }
          break;
 
       Case "add" : 
@@ -121,15 +112,14 @@ if (!$erreur){
       $total_article->bindValue(':id_user', $id_user, PDO::PARAM_STR);
       $total_article->execute();
 
+      $update_commande = $bdd->prepare("UPDATE produits SET NB_COMMANDE = NB_COMMANDE+1 WHERE NOM = :produit");
+      $update_commande->bindValue(':produit', $produit, PDO::PARAM_STR);
+      $update_commande->execute();
+
       header('Location: panier.php');
       break;
 
-      Case "payer" : 
 
-      $l = preg_replace('#\v#', '',$l);
-
-      $id_user = ($_SESSION['user_id']);
-      $produit = $l;
 
       Default:
 
@@ -149,6 +139,18 @@ if (!$erreur){
          $alltotal->execute();
 
          
+         $id_user = ($_SESSION['user_id']);
+         $compt_view = $bdd->prepare("SELECT * FROM panier WHERE ID_USER=:id_user");
+         $compt_view->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+         $compt_view->execute();;
+
+         $compt=$compt_view->fetchAll();
+
+         if((count($compt) == 0)){
+               header('Location: index.php');
+
+         }
+      
          
          break;
    }
@@ -188,6 +190,8 @@ if (!$erreur){
 
 	<?php
     if (creationPanier()){
+
+
 
         while($s=$select_view->fetch(PDO::FETCH_OBJ)){
 
