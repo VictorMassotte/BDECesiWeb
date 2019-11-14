@@ -56,6 +56,11 @@ if(isset($_SESSION['etudiant']) || isset($_SESSION['membre_BDE'])){
     </div>";
 }
 
+echo "<div id=\"photo\">
+            <button type=\"button\"  class=\"btn btn-outline-primary photo\" id=\"photo\"><a href=\"listePhoto.php\">Photo</a></button>
+            
+            </div>";
+
 while ($ligne = $response->fetch()) {
     
    
@@ -135,10 +140,7 @@ while ($ligne = $response->fetch()) {
             <p class=\"card-text\">$desc</p>
             <p class=\"card-text text-muted\">".$interval->format('il y a %a jours')."<p>
             </div>
-            <div id=\"photo\">
-            <button type=\"button\"  class=\"btn btn-outline-primary photo\" id=\"photo\"><a href=\"listePhoto.php\">Photo</a></button>
             
-            </div>
             <div id=\"bouton\">
             <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."-".$nom."\">".$message."</button>
             <p>".$messagelike."</p>
