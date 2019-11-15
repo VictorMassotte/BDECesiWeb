@@ -18,7 +18,7 @@ if(isset($_SESSION['user_id'])){
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Boutique BDE CESI</title>
+    <title>CONDITIONS D'UTILISATION ET GENERALES DE VENTE</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
     <link href="jumbotron.css" rel="stylesheet">
@@ -206,7 +206,7 @@ if(isset($_SESSION['user_id'])){
  <li>	Le droit à la portabilité : ils peuvent réclamer que le site web leur remette les données personnelles qui lui sont fournies pour les transmettre à un nouveau site web.
  Evolution de la présente clause
  Le site web se réserve le droit d'apporter toute modification à la présente clause relative à la protection des données à caractère personnel à tout moment. Si une modification est apportée à la présente clause de protection des données à caractère personnel, le site web s'engage à publier la nouvelle version sur son site. Le site web informera également les utilisateurs de la modification par messagerie électronique, dans un délai minimum de 15 jours avant la date d'effet. Si l'utilisateur n'est pas d'accord avec les termes de la nouvelle rédaction de la clause de protection des données à caractère personnel, il a la possibilité de supprimer son compte.
-
+<br><br><br>
   </div>
   
 </main>

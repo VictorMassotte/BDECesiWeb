@@ -40,13 +40,9 @@
     </div>
     <div class="row conteneurs">
     <div class="col-6 col-md">
-        <h5><a class="ongletblanc" href="#">Politique de protection des données personelles</a></h5>
-        </ul>
-    </div>
-    <div class="col-6 col-md">
-        <h5><a class="ongletblanc" href="#">Mentions légales</a></h5>
+        <h5><a class="ongletblanc" href="http://localhost/BDECesiWeb/BDESite/boutique/mentions_legales.php">Mentions légales</a></h5>
     </div>
     <div class="col-6 col-md">    
-        <h5><a class="ongletblanc" href="#">Politique de protection des données personelles</a></h5>
+        <h5><a class="ongletblanc" href="http://localhost/BDECesiWeb/BDESite/boutique/conditions_generale_ventes.php">Conditions d'utilisation et générales de vente</a></h5>
     </div>
   </footer>

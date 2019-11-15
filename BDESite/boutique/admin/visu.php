@@ -41,7 +41,7 @@ while($s=$select->fetch(PDO::FETCH_OBJ)){
 
     <h5 class="text-center"><?php echo $s->NOM; ?>
     <a class="btn btn-warning" href="?action=modify&amp;id=<?php echo $s->ID; ?>">Modifier</a>
-    <a class="btn btn-danger" href="?action=delete&amp;id=<?php echo $s->ID; ?>">Supprimer</a><br><br></h5>
+    <a class="btn btn-danger" href="?action=delete&amp;id=<?php echo $s->ID; ?>">Supprimer</a><br><br>
 
 <?php
 
@@ -55,7 +55,7 @@ if(isset ($_GET['action'])){
         $delete = $bdd->prepare("DELETE FROM produits WHERE ID=:id");
         $delete->bindValue(':id', $id, PDO::PARAM_STR);
         $delete->execute();
-        header('Location: visu.php');
+        //header('Location: visu.php');
 
 
     }
@@ -86,11 +86,11 @@ if(isset ($_GET['action'])){
             $update->bindValue(':id', $id, PDO::PARAM_STR);
             $update->execute();
             
-            header('Location: visu.php');
+            //header('Location: visu.php');
 
         }
-
      ?>
+
 <section class="text-center col-md-6 mb-3 ">
     <form method="POST" action="">
     <div class="form-group">
@@ -130,12 +130,17 @@ if(isset ($_GET['action'])){
     <button type="submit" name="submit" class="btn btn-primary mb-2">Modifier l'article</button>
     </form>
      </section>
+     <div class="text-center">
+        <a href="visu.php" class="btn btn-primary ">Actualiser la page</a>
+    </div><br><br>
 
 
 <?php
 
 
+    }
 }
-}
+
+require_once('../../elements/footer.php');
 
 ?>

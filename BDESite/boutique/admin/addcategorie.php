@@ -62,4 +62,6 @@ if(isset($_POST['submit'])){
     }       
         
     }
+    
+ require_once('../../elements/footer.php');
 ?>

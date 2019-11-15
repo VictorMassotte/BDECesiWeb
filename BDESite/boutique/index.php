@@ -51,7 +51,7 @@ if(isset($_GET['show'])){
     
     ?>
 
-        <div class="card mb-5" style="max-width: 2000px;">
+        <div class="card mb-5 testhidden" style="max-width: 1920px;">
         <div class="row no-gutters">
             <div class="col-md-4">
             <img src="admin/imgs/<?php echo $s->ID; ?>.jpg" class="card-img" alt="Photo Produit">
@@ -92,11 +92,14 @@ if(isset($_GET['show'])){
 </form><br>
 
 <section class="text-center">
+<ul class="nav justify-content-center">
 <form class="form-inline my-2 my-lg-0 " method="POST">
-      <input class=" text-center form-control mr-sm-2" type="search" name="search" placeholder="Rechercher un produit dans la boutique" aria-label="Search">
+      <input class=" text-center form-control mr-sm-2" type="search" name="search" placeholder="Rechercher un produit" aria-label="Search">
       <button class=" text-center btn btn-outline-success my-2 my-sm-0" name="submit_search" type="submit">Rechercher</button>
     </section>
 </form>
+    </ul>
+    
 </section>
     
 
@@ -243,7 +246,7 @@ if(isset($_GET['show'])){
             <p><a class="btn btn-secondary" href="?categorie=<?php echo $s->nom; ?>" role="button">Plus de details &raquo;</a></p>
             </div>
             
-    </main>
+
             <?php
         }
         
@@ -254,39 +257,45 @@ if(isset($_GET['show'])){
  $top->execute();
 
  ?>
+<section class="topventehidden">
+<hr> <h5 class="text-center ">Top des ventes</h5><br>
+<div class="card-deck">
 
-<hr> <h5 class="text-center">Top des ventes</h5><br>
-     <div class="card-deck">
+<?php
+
+while($tops=$top->fetch(PDO::FETCH_OBJ)){
+
+   ?>
 
 
- <?php
+   <div class="card text-center ">
+     <center><img src="admin/imgs/<?php echo $tops->ID; ?>.jpg" class="card-img" alt="Photo Produit" style="width: 18rem; height: 18rem;"></center>
+     <div class="card-body">
+       <h5 class="card-title "><?php echo $tops->NOM; ?></h5>
+       <a href="?show=<?php echo $tops->NOM; ?>" class="card-link">Voir plus de details</a><br><br>
+       <?php
+                    if($tops->STOCK!=0){?><a  class="btn btn-primary" href="panier.php?action=ajout&amp;l=<?php echo $tops->NOM; ?>&amp;q=1&amp;p=<?php echo $tops->PRIX; ?>">Ajouter au panier</a><br><br>
+                       <?php
+                   }else{
+                       echo'<h5>Stock épuisé ! </h5>';
+                   }
+                   ?>
+     </div>
+   </div>
 
- while($tops=$top->fetch(PDO::FETCH_OBJ)){
-
-    ?>
-
-
-    <div class="card text-center">
-      <center><img src="admin/imgs/<?php echo $tops->ID; ?>.jpg" class="card-img" alt="Photo Produit" style="width: 18rem; height: 18rem;"></center>
-      <div class="card-body">
-        <h5 class="card-title"><?php echo $tops->NOM; ?></h5>
-        <a href="?show=<?php echo $tops->NOM; ?>" class="card-link">Voir plus de details</a><br><br>
-        <?php
-                     if($tops->STOCK!=0){?><a  class="btn btn-primary" href="panier.php?action=ajout&amp;l=<?php echo $tops->NOM; ?>&amp;q=1&amp;p=<?php echo $tops->PRIX; ?>">Ajouter au panier</a><br><br>
-                        <?php
-                    }else{
-                        echo'<h5>Stock épuisé ! </h5>';
-                    }
-                    ?>
-      </div>
-    </div>
 
 
 <?php
- }
+}
 
 ?>
-</div>
+
+</div><br><br>
+</section>
+</main>
+</body>
+
+
 
 <?php
 
@@ -294,4 +303,11 @@ if(isset($_GET['show'])){
 require_once('../elements/footer.php');
 
 ?>
+</html>
+<style>
+    .topventehidden{
+        overflow:hidden;
+    }
 
+
+</style>

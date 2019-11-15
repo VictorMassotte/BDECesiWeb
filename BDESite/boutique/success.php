@@ -88,5 +88,8 @@ $delete->bindValue(':id_user', $id_user, PDO::PARAM_STR);
 $delete->execute();
 
 
+require_once('../elements/footer.php');
+
+
 ?>
 

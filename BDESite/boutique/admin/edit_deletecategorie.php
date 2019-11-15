@@ -14,7 +14,6 @@ if(isset($_SESSION['membre_BDE'])){
 
 ?>
 
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -57,7 +56,7 @@ if(isset ($_GET['action'])){
         $delete->bindValue(':id', $id, PDO::PARAM_STR);
         $delete->execute();
 
-        header('Location: edit_deletecategorie.php');
+        //header('Location: edit_deletecategorie.php');
     }
     
     if($_GET['action'] == 'modify'){
@@ -68,49 +67,55 @@ if(isset ($_GET['action'])){
         $select->execute();
 
         $data = $select->fetch(PDO::FETCH_OBJ);
-        
-    } ?>
 
-    <form method="post" action="">
-    <div class="form-group text-center">
-        <label for="exampleInput">Nom de l'article à modifier : </label>
-        <input value="<?php echo $data->nom; ?>" type="text" class="form-control" name="nom" id="exampleFormControlInput1" placeholder="Le nom de l'article"><br>
-        <button type="submit" name="submit" class="btn btn-primary mb-2">Modifier la categorie</button>
-    </div>
-    </form>
-
-
-
-<?php
-
-if(isset($_POST['submit'])){
+        if(isset($_POST['submit'])){
        
-    $nom = $_POST['nom']; 
+            $nom = $_POST['nom']; 
+        
+            $select = $bdd->prepare("SELECT nom FROM categorie WHERE ID=:id");
+            $select->bindValue(':id', $id, PDO::PARAM_STR);
+            $select->execute();
+        
+            $result = $select->fetch(PDO::FETCH_OBJ);
+        
+            $update = $bdd->prepare("UPDATE categorie SET nom=:nom WHERE ID=:id");
+            $update->bindValue(':nom', $nom, PDO::PARAM_STR);
+            $update->bindValue(':id', $id, PDO::PARAM_STR);
+            $update->execute();
+        
+            $id = $_GET['id'];
+        
+            $update = $bdd->prepare("UPDATE produits SET CATEGORIE=:nom WHERE CATEGORIE=:categorie");
+            $update->bindValue(':nom', $nom, PDO::PARAM_STR);
+            $update->bindValue(':categorie', $result->nom, PDO::PARAM_STR);
+            $update->execute();
 
-    $select = $bdd->prepare("SELECT nom FROM categorie WHERE ID=:id");
-    $select->bindValue(':id', $id, PDO::PARAM_STR);
-    $select->execute();
+           // header("Refresh: 0;url=http://localhost/BDECesiWeb/BDESite/boutique/admin/edit_deletecategorie.php");
+            
 
-    $result = $select->fetch(PDO::FETCH_OBJ);
+        } ?>
 
-    $update = $bdd->prepare("UPDATE categorie SET nom=:nom WHERE ID=:id");
-    $update->bindValue(':nom', $nom, PDO::PARAM_STR);
-    $update->bindValue(':id', $id, PDO::PARAM_STR);
-    $update->execute();
+        <form method="post" action="">
+        <div class="form-group text-center">
+            <label for="exampleInput">Nom de l'article à modifier : </label>
+            <input value="<?php echo $data->nom; ?>" type="text" class="form-control" name="nom" id="exampleFormControlInput1" placeholder="Le nom de l'article"><br>
+            <button type="submit" name="submit" class="btn btn-primary mb-2">Modifier la categorie</button>
+        </div>
+        </form>
 
-    $id = $_GET['id'];
+        <div class="text-center">
+            <a href="edit_deletecategorie.php" class="btn btn-primary ">Actualiser la page</a>
+        </div><br><br>
 
-    $update = $bdd->prepare("UPDATE produits SET CATEGORIE=:nom WHERE CATEGORIE=:categorie");
-    $update->bindValue(':nom', $nom, PDO::PARAM_STR);
-    $update->bindValue(':categorie', $result->nom, PDO::PARAM_STR);
-    $update->execute();
-
-    header('Location: edit_deletecategorie.php');
-    
+        
+    <?php
+        
+    } 
 }
 
-}
+require_once('../../elements/footer.php');
 
 ?>
+</html>
 
 

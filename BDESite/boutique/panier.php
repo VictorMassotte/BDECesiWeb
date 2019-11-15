@@ -219,12 +219,12 @@ if (!$erreur){
          <li class="list-group-item d-flex justify-content-between">
           <span>Total</span>
           <strong><?php echo $stotal->TOTAL."€";?></strong>
-        </li>
+        </li><br>
 
           <?php } ?>
 
             <a href="http://localhost/BDECesiWeb/BDESite/boutique/payment.php" type="submit" name="commander" class="btn btn-primary btn-lg btn-block" >Payer la commande </a>
-         
+            <br><br>
       <?php
          if(isset($_POST['commander'])){
 
@@ -239,5 +239,10 @@ if (!$erreur){
 
     }
 
+
+
 	?>
 </form>
+</html>
+
+<?php require_once('../elements/footer.php'); ?>

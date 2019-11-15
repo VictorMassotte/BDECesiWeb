@@ -72,7 +72,7 @@ CESI – association loi de 1901<br>
 1, avenue du Général de Gaulle – Tour PB5 – 92074 Paris La Défense<br>
 Tél. : +33(0) 1 44 19 23 45 – Fax : +33(0) 1 42 50 25 06<br>
 Déclaration d’activité enregistrée sous le numéro 11 75 47883 75 auprès du Préfet de la région Ile-de-France.<br>
-Cet enregistrement ne vaut pas agrément de l’État.<br>
+Cet enregistrement ne vaut pas agrément de l’État.<br><br><br>
  
  
   </div>

@@ -8,6 +8,11 @@
 
 }
 
+.topventehidden{
+    overflow:hidden;
+}
+
+
 .test{
     text-align: center;
     margin: 10px;
