@@ -1,7 +1,6 @@
 <?php 
 session_start();
 include('../bdd.php'); 
-require_once('../../elements/menu.php'); 
 
 if(isset($_SESSION['membre_BDE'])){
     
@@ -24,8 +23,8 @@ if(isset($_SESSION['membre_BDE'])){
     <link href="../style/boutique.css" rel="stylesheet">
     <title>Menu Admin Boutique</title>
 </head>
+<?php include('../../elements/menu.php'); ?>
 
-<br><br><br>
 <div class="jumbotron">
        <h1 class="display-4">Visuel des articles</h1>
     </div>

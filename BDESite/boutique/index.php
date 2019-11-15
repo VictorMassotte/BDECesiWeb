@@ -21,17 +21,13 @@ if(isset($_SESSION['user_id'])){
     <title>Boutique BDE CESI</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
-    <link href="jumbotron.css" rel="stylesheet">
     <link href="style/boutique.css" rel="stylesheet">
-    <script src="js/recherche.js" type="text/javascript"></script>
 
   </head>
 
 <body>
 <main>
 
-
-<br><br><br>
 <div class="jumbotron">
        <h1 class="display-4">Boutique BDE CESI</h1>
     </div>

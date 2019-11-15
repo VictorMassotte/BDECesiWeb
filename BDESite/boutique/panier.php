@@ -164,13 +164,9 @@ if (!$erreur){
     <title>Boutique BDE CESI</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
-    <link href="jumbotron.css" rel="stylesheet">
     <link href="style/boutique.css" rel="stylesheet">
 
   </head>
-
-
-<br><br><br>
 <div class="jumbotron">
   <div class="container">
     <h1 class="display-3">Boutique du BDE CESI</h1>

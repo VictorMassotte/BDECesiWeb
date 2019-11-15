@@ -18,7 +18,6 @@ if(isset($_SESSION['login'])){
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="css/fonction.css">
         <title>Acceuil</title>
         <!--Boucle qui permet de faire apparaître un popup au chargement de la page puis de le refermer lors du click sur son bouton Accepter-->
         <?php if (isset($_COOKIE['user'])){?>
