@@ -79,7 +79,7 @@ while ($ligne = $response->fetch()) {
             $nom
             </div>
             <div id=\"bouton\" class=\"card-body\">
-            <img src\"$urlimg\" class=\"card-img-top\" alt=\"Image de la manifestation\">
+            <img src=\"../boutique/admin/imgs/".$urlimg."\" class=\"card-img-top\" alt=\"Image de la manifestation\">
             <h5 class=\"card-title\"> Le $dateAffichable</h5>
             <p  class=\"card-text\">$desc</p>
             <button type=\"button\"  class=\"btn btn-outline-primary inscrit".$identifiant."\" id=\"inscrit".$identifiant."-".$nom."\">".$message."</button>

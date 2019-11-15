@@ -91,14 +91,45 @@ if(isset ($_GET['action'])){
         }
 
      ?>
+     <section class="text-center col-md-6 mb-3">
     <form method="POST" action="">
-        <h4>Nom :</h4><input value="<?php echo $data->NOM; ?>" type="text" name="nom"/><br>
-        <h4>Categorie :</h4><input value="<?php echo $data->CATEGORIE; ?>" type="text" name="categorie"/><br>
-        <h4>Description :</h4><textarea name="description"><?php echo $data->DESCRIPTION; ?></textarea><br>
-        <h4>Prix :</h4><input value="<?php echo $data->PRIX; ?>" type="text" name="prix"/><br>
-        <h4>Stock :</h4><input value="<?php echo $data->STOCK; ?>" type="text" name="stock"/><br><br>
-        <input type="submit" name="submit" value="Modifier"/>
+    <div class="form-group">
+        <label for="exampleInput">Nom : </label>
+        <input value="<?php echo $data->NOM; ?>" type="text" class="form-control" name="nom" id="exampleFormControlInput1" placeholder="Le nom du produit">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Description : </label>
+        <textarea rows="3" id="exampleFormControlTextarea1" class="form-control" name="description"><?php echo $data->DESCRIPTION; ?></textarea><br>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Prix :  </label>
+            <input type="text" value="<?php echo $data->PRIX; ?>" class="form-control" name="prix" id="exampleFormControlInput1" placeholder="Le prix du produit">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Categorie : </label>
+        <select class="form-control" name="categorie" id="exampleFormControlSelect1">
+            <?php $select=$bdd->query("SELECT * FROM categorie");
+            while($s = $select->fetch(PDO::FETCH_OBJ)){
+                ?>
+                <option><?php echo $s->nom; ?></option>
+                
+                <?php } ?>
+            </select>
+        </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Categorie du produit en ce moment : <?php echo $data->CATEGORIE; ?></label>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Prix :  </label>
+            <input type="text" value="<?php echo $data->PRIX; ?>" class="form-control" name="prix" id="exampleFormControlInput1" placeholder="Le prix du produit">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Stock :  </label>
+            <input type="text" value="<?php echo $data->STOCK; ?>" class="form-control" name="stock" id="exampleFormControlInput1" placeholder="Le stock du produit">
+    </div>
+    <button type="submit" name="submit" class="btn btn-primary mb-2">Modifier l'article</button>
     </form>
+     </section>
 
 
 <?php
@@ -108,3 +139,4 @@ if(isset ($_GET['action'])){
 }
 
 ?>
+

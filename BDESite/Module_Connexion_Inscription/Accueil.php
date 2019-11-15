@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require_once('../boutique/bdd.php');
 if(isset($_SESSION['login'])){
     
 }else{

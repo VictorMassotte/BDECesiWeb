@@ -13,13 +13,16 @@ if(isset($_SESSION['login'])){
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      
         <script type="text/javascript" src="../js/like.js"></script>
        
+        <script type="text/javascript" src="../js/signalerManif.js"></script>
         <script type="text/javascript" src="../js/signaler.js"></script>
-        
+      
         <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements passés</title>
 </head>
@@ -64,10 +67,7 @@ if( isset($_SESSION['membre_BDE'])){
     </div>";
 }
 
-echo "<div id=\"photo\">
-            <button type=\"button\"  class=\"btn btn-outline-primary photo\" id=\"photo\"><a href=\"listePhoto.php\">Photo</a></button>
-            
-            </div>";
+
 
 while ($ligne = $response->fetch()) {
     
@@ -143,18 +143,24 @@ while ($ligne = $response->fetch()) {
             $nom
             </div>
             <div class=\"card-body\">
-            <img src\"$urlimg\" class=\"card-img-top\" alt=\"Image de la manifestation\">
+            <img src=\"../boutique/admin/imgs/".$urlimg."\" class=\"card-img-top\" alt=\"Image de la manifestation\">
             <h5 class=\"card-title\"> Le $dateAffichable</h5>
             <p class=\"card-text\">$desc</p>
             <p class=\"card-text text-muted\">".$interval->format('il y a %a jours')."<p>
-            </div>
-            
-            <div id=\"bouton\">
+            </div>";
+            if(isset($_SESSION['intervenant_CESI'])){
+                echo "<div id=\"signalerManif\">
+                <button type=\"button\"  class=\"btn btn-outline-primary signalerManif\" id=\"signalerManif".$identifiant."\">Signaler</button>
+                
+                </div>";
+            }
+            echo "<div id=\"bouton\">
             <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."-".$nom."\">".$message."</button>
             <p>".$messagelike."</p>
             </div>
+            
 
-            <div class=\"card-footer\">
+          <div class=\"card-footer\">
             </div>";
             //nous allons faire la partie affichage des commentaires
                 //récupération des commentaires
@@ -207,6 +213,7 @@ while ($ligne = $response->fetch()) {
             echo $com.$identifiant;
         }*/
     }
+   
     foreach($id as $key=>$value){
        //echo $key.$value;
        if (isset($_POST['com'])){
