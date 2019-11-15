@@ -14,20 +14,24 @@ session_destroy();
        
         <style type="text/css">
         body {
-        background: url("https://media.discordapp.net/attachments/491542158164099072/644147980848463912/fond_cesi.png?width=948&height=586");
-        background-repeat: no-repeat;
+        background: url("https://media.discordapp.net/attachments/491542158164099072/644147980848463912/fond_cesi.png?width=948&height=586") no-repeat  center center;
+        background-attachment: fixed;
         background-size: cover;
-        position:fixed;
         }
         #ImageCesiTrois {
-        margin:-700px 0px 0px 0px;     
+            position: absolute;
+    left: 10px;
+    top: 5px;     
         }
         #Reco {
-        margin:400px 0px 0px 700px;
-        padding:0px;    
+            position: absolute; /* postulat de départ */
+            top: 40%; left: 50%; /* à 50%/50% du parent référent */
+            transform: translate(-10%, -50%);
         }
         #Texte{
-        margin: -100px 0px 0px 675px;   
+            position: absolute; /* postulat de départ */
+            top: 50%; left: 50%; /* à 50%/50% du parent référent */
+            transform: translate(-50%, -50%);
         }
         </style>
 

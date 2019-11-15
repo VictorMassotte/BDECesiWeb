@@ -36,7 +36,7 @@ $id_user = ($_SESSION['user_id']);
         <div class="dropdown-menu sousmenu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item  barremenu"   href="http://localhost/BDECesiWeb/BDESite/manifestation/manifpasse.php">Manifestations passées</a>
           <a class="dropdown-item  barremenu" href="http://localhost/BDECesiWeb/BDESite/manifestation/manifavenir.php">Manifestation à venir</a>
-          <a class="dropdown-item  barremenu" href="http://localhost/BDECesiWeb/BDESite/manifestation/listePhoto.php">Liste de toutes les photos</a>
+          <a class="dropdown-item  barremenu" href="http://localhost/BDECesiWeb/BDESite/manifestation/photo.php">Liste de toutes les photos</a>
         </div>
       </li>
 
