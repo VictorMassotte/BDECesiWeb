@@ -1,56 +1,38 @@
-<?php
+
+<?php 
 session_start();
 if(isset($_SESSION['login'])){
     include('../boutique/bdd.php');
 }else{
     header('Location: ../Module_Connexion_Inscription/Connexion.php');
 }
-$identifiant;
-$user = $_SESSION['user_id'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
         <script type="text/javascript" src="../js/signalerPhoto.js"></script>
         <script type="text/javascript" src="../js/likePhoto.js"></script>
         
         <link rel="stylesheet" href="css/fonction.css">
-        <title>Evenements passés</title>
+        <title>Liste</title>
 </head>
 <body>
     <header>
         <!--en tête-->
         <!--menu-->
-    </header>
-
-<h1>Liste des photos</h1>
-<form method="post" enctype="multipart/form-data" action="" >
-<h4>Manifestation</h4>
-<select name="manif" required>
-<?php $rqt = $bdd->query('SELECT manifestations.ID ,NOM,DATEE FROM manifestations INNER JOIN ajouter_photo ON manifestations.ID=ajouter_photo.ID ORDER BY DATEE desc ');
-
-while ($ligne = $rqt->fetch()) {
-    
-    
-    
-    
-    $nom_manif=$ligne['NOM'];
-        echo "<option value=\"".$nom_manif."\">".$nom_manif."</option>";
-}?>
-
-</select> 
-
-<input type="submit" name="submit"/>
-</form>
-<?php
-if(isset($_POST['submit'])){
-$nom = $_POST['manif'];
+        
+        <?php  require_once("../elements/menu.php"); ?>
+    </header><br><br><br>
+    <?php
+$identifiant;
+$id = array();
+$user = $_SESSION['user_id'];
+if(isset($_GET['submit'])){
+$nom = $_GET['manif'];
 $select = $bdd->prepare('SELECT * FROM ajouter_photo INNER JOIN manifestations ON manifestations.ID=ajouter_photo.ID WHERE NOM=:im');
 $select->bindValue(':im', $nom, PDO::PARAM_STR);
 $select->execute();
@@ -73,10 +55,11 @@ while($ligne2=$select->fetch()){
             $rqtSpe->closeCursor();
     
     ?>
-
-    <div class="card" style="width: 18rem;">
+    <div class="card text-center text-white bg-dark">
+    <div class="card-body" style="width: 18rem; margin-left: auto;
+  margin-right: auto;">
     <img src="../boutique/admin/imgs/<?php echo $ligne2['PHOTO']; ?>" class="card-img-top" alt="Photo ">
-   
+    </div>
     <?php  if(isset($_SESSION['intervenant_CESI'])){
         echo "<div id=\"signaler\">
         <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$ligne2['PHOTO']."\">Signaler</button>
@@ -84,12 +67,69 @@ while($ligne2=$select->fetch()){
         </div>";
     }
     echo "<div id=\"bouton\">
-            <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."\">".$message."</button>
+    <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."\">".$message."</button>
+    
+    </div>
+    
+    ";
+
+   echo "<div class=\"card-footer\">
+   </div>";
+   
+   $rqtcom =$bdd->prepare('SELECT * FROM commenterPhoto WHERE id=:id');
+   
+   $rqtcom->bindValue(':id',$identifiant, PDO::PARAM_STR);
+   $rqtcom->execute();
+   
+   while($ligne2=$rqtcom->fetch()){
+    $rqtUser =$bdd->prepare('SELECT * FROM users WHERE id=:id');
+    
+    $rqtUser->bindValue(':id',$ligne2['ID_USERS'], PDO::PARAM_STR);
+    $rqtUser->execute();
+    if ($ligne3=$rqtUser->fetch()){
+        $commentaire = $ligne3['MAIL']." : ".$ligne2['CONTENU']." Le : ".$ligne2['DATEHEURE'];
+        $id_com = $ligne2['ID_COMMENTAIRE'];
+        $id_user = $ligne2['ID_USERS'];
+        
+        echo $commentaire;
+        if(isset($_SESSION['intervenant_CESI'])){
+            echo "<div id=\"signaler\">
+            <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$id_com."\">Signaler</button>
             
             </div>";
-   
+        }
+    }
+}
+echo "
+<form method=\"post\">
+<textarea name=\"contenu".$identifiant."\" cols=\"70\" rows=\"1\" placeholder=\"Entrez votre commentaire\"></textarea>
+<input type=\"submit\" value=\"Envoyer\" name=\"com\"/>
+</form>
+";
+echo "</div><br>";
+$id[]=$identifiant;
+
    
 }
+}
+foreach($id as $key=>$value){
+    //echo $key.$value;
+    if (isset($_POST['com'])){
+        
+        if(!empty($_POST["contenu".$value])){
+            //echo $key.$value;
+            $contenu=$_POST["contenu".$value];
+           
+            // echo $contenu.$value.$key;
+            $identifiant=$value;
+            // echo $identifiant.$user.$contenu;
+            $requete = $bdd->query("INSERT INTO `commenterphoto`(`ID`, `ID_USERS`, `CONTENU`) VALUES (".$identifiant.",".$user.",'".$contenu."')");
+            
+            $contenu ="";
+            header('Location: photo.php');
+            
+        }
+    }
 }
 ?>
  <footer>

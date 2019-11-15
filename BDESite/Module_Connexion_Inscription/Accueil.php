@@ -20,10 +20,17 @@ if(isset($_SESSION['login'])){
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/fonction.css">
         <title>Acceuil</title>
+        <?php if (isset($_COOKIE['user'])){?>
+            <script> $(document).ready(function(){ 
+        $('#exampleModal').modal('hide');
+        });  
+        </script>
+        <?php }else{ ?>
         <script> $(document).ready(function(){ 
         $('#exampleModal').modal('show');
         });  
         </script>
+        <?php }?>
 </head>
 <body id="monbody">
 <form method="POST" action="ScriptAccueil.php">
@@ -43,7 +50,7 @@ En naviguant sur notre site, vous acceptez l'utilisation de cookies de type mark
    </div>
     <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Autres Options</button>
-    <button type="submit" name="Cookiebtn" onclick="$('#exampleModal').modal('hide');" class="btn btn-primary"><a href="#monbody" style="color:white;">Accepter</a></button>
+    <button type="submit" name="Cookiebtn"  class="btn btn-primary">Accepter</button>
    </div>
  </div>
 </div>

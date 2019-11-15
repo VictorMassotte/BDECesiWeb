@@ -44,6 +44,7 @@ $_SESSION['user_id'] = $resultat1['ID'];*/
         $resultat = $requete->fetch();
         $cookie_value=$resultat['MAIL'];
         setcookie('user',$cookie_value, time() + 5*365*24*3600, null, null, false, true); //cookie pour une durée de cinq ans
+        header('Location: Accueil.php');
     }
     }
     else {
