@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(isset($_SESSION['login'])){
-
+    include('../boutique/bdd.php');
 }else{
     header('Location: ../Module_Connexion_Inscription/Connexion.php');
 }
@@ -11,10 +11,7 @@ if(isset($_SESSION['login'])){
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
         <script type="text/javascript" src="../js/inscrit.js"></script>
         <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements à venir</title>
@@ -23,10 +20,11 @@ if(isset($_SESSION['login'])){
     <header>
         <!--en tête-->
         <!--menu-->
+        <?php  require_once("../elements/menu.php"); ?>
     </header>
     <!--corps du site-->
 <?php
-$bdd = new PDO('mysql:host=localhost;dbname=projet_web;charset=utf8', 'root', '');
+
 $response = $bdd->query('SELECT ID,DATEE FROM manifestations ORDER BY DATEE');
 $message =""; 
 while ($ligne = $response->fetch()) {
@@ -78,7 +76,8 @@ while ($ligne = $response->fetch()) {
             <div class=\"card-header\">
             $nom
             </div>
-            <div id=\"bouton\" class=\"card-body\">
+            <div id=\"bouton\" class=\"card-body\" style=\"width: 18rem; margin-left: auto;
+            margin-right: auto;\">
             <img src=\"../boutique/admin/imgs/".$urlimg."\" class=\"card-img-top\" alt=\"Image de la manifestation\">
             <h5 class=\"card-title\"> Le $dateAffichable</h5>
             <p  class=\"card-text\">$desc</p>
