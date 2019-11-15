@@ -3,7 +3,7 @@
 
 require_once('../boutique/admin/bdd.php');
 
-if(isset($_POST['submit'])){
+if(isset($_POST['submit'])){ //Si l'utilisateur appuie sur Connexion...
 
     $mail = $_POST['email'];
     //  Récupération de l'utilisateur et de son pass hashé
@@ -18,14 +18,15 @@ if(isset($_POST['submit'])){
         // Comparaison du pass envoyé via le formulaire avec la base
         $isPasswordCorrect = password_verify($_POST['password'], $resultat['PASSWORD']);
         
-        if ($resultat == false)
+        if ($resultat == false) // Si l'id ne correspond pas avec l'adresse mail rentrée..
         {
             echo 'Mauvais identifiant ou mot de passe !';
         }
         else
         {
-            if ($isPasswordCorrect) {
+            if ($isPasswordCorrect) { //Si le hashage correspond...
                 session_start();
+                //On crée des variables de session qui retiendront les données de l'utilisateurs sur toutes les pages
                 $_SESSION['login'] = true;
                 $_SESSION['user_id'] = $id;
                 $_SESSION['user_Nom'] = $resultat['NOM'];
@@ -33,21 +34,20 @@ if(isset($_POST['submit'])){
                 $_SESSION['user_Status'] = $resultat['STATUS'];
                 $_SESSION['user_Mail'] = $resultat['MAIL'];
 
-                    if( $_SESSION['user_Status'] == 1){
+                    if( $_SESSION['user_Status'] == 1){ //Si l'utilisateur est un élève... 
                         $_SESSION['etudiant'] = true;
-
                         header ('location: Accueil.php');
 
-                    }else if( $_SESSION['user_Status'] == 2){
+                    }else if( $_SESSION['user_Status'] == 2){ //Si l'utilisateur est un membre du BDE... 
                         $_SESSION['membre_BDE'] = true;
                         header ('location: Accueil.php');
 
 
-                    }else if( $_SESSION['user_Status'] == 3){
+                    }else if( $_SESSION['user_Status'] == 3){ //Si l'utilisateur est un Intervenant... 
                         $_SESSION['intervenant_CESI'] = true;
                         header ('location: Accueil.php');
 
-                    }else{
+                    }else{ //Si aucun des status n'a correspond pour x raisons alors on arrête le script et on affiche un message d'erreur
                         die();
                     }
             }

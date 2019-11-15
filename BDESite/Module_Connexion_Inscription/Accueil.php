@@ -20,6 +20,7 @@ if(isset($_SESSION['login'])){
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/fonction.css">
         <title>Acceuil</title>
+        <!--Boucle qui permet de faire apparaître un popup au chargement de la page puis de le refermer lors du click sur son bouton Accepter-->
         <?php if (isset($_COOKIE['user'])){?>
             <script> $(document).ready(function(){ 
         $('#exampleModal').modal('hide');
@@ -33,6 +34,7 @@ if(isset($_SESSION['login'])){
         <?php }?>
 </head>
 <body id="monbody">
+<!--Popup-->
 <form method="POST" action="ScriptAccueil.php">
 <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
 <div class="modal-dialog" id="customPopup" role="document">
