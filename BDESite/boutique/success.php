@@ -31,8 +31,8 @@ $execution = (new \PayPal\Api\PaymentExecution())
 
 try{
   $payment->execute($execution, $apiContext);
-  var_dump($payment->getTransactions()[0]->getCustom());
-  var_dump($payment);
+  // var_dump($payment->getTransactions()[0]->getCustom());
+  // var_dump($payment);
 }catch(\PayPal\Exception\PayPalConnectionException $e){
   var_dump(json_decode($e->getData()));
 }
