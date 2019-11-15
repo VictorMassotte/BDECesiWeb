@@ -19,17 +19,13 @@ if(isset($_SESSION['user_id'])){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>CONDITIONS D'UTILISATION ET GENERALES DE VENTE</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
-    <link href="jumbotron.css" rel="stylesheet">
     <link href="style/boutique.css" rel="stylesheet">
     <script src="js/recherche.js" type="text/javascript"></script>
 
   </head>
 
 <body>
-
-<br><br><br>
 <div class="jumbotron">
        <h1 class="display-4">CONDITIONS D'UTILISATION ET GENERALES DE VENTE</h1>
     </div>

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once('bdd.php');
-require_once('../../elements/menu.php');
+
 
 if(isset($_SESSION['membre_BDE'])){
     
@@ -12,6 +12,7 @@ if(isset($_SESSION['membre_BDE'])){
     header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Connexion.php');
 }
 
+
 ?>
 
 
@@ -21,11 +22,12 @@ if(isset($_SESSION['membre_BDE'])){
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
-    <link href="jumbotron.css" rel="stylesheet">
     <link href="../style/boutique.css" rel="stylesheet">
     
     <title>Menu Admin Boutique</title>
 </head>
+
+<?php include('../../elements/menu.php'); ?>
 
 <body>
     <div class="jumbotron">

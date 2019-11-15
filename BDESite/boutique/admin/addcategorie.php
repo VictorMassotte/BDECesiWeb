@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once('bdd.php');
-require_once('../../elements/menu.php'); 
 
 
 if(isset($_SESSION['membre_BDE'])){
@@ -14,18 +13,17 @@ if(isset($_SESSION['membre_BDE'])){
 }
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
-    <link href="jumbotron.css" rel="stylesheet">
     <link href="../style/boutique.css" rel="stylesheet">
     <title>Menu Admin Boutique</title>
 </head>
-
-<br><br><br>
+<?php include('../../elements/menu.php'); ?>
 <div class="jumbotron">
        <h1 class="display-4">Ajouter une categorie à la boutique</h1>
 </div>
