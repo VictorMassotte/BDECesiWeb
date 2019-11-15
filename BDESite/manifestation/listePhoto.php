@@ -4,7 +4,10 @@ if(isset($_SESSION['login'])){
     include('../boutique/bdd.php');
 }else{
     header('Location: ../Module_Connexion_Inscription/Connexion.php');
-}?>
+}
+$identifiant;
+$user = $_SESSION['user_id'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +18,7 @@ if(isset($_SESSION['login'])){
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/signalerPhoto.js"></script>
-        
+        <script type="text/javascript" src="../js/likePhoto.js"></script>
         
         <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements passés</title>
@@ -36,9 +39,7 @@ while ($ligne = $rqt->fetch()) {
     
     
     
-    $dateactuelle = new DateTime('now');
-    $datetime1 = new DateTime($ligne['DATEE']);
-    $interval = $datetime1->diff($dateactuelle);
+    
     $nom_manif=$ligne['NOM'];
         echo "<option value=\"".$nom_manif."\">".$nom_manif."</option>";
 }?>
@@ -53,17 +54,41 @@ $nom = $_POST['manif'];
 $select = $bdd->prepare('SELECT * FROM ajouter_photo INNER JOIN manifestations ON manifestations.ID=ajouter_photo.ID WHERE NOM=:im');
 $select->bindValue(':im', $nom, PDO::PARAM_STR);
 $select->execute();
-while($ligne2=$select->fetch()){?>
+while($ligne2=$select->fetch()){
+    $identifiant = $ligne2['ID_PHOTO'];
+    $rqtSpe = $bdd->prepare('SELECT * FROM likerphoto WHERE ID_USERS=:idU AND ID=:idM');
+            $rqtSpe->bindValue(':idU',$user, PDO::PARAM_STR);
+            $rqtSpe->bindValue(':idM',$identifiant, PDO::PARAM_STR);
+            $rqtSpe->execute();
+            $row = $rqtSpe->fetch();
+            if($row){  
+                //l'utilisateur à deja liké, on ne fait rien ou on suggère de dislike
+                $message = "Aimé"; 
+            }
+            else{
+                //on envoie la requête dans la bdd
+                $message = "J'aime";
+            }
+            
+            $rqtSpe->closeCursor();
+    
+    ?>
 
     <div class="card" style="width: 18rem;">
     <img src="../boutique/admin/imgs/<?php echo $ligne2['PHOTO']; ?>" class="card-img-top" alt="Photo ">
-    <div class="card-body">
+   
     <?php  if(isset($_SESSION['intervenant_CESI'])){
         echo "<div id=\"signaler\">
         <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$ligne2['PHOTO']."\">Signaler</button>
         
         </div>";
     }
+    echo "<div id=\"bouton\">
+            <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."\">".$message."</button>
+            
+            </div>";
+   
+   
 }
 }
 ?>
