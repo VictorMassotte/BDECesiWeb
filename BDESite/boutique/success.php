@@ -86,6 +86,27 @@ try{
 <?php
 
 $id_user = ($_SESSION['user_id']);
+$select = $bdd->prepare("SELECT * FROM panier WHERE ID_USER =:id_user");
+$select->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+$headers = 'From: projet.webcesi92@gmail.com' ."\r\n".
+'MIME-Version: 1.0' ."\r\n".
+'Content-type: text/html; charset=utf-8';
+
+$rqt = $bdd->prepare('SELECT MAIL from users WHERE STATUS=2');
+$rqt->execute();
+$body;
+while($ligne=$select->fetch()){
+$body .= $ligne['NOM_PRODUIT'].":".$ligne['QUANTITE']."
+";
+}
+while($ligne1=$rqt->fetch()){
+  
+   mail($ligne1['MAIL'], "Paiement",$body, $headers);
+   
+    
+}
+$rqt->closeCursor(); 
+
 $delete = $bdd->prepare("DELETE FROM panier WHERE ID_USER =:id_user");
 $delete->bindValue(':id_user', $id_user, PDO::PARAM_STR);
 $delete->execute();

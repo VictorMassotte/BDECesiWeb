@@ -236,15 +236,11 @@ if(isset($_GET['show'])){
         while($s=$select->fetch(PDO::FETCH_OBJ)){
             
             ?>
-            <div class="container">
-            <div class="row">
-            <div class="col-md-2">
+            <div class="container text-center">
             <h2>
                 <?php echo $s->nom ?>
             </h2>
             <p><a class="btn btn-secondary" href="?categorie=<?php echo $s->nom; ?>" role="button">Plus de details &raquo;</a></p>
-            </div>
-            </div>
             </div>
             
     </main>
@@ -291,7 +287,7 @@ if(isset($_GET['show'])){
 
 ?>
 </div>
-</body>
+</body><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <?php
 

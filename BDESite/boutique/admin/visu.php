@@ -91,7 +91,7 @@ if(isset ($_GET['action'])){
         }
 
      ?>
-     <section class="text-center col-md-6 mb-3">
+<section class="text-center col-md-6 mb-3 ">
     <form method="POST" action="">
     <div class="form-group">
         <label for="exampleInput">Nom : </label>
@@ -139,4 +139,3 @@ if(isset ($_GET['action'])){
 }
 
 ?>
-

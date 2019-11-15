@@ -1,0 +1,35 @@
+.barremenu:hover {
+    background-color: black;
+    color: hsla(39,100%,66%,1);
+  }
+
+  .sousmenu{
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  .allmenu{
+      background-color: black;
+  }
+
+  .textmenu{
+      text-decoration: none;
+      color: white;
+  }
+
+  .textmenu:hover{
+    text-decoration: none;
+    color: hsla(39,100%,66%,1);
+}
+  
+  @font-face {
+      font-family: 'Roboto-Bold';
+      src: url('Roboto-Bold.ttf');
+      src: url('Roboto.ttf');
+      src: url('Roboto-Light.ttf');
+  }
+  
+  
+  body{
+    font-family: 'Roboto-Bold','Roboto';
+}
