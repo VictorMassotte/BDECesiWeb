@@ -66,12 +66,12 @@ $headers = 'From: projet.webcesi92@gmail.com' ."\r\n".
 'Content-type: text/html; charset=utf-8';
 
 
-
+$USERMAIL=$_SESSION['user_Mail'];
 $rqt = $bdd->prepare('SELECT MAIL from users WHERE STATUS=2');
 $rqt->execute();
 
 while($ligne=$select->fetch(PDO::FETCH_OBJ)){
-  $body = "Nom du Produit : ". $ligne->NOM_PRODUIT." Quantité : ".$ligne->QUANTITE." 
+  $body .= "Client : ".$USERMAIL ." Nom du Produit : ". $ligne->NOM_PRODUIT." Quantité : ".$ligne->QUANTITE." 
   ";
 }
 while($ligne1=$rqt->fetch()){
