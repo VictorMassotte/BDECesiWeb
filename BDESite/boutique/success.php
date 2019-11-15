@@ -92,13 +92,13 @@ $headers = 'From: projet.webcesi92@gmail.com' ."\r\n".
 'MIME-Version: 1.0' ."\r\n".
 'Content-type: text/html; charset=utf-8';
 
-$rqt = $bdd->prepare('SELECT MAIL from users WHERE STATUS=2');
-$rqt->execute();
+
 $body;
 while($ligne=$select->fetch()){
-$body .= $ligne['NOM_PRODUIT'].":".$ligne['QUANTITE']."
-";
+$body .= $ligne['NOM_PRODUIT'].":".$ligne['QUANTITE']." ";
 }
+$rqt = $bdd->prepare('SELECT MAIL from users WHERE STATUS=2');
+$rqt->execute();
 while($ligne1=$rqt->fetch()){
   
    mail($ligne1['MAIL'], "Paiement",$body, $headers);
