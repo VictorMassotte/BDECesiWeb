@@ -37,35 +37,6 @@ try{
   var_dump(json_decode($e->getData()));
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -85,31 +56,37 @@ try{
 
 <?php
 
+$body ='';
 $id_user = ($_SESSION['user_id']);
 $select = $bdd->prepare("SELECT * FROM panier WHERE ID_USER =:id_user");
 $select->bindValue(':id_user', $id_user, PDO::PARAM_STR);
+$select->execute();
 $headers = 'From: projet.webcesi92@gmail.com' ."\r\n".
 'MIME-Version: 1.0' ."\r\n".
 'Content-type: text/html; charset=utf-8';
 
 
-$body;
-while($ligne=$select->fetch()){
-$body .= $ligne['NOM_PRODUIT'].":".$ligne['QUANTITE']." ";
+
+$rqt = $bdd->prepare('SELECT MAIL from users WHERE STATUS=2');
+$rqt->execute();
+
+while($ligne=$select->fetch(PDO::FETCH_OBJ)){
+  $body = "Nom du Produit : ". $ligne->NOM_PRODUIT." Quantité : ".$ligne->QUANTITE." 
+  ";
 }
 $rqt = $bdd->prepare('SELECT MAIL from users WHERE STATUS=2');
 $rqt->execute();
 while($ligne1=$rqt->fetch()){
   
-   mail($ligne1['MAIL'], "Paiement",$body, $headers);
-   
-    
+  mail($ligne1['MAIL'], "Paiement",$body, $headers);
+  
 }
-$rqt->closeCursor(); 
 
+$rqt->closeCursor(); 
 $delete = $bdd->prepare("DELETE FROM panier WHERE ID_USER =:id_user");
 $delete->bindValue(':id_user', $id_user, PDO::PARAM_STR);
 $delete->execute();
 
 
 ?>
+
