@@ -28,11 +28,9 @@ if(isset($_SESSION['membre_BDE'])){
 
 <br><br><br>
 <div class="jumbotron">
-       <h1 class="display-4">Boutique BDE CESI</h1>
+       <h1 class="display-4">Ajout d'un produit dans la boutique</h1>
     </div>
 
-
-<h1>Ajout d'un produit</h1>
 <section class="text-center col-md-6 mb-3">
 <form method="post" action="AjoutArticle.php" enctype="multipart/form-data">
     <div class="form-group">
