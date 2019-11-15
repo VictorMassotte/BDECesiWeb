@@ -19,7 +19,7 @@ $(function() {
       data: { id_manifestation: id, manif: nom},
     })
     .done(function (data) {
-      
+    
         
      $(test).html(data);
       successFunction(data); })

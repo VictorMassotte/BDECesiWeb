@@ -12,7 +12,11 @@ if(isset($_SESSION['login'])){
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+       
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
         <script type="text/javascript" src="../js/like.js"></script>
        
         <script type="text/javascript" src="../js/signalerManif.js"></script>
@@ -28,9 +32,9 @@ if(isset($_SESSION['login'])){
         <!--en tête-->
         <!--menu-->
         <?php  require_once("../elements/menu.php"); ?>
-    </header><br><br><br><br>
+    </header>
     <!--corps du site-->
-    <div id="corps">
+   
 <?php
 
 $response = $bdd->query('SELECT ID,DATEE FROM manifestations ORDER BY DATEE desc');
@@ -155,11 +159,10 @@ while ($ligne = $response->fetch()) {
             echo "<div id=\"bouton\">
             <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."-".$nom."\">".$message."</button>
             <p>".$messagelike."</p>
-            </div>
+            </div>";
             
 
-          <div class=\"card-footer\">
-            </div>";
+          
             //nous allons faire la partie affichage des commentaires
                 //récupération des commentaires
             
@@ -179,6 +182,7 @@ while ($ligne = $response->fetch()) {
                 $id_user = $ligne2['ID_USERS'];
                               
                 echo $commentaire;
+                echo "<br>";
                if(isset($_SESSION['intervenant_CESI'])){
                     echo "<div id=\"signaler\">
                     <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$id_com."\">Signaler</button>
@@ -200,9 +204,9 @@ while ($ligne = $response->fetch()) {
             $id[]=$identifiant;
             $manif_Nom[] = $nom;
             
-
+echo"<br>";
         }
-        echo"</div><br>";
+        
         
         
         

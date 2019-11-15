@@ -11,7 +11,11 @@ if(isset($_SESSION['login'])){
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+       
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
         <script type="text/javascript" src="../js/inscrit.js"></script>
         <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements à venir</title>
@@ -28,7 +32,7 @@ if(isset($_SESSION['login'])){
 $response = $bdd->query('SELECT ID,DATEE FROM manifestations ORDER BY DATEE');
 $message =""; 
 while ($ligne = $response->fetch()) {
-    echo"<br>";
+    
     $dateactuelle = new DateTime('now');
     $datetime1 = new DateTime($ligne['DATEE']);
     $interval = $datetime1->diff($dateactuelle);
@@ -88,6 +92,7 @@ while ($ligne = $response->fetch()) {
             </div>
             ";
             $rqt->closeCursor();
+            echo"<br>";
         }else{
             // ne rien faire
         }

@@ -13,7 +13,10 @@ if(isset($_SESSION['login'])){
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+       
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+ 
         <script type="text/javascript" src="../js/signalerPhoto.js"></script>
         <script type="text/javascript" src="../js/likePhoto.js"></script>
         
@@ -26,7 +29,7 @@ if(isset($_SESSION['login'])){
         <!--menu-->
         
         <?php  require_once("../elements/menu.php"); ?>
-    </header><br><br><br>
+    </header>
     <?php
 $identifiant;
 $id = array();
@@ -92,6 +95,7 @@ while($ligne2=$select->fetch()){
         $id_user = $ligne2['ID_USERS'];
         
         echo $commentaire;
+        echo "<br>";
         if(isset($_SESSION['intervenant_CESI'])){
             echo "<div id=\"signaler\">
             <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$id_com."\">Signaler</button>
