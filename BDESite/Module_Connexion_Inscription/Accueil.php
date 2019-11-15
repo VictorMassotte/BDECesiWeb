@@ -52,7 +52,9 @@ En naviguant sur notre site, vous acceptez l'utilisation de cookies de type mark
     <header>
         <!--en tête-->
         <!--menu-->
-        <?php require_once("../elements/menu.php") ?>
+        <?php 
+        require_once("../boutique/bdd.php");
+        require_once("../elements/menu.php"); ?>
     </header>
     
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
