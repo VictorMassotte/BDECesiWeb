@@ -1,6 +1,6 @@
 footer{
     background-color: black;
-    overflow:auto;
+    overflow:hidden;
 }
 
 .ongletblanc{
@@ -21,4 +21,7 @@ footer{
     src: url('Roboto-Bold.ttf');
     src: url('Roboto.ttf');
     src: url('Roboto-Light.ttf');
+}
+.conteneurs{
+    margin-bottom: 50px;
 }

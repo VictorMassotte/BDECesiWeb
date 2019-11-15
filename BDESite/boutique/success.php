@@ -74,6 +74,8 @@ while($ligne=$select->fetch(PDO::FETCH_OBJ)){
   $body .= "Client : ".$USERMAIL ." Nom du Produit : ". $ligne->NOM_PRODUIT." Quantité : ".$ligne->QUANTITE." 
   ";
 }
+$rqt = $bdd->prepare('SELECT MAIL from users WHERE STATUS=2');
+$rqt->execute();
 while($ligne1=$rqt->fetch()){
   
   mail($ligne1['MAIL'], "Paiement",$body, $headers);
