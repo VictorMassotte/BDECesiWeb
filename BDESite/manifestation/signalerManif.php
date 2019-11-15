@@ -10,24 +10,20 @@ if(isset($_SESSION['intervenant_CESI'])){
 if (isset($_POST['ID'])){
    
     
-    $id_com = $_POST['ID'];
-    $rqtSpe = $bdd->prepare('SELECT ID_COMMENTAIRE, CONTENU, users.MAIL FROM `commenter`INNER JOIN `users` ON commenter.ID_USERS=users.ID WHERE ID_COMMENTAIRE=:idc');
+    $id_manif = $_POST['ID'];
+    $rqtSpe = $bdd->prepare('SELECT NOM FROM manifestations WHERE ID=:idm');
     
-    $rqtSpe->bindValue(':idc',$id_com, PDO::PARAM_STR);
+    $rqtSpe->bindValue(':idm',$id_manif, PDO::PARAM_STR);
     $rqtSpe->execute();
-    $contenu;
-    $mail;
-    $com_id;
+    $nom;
     if ($ligne=$rqtSpe->fetch())
     {
         
-        $contenu = $ligne['CONTENU'];
-        $mail = $ligne['MAIL'];
-        $com_id = $ligne['ID_COMMENTAIRE'];
+       $nom = $ligne['NOM'];
     }
    
     $rqtSpe->closeCursor();
-    $body = $com_id." ".$contenu." ".$mail;
+    $body = $nom;
     
     $headers = 'From: projet.webcesi92@gmail.com' ."\r\n".
     'MIME-Version: 1.0' ."\r\n".
@@ -37,8 +33,8 @@ if (isset($_POST['ID'])){
     $rqt->execute();
     while($ligne1=$rqt->fetch()){
       
-       mail($ligne1['MAIL'], "Signalement de commentaire de manifestation",$body, $headers);
-       echo $ligne1['MAIL'];
+       mail($ligne1['MAIL'], "Signalement de manifestation",$body, $headers);
+       
         
     }
     $rqt->closeCursor(); 
