@@ -19,7 +19,7 @@ $id_user = ($_SESSION['user_id']);
  <nav class="navbar navbar-expand-lg fixed-top text-center allmenu">
   <a class="navbar-brand" href="#"><img src="https://cdn.discordapp.com/attachments/641626180298080257/644919171494314006/logo_cesi_blanc.png" class="custom-logo" alt="CESI École d'ingénieurs" width="200" height="65"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <img style="width:30px;height:30px" src="https://cdn.discordapp.com/attachments/495892786277515274/644976116733444096/Logo_menu_deroulant.png" alt="deroulement">
   </button>
 
 
@@ -75,8 +75,5 @@ $id_user = ($_SESSION['user_id']);
   </div>
 </nav>
 
-
-
-<?php require_once('footer.php'); ?>
 
 
