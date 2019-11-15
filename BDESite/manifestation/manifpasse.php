@@ -20,6 +20,8 @@ if(isset($_SESSION['login'])){
       
         <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements passés</title>
+       
+      
 </head>
 <body>
     <header>
@@ -28,6 +30,7 @@ if(isset($_SESSION['login'])){
         <?php  require_once("../elements/menu.php"); ?>
     </header><br><br><br><br>
     <!--corps du site-->
+    <div id="corps">
 <?php
 
 $response = $bdd->query('SELECT ID,DATEE FROM manifestations ORDER BY DATEE desc');
@@ -199,7 +202,7 @@ while ($ligne = $response->fetch()) {
             
 
         }
-        echo"<br>";
+        echo"</div><br>";
         
         
         
