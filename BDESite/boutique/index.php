@@ -287,7 +287,6 @@ if(isset($_GET['show'])){
 
 ?>
 </div>
-</body><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <?php
 
