@@ -47,8 +47,8 @@ $id_user = ($_SESSION['user_id']);
         Panel Admin
         </a>
         <div class="dropdown-menu sousmenu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item  barremenu" href="http://localhost/BDECesiWeb/BDESite/manifestation/manifavenir.php">Administration Manifestation</a>
-          <a class="dropdown-item  barremenu" href="http://localhost/BDECesiWeb/BDESite/manifestation/manifavenir.php">Administration Manifestation</a>
+          <a class="dropdown-item  barremenu" href="http://localhost/BDECesiWeb/BDESite/admin/admin.php">Administration Manifestation</a>
+          <a class="dropdown-item  barremenu" href="http://localhost/BDECesiWeb/BDESite/boutique/admin/admin.php">Administration Boutique</a>
         </div>
       </li>
 
