@@ -6,7 +6,6 @@ if(isset($_SESSION['membre_BDE'])){
     header('Location: ../Module_Connexion_Inscription/Connexion.php');
 }?>
 <h1>Suppresion d'une photo</h1>
-    <!-- on fait un formulaire pour récupérer le nom de la photo à supprimer   -->
     <form method="post" enctype="multipart/form-data" action="suppPhoto.php" >
         <h4>Manifestation</h4>
     <select name="image" required>
@@ -30,9 +29,10 @@ if(isset($_SESSION['membre_BDE'])){
     $photo = $_POST['image'];
     echo $photo;
     $rqtDelete = $bdd->query("DELETE FROM `ajouter_photo` WHERE PHOTO='".$photo."'");
-   
+   // $rqtDelete->bindValue(':photo',$photo, PDO::PARAM_STR);
+    //$rqtDelete->execute();
     $rqtDelete->closeCursor();
-    header('Location: ../manifestation/manifpasse.php');
+    header('Location: manifpasse.php');
     
     }
     

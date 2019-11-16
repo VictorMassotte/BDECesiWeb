@@ -25,6 +25,8 @@ if(isset($_SESSION['login'])){
 </head>
 <body>
     <header>
+        <!--en tête-->
+        <!--menu-->
         
         <?php  require_once("../elements/menu.php"); ?>
     </header>
@@ -62,8 +64,8 @@ while($ligne2=$select->fetch()){
     <img src="../boutique/admin/imgs/<?php echo $ligne2['PHOTO']; ?>" class="card-img-top" alt="Photo ">
     </div>
     <?php  if(isset($_SESSION['intervenant_CESI'])){
-        echo "<div id=\"signalerPhoto\">
-        <button type=\"button\"  class=\"btn btn-outline-primary signalerPhoto\" id=\"signalerPhoto".$ligne2['PHOTO']."\">Signaler</button>
+        echo "<div id=\"signaler\">
+        <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$ligne2['PHOTO']."\">Signaler</button>
         
         </div>";
     }
@@ -115,15 +117,16 @@ $id[]=$identifiant;
 }
 }
 foreach($id as $key=>$value){
-    
+    //echo $key.$value;
     if (isset($_POST['com'])){
         
         if(!empty($_POST["contenu".$value])){
-            
+            //echo $key.$value;
             $contenu=$_POST["contenu".$value];
            
+            // echo $contenu.$value.$key;
             $identifiant=$value;
-            
+            // echo $identifiant.$user.$contenu;
             $requete = $bdd->query("INSERT INTO `commenterphoto`(`ID`, `ID_USERS`, `CONTENU`) VALUES (".$identifiant.",".$user.",'".$contenu."')");
             
             $contenu ="";
@@ -132,8 +135,9 @@ foreach($id as $key=>$value){
         }
     }
 }
-require_once("../elements/footer.php");
 ?>
- 
+ <footer>
+        <!--pied de page-->
+    </footer>
 </body>
 </html>

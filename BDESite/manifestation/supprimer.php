@@ -24,7 +24,7 @@ if(isset($_SESSION['membre_BDE'])){
    // $rqtDelete->bindValue(':photo',$photo, PDO::PARAM_STR);
     //$rqtDelete->execute();
     $rqtDelete->closeCursor();
-    header('Location: ../manifestation/manifpasse.php');
+    header('Location: manifpasse.php');
     }else{
         //header('Location:supprimer.php');
         echo "renseignez un id valide";

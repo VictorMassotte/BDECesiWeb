@@ -1,10 +1,10 @@
 $(function() {
   
-    $('#signalerPhoto button').click(function(){
+    $('#signaler button').click(function(){
         
       var x = $(this).attr('id');
       
-      x = x.replace('signalerPhoto', '');
+      x = x.replace('signaler', '');
       
      
      

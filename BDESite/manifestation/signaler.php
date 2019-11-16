@@ -11,7 +11,6 @@ if (isset($_POST['ID'])){
    
     
     $id_com = $_POST['ID'];
-    //on récupère les informations du commentaire et la personne qui l'a posté
     $rqtSpe = $bdd->prepare('SELECT ID_COMMENTAIRE, CONTENU, users.MAIL FROM `commenter`INNER JOIN `users` ON commenter.ID_USERS=users.ID WHERE ID_COMMENTAIRE=:idc');
     
     $rqtSpe->bindValue(':idc',$id_com, PDO::PARAM_STR);
@@ -29,7 +28,7 @@ if (isset($_POST['ID'])){
    
     $rqtSpe->closeCursor();
     $body = $com_id." ".$contenu." ".$mail;
-    //on envoie le mail à tous les membres du bde
+    
     $headers = 'From: projet.webcesi92@gmail.com' ."\r\n".
     'MIME-Version: 1.0' ."\r\n".
     'Content-type: text/html; charset=utf-8';
@@ -48,5 +47,5 @@ if (isset($_POST['ID'])){
 }
 
 
-
+//header('Location: manifpasse.php');
 ?>

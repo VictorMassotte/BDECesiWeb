@@ -17,7 +17,7 @@ if(isset($_SESSION['login'])){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
         <script type="text/javascript" src="../js/inscrit.js"></script>
-        <link rel="stylesheet" href="css/fonction.css">
+        <link rel="stylesheet" href="../css/manifavenir.css">
         <title>Evenements à venir</title>
 </head>
 <body>
@@ -27,6 +27,9 @@ if(isset($_SESSION['login'])){
         <?php  require_once("../elements/menu.php"); ?>
     </header>
     <!--corps du site-->
+    <div class="jumbotron">
+            <br><br><br> <h1 class="display-4">Manifestations à venir</h1>
+        </div>
 <?php
 
 $response = $bdd->query('SELECT ID,DATEE FROM manifestations ORDER BY DATEE');
@@ -36,7 +39,6 @@ while ($ligne = $response->fetch()) {
     $dateactuelle = new DateTime('now');
     $datetime1 = new DateTime($ligne['DATEE']);
     $interval = $datetime1->diff($dateactuelle);
-    //on fait une condition pour savoir s'il s'agit d'une manifestation passé ou à venir
         if($interval->format('%R%a')<0){
             $rqt = $bdd->prepare('SELECT * FROM manifestations WHERE ID=:id');
             $rqt->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
@@ -65,11 +67,11 @@ while ($ligne = $response->fetch()) {
             $rqtSpe->execute();
             $ligne = $rqtSpe->fetch();
             if($ligne){  
-                //l'utilisateur est déjà inscrit
+                //l'utilisateur à deja liké, on ne fait rien ou on suggère de dislike
                 $message = "Inscrit"; 
             }
             else{
-                //l'utilisateur n'est pas inscrit
+                //on envoie la requête dans la bdd
                 $message = "Je m'inscrit";
             }  
             
@@ -77,7 +79,7 @@ while ($ligne = $response->fetch()) {
             $rqtSpe->closeCursor();
 
             echo "
-            <div class=\"card text-center text-white bg-dark\">
+            <div class=\"card text-center bg-light marge\">
             <div class=\"card-header\">
             $nom
             </div>
@@ -93,15 +95,15 @@ while ($ligne = $response->fetch()) {
             </div>
             ";
             $rqt->closeCursor();
-            echo"<br>";
         }else{
             // ne rien faire
         }
     }
     $response->closeCursor();
-    require_once("../elements/footer.php");
 ?>
-    
+    <footer>
+        <?php require_once('../elements/footer.php'); ?>
+    </footer>
 </body>
 </html>
 

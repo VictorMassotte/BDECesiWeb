@@ -49,12 +49,21 @@ $user_Prenom = $_SESSION['user_Prenom'];;
 $user_Mail=$_SESSION['user_Mail'];;
 $message ="";
 $messagelike = "";
-
 echo "<div id=\"ajout\">
     <button type=\"button\"  class=\"btn btn-outline-primary ajout\" id=\"ajout\"><a href=\"ajout.php\">Poster une photo</a></button>
     
     </div>";
-if (isset($_SESSION['intervenant_CESI'])){
+if( isset($_SESSION['membre_BDE'])){
+    
+    echo "<div id=\"suppPhoto\">
+    <button type=\"button\"  class=\"btn btn-outline-primary suppPhoto\" id=\"suppPhoto\"><a href=\"suppPhoto.php\">Supprimer une photo</a></button>
+    
+    </div>";
+    echo "<div id=\"suppCommentaire\">
+    <button type=\"button\"  class=\"btn btn-outline-primary suppCommentaire\" id=\"suppCommentaire\"><a href=\"supprimer.php\">Supprimer un commentaire</a></button>
+    
+    </div>";
+}elseif (isset($_SESSION['intervenant_CESI'])){
     echo "<div id=\"télécharger\">
     <button type=\"button\"  class=\"btn btn-outline-primary télécharger\" id=\"télécharger\"><a href=\"télécharger.php\">Télécharger les photos</a></button>
     
@@ -67,7 +76,6 @@ while ($ligne = $response->fetch()) {
     $dateactuelle = new DateTime('now');
     $datetime1 = new DateTime($ligne['DATEE']);
     $interval = $datetime1->diff($dateactuelle);
-    //on fait une condition pour savoir s'il s'agit d'une manifestation passé ou à venir
         if($interval->format('%R%a')<0){
             // ne rien faire
         }else{
@@ -202,18 +210,22 @@ echo"<br>";
         
         
         
-     
+        /*if(isset($identifiant) AND isset($nom) AND !empty($contenu) AND !empty($identifiant) AND !empty($nom)){
+            $com=htmlspecialchars($contenu);
+            echo $com.$identifiant;
+        }*/
     }
    
     foreach($id as $key=>$value){
-       
+       //echo $key.$value;
        if (isset($_POST['com'])){
         if(!empty($_POST["contenu".$value])){
-            
+            //echo $key.$value;
             $contenu=$_POST["contenu".$value];
             
+           // echo $contenu.$value.$key;
             $identifiant=$value;
-            //on appelle une procédure stockée pour remplir la table commenter
+
             $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Mail."', '".$contenu."')");
 
             $contenu ="";
@@ -226,10 +238,12 @@ echo"<br>";
     $rqt->closeCursor();
     $response->closeCursor();
     
-    require_once("../elements/footer.php");
+
  ?>
        
-    
+    <footer>
+        <!--pied de page-->
+    </footer>
 </body>
 </html>
 

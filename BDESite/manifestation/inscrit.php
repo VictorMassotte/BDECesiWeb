@@ -10,14 +10,14 @@ if(isset($_SESSION['login'])){
     //get l'utilisateur (id)($user)
     $user=$_SESSION['user_id'];
     
-    
+    //Gauthier Sannier
     $user_mail = $_SESSION['user_Mail'];
     //get la manifestation (id)($manif)
-    $manif=$_POST['id_manifestation'];
+    $manif=$_POST['id_manifestation'];//vente de crêpes
     $manif_Nom=$_POST['manif'];
     
 
-    //on récupère la table des inscrits
+    //on récupère la table des like qui relative à notre utilisateur
     $rqtSpe = $bdd->prepare('SELECT * FROM inscrire WHERE ID_USERS=:idU AND ID=:idM');
     $rqtSpe->bindValue(':idU',$user, PDO::PARAM_STR);
     $rqtSpe->bindValue(':idM',$manif, PDO::PARAM_STR);
@@ -31,7 +31,7 @@ if(isset($_SESSION['login'])){
         $rqtSpe->bindValue(':idM',$manif, PDO::PARAM_STR);
         $rqtSpe->bindValue(':idU',$user, PDO::PARAM_STR);
         $rqtSpe->execute();
-        //l'utilisateur est déjà inscrit, on le désinscrit
+        //l'utilisateur à deja liké, on ne fait rien ou on suggère de dislike
         $message = "Je m'inscrit";
         echo $message;
         
@@ -40,7 +40,6 @@ if(isset($_SESSION['login'])){
     }
     else{
     //on envoie la requête dans la bdd
-    //on inscrit l'utilisateur
     $rqtInsertion = $bdd->exec("CALL inscription('".$manif_Nom."', '".$user_mail."')");
     $message = "Inscrit";
     echo $message;
