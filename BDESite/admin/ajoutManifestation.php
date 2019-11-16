@@ -11,6 +11,7 @@ if(isset($_SESSION['login'])){
         //fonction poster manifestation
         //génération d'un formulaire en method post qui permet d'entrer les valeurs de la manifestation à ajouter
            echo"
+           a
         <form method=\"post\" action=\"ajoutManifestation.php\" enctype=\"multipart/form-data\">
             <label for=\"nom\">Nom de la manifestation</label><input type=\"text\" name=\"nom\"><br>
             <label for=\"descr\">Description</label><textarea name=\"descr\" rows=\"1\" cols=\"40\"></textarea><br>
