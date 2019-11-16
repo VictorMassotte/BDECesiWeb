@@ -5,7 +5,7 @@ if(isset($_SESSION['membre_BDE'])){
 }else{
     header('Location: ../Module_Connexion_Inscription/Connexion.php');
 }?>
-<h1>Suppresion d'une photo</h1>
+<h1>Suppresion d'un commentaire</h1>
     <form method="post" enctype="multipart/form-data" action="supprimer.php" >
         <h4>Commentaire</h4>
         <input type="number" name="id"/>
@@ -24,7 +24,7 @@ if(isset($_SESSION['membre_BDE'])){
    // $rqtDelete->bindValue(':photo',$photo, PDO::PARAM_STR);
     //$rqtDelete->execute();
     $rqtDelete->closeCursor();
-    header('Location: manifpasse.php');
+    header('Location: admin.php');
     }else{
         //header('Location:supprimer.php');
         echo "renseignez un id valide";

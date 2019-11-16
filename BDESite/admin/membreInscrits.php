@@ -1,16 +1,36 @@
 <?php
 session_start();
-if(isset($_SESSION['login'])){
-    include('../boutique/bdd.php');
-}else{
-    header('Location: ../Module_Connexion_Inscription/Connexion.php');
-}
-   
-echo "<h1> Lister les membres inscrits pour une manifestation</h1>";
-?>
-<form method="post" action="membreInscrits.php">
-    <select name="manif">
+require_once('../boutique/bdd.php');
+
+if(isset($_SESSION['membre_BDE'])){
     
+}elseif((isset($_SESSION['etudiant'])) || (isset($_SESSION['intervenant_CESI']))){
+    header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Accueil.php');
+
+}else{
+    header('Location: http://localhost/BDECesiWeb/BDESite/Module_Connexion_Inscription/Connexion.php');
+}
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
+    <link href="jumbotron.css" rel="stylesheet">
+    <link href="../style/boutique.css" rel="stylesheet">
+    <title>Menu Admin Boutique</title>
+</head>
+<?php include('../elements/menu.php'); ?>
+<div class="jumbotron">
+       <h1 class="display-4">Ajout d'un produit dans la boutique</h1>
+    </div>
+
+<section class="text-center col-md-6 mb-3">
+<form method="post" enctype="multipart/form-data">
+        <label for="exampleFormControlSelect1">Manifestation : </label>
+        <select class="form-control" name="manif" id="exampleFormControlSelect1">
     <!--on récupère sous forme d'une liste déroulante l'ensemble des manifestations à venir-->
     <?php
         $listeManif = $bdd->query("SELECT * FROM manifestations");
@@ -27,9 +47,16 @@ echo "<h1> Lister les membres inscrits pour une manifestation</h1>";
             }  
         }
     ?>
-    </select>
-    <input type="submit" name="envoyer">    
+
+        </select>
+        <br>
+        <input type="submit" name="envoyer" class="btn btn-primary mb-2">   
 </form>
+</section>
+<footer>
+   <?php include_once('../elements/footer.php');?>
+</footer>
+</html>
 
 <?php
     if(isset($_POST['envoyer'])&&isset($_POST['manif'])){
@@ -58,8 +85,6 @@ echo "<h1> Lister les membres inscrits pour une manifestation</h1>";
             }
         if($i==-1){
             echo "il n'y a pas d'incrits";
-        }else{
-           echo "<br> fin de liste";
         }
         echo "<br> fin de liste";
         fputcsv($fichier_csv, $info, ';');
