@@ -53,17 +53,7 @@ echo "<div id=\"ajout\">
     <button type=\"button\"  class=\"btn btn-outline-primary ajout\" id=\"ajout\"><a href=\"ajout.php\">Poster une photo</a></button>
     
     </div>";
-if( isset($_SESSION['membre_BDE'])){
-    
-    echo "<div id=\"suppPhoto\">
-    <button type=\"button\"  class=\"btn btn-outline-primary suppPhoto\" id=\"suppPhoto\"><a href=\"suppPhoto.php\">Supprimer une photo</a></button>
-    
-    </div>";
-    echo "<div id=\"suppCommentaire\">
-    <button type=\"button\"  class=\"btn btn-outline-primary suppCommentaire\" id=\"suppCommentaire\"><a href=\"supprimer.php\">Supprimer un commentaire</a></button>
-    
-    </div>";
-}elseif (isset($_SESSION['intervenant_CESI'])){
+if (isset($_SESSION['intervenant_CESI'])){
     echo "<div id=\"télécharger\">
     <button type=\"button\"  class=\"btn btn-outline-primary télécharger\" id=\"télécharger\"><a href=\"télécharger.php\">Télécharger les photos</a></button>
     
