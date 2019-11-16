@@ -30,52 +30,36 @@ if(isset($_SESSION['membre_BDE'])){
 <?php include('../../elements/menu.php'); ?>
 
 <body>
-    <div class="jumbotron">
-        <br><br><br> <h1 class="display-4">Panal Administration de la Boutique</h1>
-    </div>
     
     <main>
-        
+        <div class="jumbotron">
+            <br><br><br> <h1 class="display-4">Panel Administration de la Boutique</h1>
+        </div>
+        <!--les boutons-->
+            <div class="text-center" style="margin-bottom: 124px;margin-top: 100px;">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Les articles
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="AjoutArticle.php">Ajouter un article</a>
+                    <a class="dropdown-item" href="visu.php">Modifier / Supprimer un article</a>
+                  </div>
+                </div>
+                    <!--autre bouton problème de différentiation des deux dropdown le premier prévalois sur le second-->
+                <div class="btn-group"> 
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Les catégories
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="addcategorie.php">Ajouter une catégorie</a>
+                    <a class="dropdown-item" href="edit_deletecategorie.php">Modifier / Supprimer une catégorie</a>
+                  </div>
+                </div>
+            </div>
         <div>
-        <p class="text-center">
-            <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Les Articles</a>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Les categories</button>
-        </p>
-        
-        <div class="row test">
-            <div class="col">
-                <div class="collapse multi-collapse" id="multiCollapseExample1">
-                    <div class="card card-body">
-                        <a href="AjoutArticle.php">Ajouter un article</a>
-                        <a href="visu.php">Modifier / Supprimer un article</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="collapse multi-collapse" id="multiCollapseExample2">
-                    <div class="card card-body">
-                        <a href="addcategorie.php">Ajouter une categorie</a>
-                        <a href="edit_deletecategorie.php">Modifier / Supprimer une categorie</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-               
-        <div class="collapse" id="collapseArticle">
-            <div class="card card-body">
-                
-            </div>
-        </div>
-        <br>
-        
-        <div class="collapse" id="collapseCategorie">
-            <div class="card card-body">
-                <a href="addcategorie.php">Ajouter une categorie</a><br>
-                <a href="edit_deletecategorie.php">Modifier / Supprimer une categorie</a><br>
-            </div>
-        </div>
     </main>
+    <?php require_once('../../elements/footer.php'); ?>
 </body>
 </html>
 <style>
@@ -84,7 +68,6 @@ if(isset($_SESSION['membre_BDE'])){
     }
 
 </style>
-<?php require_once('../../elements/footer.php'); ?>
 
 
 
