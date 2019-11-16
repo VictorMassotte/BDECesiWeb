@@ -27,6 +27,9 @@ if(isset($_SESSION['login'])){
         <?php  require_once("../elements/menu.php"); ?>
     </header>
     <!--corps du site-->
+    <div class="jumbotron">
+            <br><br><br> <h1 class="display-4">Manifestations à venir</h1>
+        </div>
 <?php
 
 $response = $bdd->query('SELECT ID,DATEE FROM manifestations ORDER BY DATEE');
