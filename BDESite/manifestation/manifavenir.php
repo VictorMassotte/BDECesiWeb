@@ -17,7 +17,7 @@ if(isset($_SESSION['login'])){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
         <script type="text/javascript" src="../js/inscrit.js"></script>
-        <link rel="stylesheet" href="css/fonction.css">
+        <link rel="stylesheet" href="../css/manifavenir.css">
         <title>Evenements à venir</title>
 </head>
 <body>
@@ -76,7 +76,7 @@ while ($ligne = $response->fetch()) {
             $rqtSpe->closeCursor();
 
             echo "
-            <div class=\"card text-center text-white bg-dark\">
+            <div class=\"card text-center bg-light marge\">
             <div class=\"card-header\">
             $nom
             </div>
@@ -92,7 +92,6 @@ while ($ligne = $response->fetch()) {
             </div>
             ";
             $rqt->closeCursor();
-            echo"<br>";
         }else{
             // ne rien faire
         }
@@ -100,7 +99,7 @@ while ($ligne = $response->fetch()) {
     $response->closeCursor();
 ?>
     <footer>
-        <!--pied de page-->
+        <?php require_once('../elements/footer.php'); ?>
     </footer>
 </body>
 </html>
