@@ -11,30 +11,21 @@
       <div class="col-6 col-md">
         <h5>Boutique</h5>
         <ul class="list-unstyled text-small ongletblanc">
-          <li><a class="ongletblanc" href="#">Cool stuff</a></li>
-          <li><a class="ongletblanc" href="#">Random feature</a></li>
-          <li><a class="ongletblanc" href="#">Team feature</a></li>
-          <li><a class="ongletblanc" href="#">Stuff for developers</a></li>
-          <li><a class="ongletblanc" href="#">Another one</a></li>
-          <li><a class="ongletblanc" href="#">Last time</a></li>
+          <li><a class="ongletblanc" href="http://localhost/BDECesiWeb/BDESite/boutique/">Le shop</a></li>
         </ul>
       </div>
       <div class="col-6 col-md">
         <h5>Manifestations</h5>
         <ul class="list-unstyled text-small ongletblanc">
-          <li><a class="ongletblanc" href="#">Manifestations passées</a></li>
-          <li><a class="ongletblanc" href="#">Manifestations à venir</a></li>
-          <li><a class="ongletblanc" href="#">Another resource</a></li>
-          <li><a class="ongletblanc" href="#">Final resource</a></li>
+          <li><a class="ongletblanc" href="http://localhost/BDECesiWeb/BDESite/manifestation/manifpasse.php">Manifestations passées</a></li>
+          <li><a class="ongletblanc" href="http://localhost/BDECesiWeb/BDESite/manifestation/manifavenir.php">Manifestations à venir</a></li>
+          <li><a class="ongletblanc" href="http://localhost/BDECesiWeb/BDESite/manifestation/photo.php">Liste de toutes les photos</a></li>
         </ul>
       </div>
       <div class="col-6 col-md">
         <h5>Contact</h5>
         <ul class="list-unstyled text-small ongletblanc">
-          <li><a class="ongletblanc" href="#">Team</a></li>
-          <li><a class="ongletblanc" href="#">Locations</a></li>
-          <li><a class="ongletblanc" href="#">Privacy</a></li>
-          <li><a class="ongletblanc" href="#">Terms</a></li>
+          <li><a class="ongletblanc" href="#">Nous contacter</a></li><!--à completer-->
         </ul>
       </div>
     </div>

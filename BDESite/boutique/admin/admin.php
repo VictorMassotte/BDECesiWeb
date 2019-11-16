@@ -36,7 +36,7 @@ if(isset($_SESSION['membre_BDE'])){
             <br><br><br> <h1 class="display-4">Panel Administration de la Boutique</h1>
         </div>
         <!--les boutons-->
-            <div class="text-center" style="margin-bottom: 124px;margin-top: 100px;">
+            <div class="text-center" style="margin-bottom: 187px;margin-top: 100px;">
                 <div class="btn-group">
                   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Les articles
