@@ -20,24 +20,21 @@ $zip = new ZipArchive();
         foreach($photo as $key=>$photos){
             foreach($files1 as $key1=>$files){
                 if ($photos == $files){
+
                     $files = $chemin.$files;
-                   
+                   //on remplit l'archive
                     $zip->addFile($files);
                     
                 }
             }
         }
         $zip->extractTo('.');
-        
+        //on l'extrait
 	
-	// Ajout d’un fichier.
-	
-	
-	// Ajout direct.
 	
         // Et on referme l'archive.
     $zip->close();
-    
+    //la redirection provoque le télechargement
     header('Location: Zip.zip');
 
    
