@@ -17,7 +17,7 @@ if(isset($_SESSION['login'])){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
         <script type="text/javascript" src="../js/inscrit.js"></script>
-        <link rel="stylesheet" href="../css/manifavenir.css">
+        <link rel="stylesheet" href="css/fonction.css">
         <title>Evenements à venir</title>
 </head>
 <body>
@@ -27,11 +27,7 @@ if(isset($_SESSION['login'])){
         <?php  require_once("../elements/menu.php"); ?>
     </header>
     <!--corps du site-->
-    <div class="jumbotron">
-            <br><br><br> <h1 class="display-4">Manifestations à venir</h1>
-        </div>
 <?php
-
 $response = $bdd->query('SELECT ID,DATEE FROM manifestations ORDER BY DATEE');
 $message =""; 
 while ($ligne = $response->fetch()) {
@@ -39,6 +35,7 @@ while ($ligne = $response->fetch()) {
     $dateactuelle = new DateTime('now');
     $datetime1 = new DateTime($ligne['DATEE']);
     $interval = $datetime1->diff($dateactuelle);
+    //on fait une condition pour savoir s'il s'agit d'une manifestation passé ou à venir
         if($interval->format('%R%a')<0){
             $rqt = $bdd->prepare('SELECT * FROM manifestations WHERE ID=:id');
             $rqt->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
@@ -60,26 +57,24 @@ while ($ligne = $response->fetch()) {
             
             $urlimg=$reponse['IMAGE'];
             $user =$_SESSION['user_id'];
-
             $rqtSpe = $bdd->prepare('SELECT * FROM inscrire WHERE ID_USERS=:idU AND ID=:idM');
             $rqtSpe->bindValue(':idU',$user, PDO::PARAM_STR);
             $rqtSpe->bindValue(':idM',$identifiant, PDO::PARAM_STR);
             $rqtSpe->execute();
             $ligne = $rqtSpe->fetch();
             if($ligne){  
-                //l'utilisateur à deja liké, on ne fait rien ou on suggère de dislike
+                //l'utilisateur est déjà inscrit
                 $message = "Inscrit"; 
             }
             else{
-                //on envoie la requête dans la bdd
+                //l'utilisateur n'est pas inscrit
                 $message = "Je m'inscrit";
             }  
             
             
             $rqtSpe->closeCursor();
-
             echo "
-            <div class=\"card text-center bg-light marge\">
+            <div class=\"card text-center text-white bg-dark\">
             <div class=\"card-header\">
             $nom
             </div>
@@ -95,15 +90,14 @@ while ($ligne = $response->fetch()) {
             </div>
             ";
             $rqt->closeCursor();
+            echo"<br>";
         }else{
             // ne rien faire
         }
     }
     $response->closeCursor();
+    require_once("../elements/footer.php");
 ?>
-    <footer>
-        <?php require_once('../elements/footer.php'); ?>
-    </footer>
+    
 </body>
 </html>
-

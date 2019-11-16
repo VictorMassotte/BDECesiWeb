@@ -12,7 +12,7 @@ if (isset($_POST['ID'])){
     
     $id_manif = $_POST['ID'];
     $rqtSpe = $bdd->prepare('SELECT NOM FROM manifestations WHERE ID=:idm');
-    
+    //on récupère le nom de la manifestation à envoyer
     $rqtSpe->bindValue(':idm',$id_manif, PDO::PARAM_STR);
     $rqtSpe->execute();
     $nom;
@@ -24,7 +24,7 @@ if (isset($_POST['ID'])){
    
     $rqtSpe->closeCursor();
     $body = $nom;
-    
+    //on envoie le mail à tous les membres du bde
     $headers = 'From: projet.webcesi92@gmail.com' ."\r\n".
     'MIME-Version: 1.0' ."\r\n".
     'Content-type: text/html; charset=utf-8';
@@ -41,7 +41,4 @@ if (isset($_POST['ID'])){
     
     
 }
-
-
-//header('Location: manifpasse.php');
 ?>

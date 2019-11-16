@@ -36,11 +36,8 @@ if(isset($_SESSION['login'])){
     <!--corps du site-->
    
 <?php
-
 $response = $bdd->query('SELECT ID,DATEE FROM manifestations ORDER BY DATEE desc');
-
 $id = array();
-
 $nom;
 $manif_Nom= array();
 $identifiant;
@@ -59,13 +56,13 @@ if (isset($_SESSION['intervenant_CESI'])){
     
     </div>";
 }
-
 while ($ligne = $response->fetch()) {
     
    
     $dateactuelle = new DateTime('now');
     $datetime1 = new DateTime($ligne['DATEE']);
     $interval = $datetime1->diff($dateactuelle);
+    //on fait une condition pour savoir s'il s'agit d'une manifestation passé ou à venir
         if($interval->format('%R%a')<0){
             // ne rien faire
         }else{
@@ -85,7 +82,6 @@ while ($ligne = $response->fetch()) {
             $identifiant=$reponse['ID'];
             
             $nom=$reponse['NOM'];
-
             
             $desc=$reponse['DESCRIPTION'];
             
@@ -93,7 +89,6 @@ while ($ligne = $response->fetch()) {
             
             $urlimg=$reponse['IMAGE'];
             $user = $_SESSION['user_id'];
-
             $rqtSpe = $bdd->prepare('SELECT * FROM liker WHERE ID_USERS=:idU AND ID=:idM');
             $rqtSpe->bindValue(':idU',$user, PDO::PARAM_STR);
             $rqtSpe->bindValue(':idM',$identifiant, PDO::PARAM_STR);
@@ -109,7 +104,6 @@ while ($ligne = $response->fetch()) {
             }
             
             $rqtSpe->closeCursor();
-
             //partie comptage de likes
             $rqtNbLike = $bdd->prepare('SELECT COUNT(ID_USERS) AS NBLIKE FROM liker WHERE ID=:idM');
             $rqtNbLike->bindValue(':idM',$identifiant, PDO::PARAM_STR);
@@ -151,7 +145,6 @@ while ($ligne = $response->fetch()) {
             <p>".$messagelike."</p>
             </div>";
             
-
           
             //nous allons faire la partie affichage des commentaires
                 //récupération des commentaires
@@ -160,7 +153,6 @@ while ($ligne = $response->fetch()) {
             
             $rqtcom->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
             $rqtcom->execute();
-
             while($ligne2=$rqtcom->fetch()){
                 $rqtUser =$bdd->prepare('SELECT * FROM users WHERE id=:id');
             
@@ -187,7 +179,6 @@ while ($ligne = $response->fetch()) {
             <input type=\"submit\" value=\"Envoyer\" name=\"com\"/>
             </form>
             ";
-
             echo"
             </div>
             ";
@@ -200,24 +191,19 @@ echo"<br>";
         
         
         
-        /*if(isset($identifiant) AND isset($nom) AND !empty($contenu) AND !empty($identifiant) AND !empty($nom)){
-            $com=htmlspecialchars($contenu);
-            echo $com.$identifiant;
-        }*/
+     
     }
    
     foreach($id as $key=>$value){
-       //echo $key.$value;
+       
        if (isset($_POST['com'])){
         if(!empty($_POST["contenu".$value])){
-            //echo $key.$value;
+            
             $contenu=$_POST["contenu".$value];
             
-           // echo $contenu.$value.$key;
             $identifiant=$value;
-
+            //on appelle une procédure stockée pour remplir la table commenter
             $requete = $bdd->exec("CALL commentaire('".$manif_Nom[$key]."', '".$user_Mail."', '".$contenu."')");
-
             $contenu ="";
             
         }
@@ -228,12 +214,9 @@ echo"<br>";
     $rqt->closeCursor();
     $response->closeCursor();
     
-
+    require_once("../elements/footer.php");
  ?>
        
-    <footer>
-        <!--pied de page-->
-    </footer>
+    
 </body>
 </html>
-

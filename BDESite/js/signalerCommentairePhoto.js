@@ -1,20 +1,20 @@
 $(function() {
   
-    $('#signalerPhoto button').click(function(){
+    $('#signaler button').click(function(){
         
       var x = $(this).attr('id');
       
-      x = x.replace('signalerPhoto', '');
+      x = x.replace('signaler', '');
       
      
      
-      photo = x; 
+      id_com = x; 
    
      
       $.ajax({
-        url: '../manifestation/signalerPhoto.php',
+        url: '../manifestation/signalerCommentairePhoto.php',
         type: 'POST',
-        data: { Photo: photo},
+        data: { ID: id_com},
       })
       .done(function (data) {
           alert(data);
