@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once('bdd.php');
-require_once("fonctions_panier.php");
 include('../elements/menu.php');
 
 if(isset($_SESSION['user_id'])){
@@ -12,7 +11,8 @@ if(isset($_SESSION['user_id'])){
 
 
 $erreur = false;
-$errors = false;
+
+//Pour faire fonctionner notre panier nous allons utiliser en forme action/evenement en PHP
 
 $action = (isset($_POST['action'])? $_POST['action']:  (isset($_GET['action'])? $_GET['action']:null )) ;
 if($action !== null)
@@ -43,11 +43,11 @@ if($action !== null)
    $q = intval($q);
         
 }
-
+//--------------------------------------------------------------------------------------------------------------
+//Notre switch des actions à faire sur le panier
 if (!$erreur){
    switch($action){
-      Case "ajout":
-      ajouterArticle($l,$q,$p);
+      Case "ajout": //Menu quand nous voulons ajouter un produti au panier
 
       $l = preg_replace('#\v#', '',$l);
       //On verifie que $p soit un float
@@ -74,8 +74,7 @@ if (!$erreur){
       
    break;
    
-   Case "suppression":
-         supprimerArticle($l);
+   Case "suppression": // Menu quand nous voulons suppimer un article du panier
 
          $l = preg_replace('#\v#', '',$l);
 
@@ -95,7 +94,7 @@ if (!$erreur){
 
          break;
 
-      Case "add" : 
+      Case "add" :  //Menu quand nous voulons ajouter une quantite à un article
 
       $l = preg_replace('#\v#', '',$l);
 
@@ -120,7 +119,7 @@ if (!$erreur){
 
 
 
-      Default:
+      Default: //Et par default quand on arrive sur la page du panier mais sans rien faire
 
          $id_user = ($_SESSION['user_id']);
          $select_view = $bdd->prepare("SELECT * FROM panier WHERE ID_USER=:id_user");
@@ -143,6 +142,7 @@ if (!$erreur){
          $compt_view->bindValue(':id_user', $id_user, PDO::PARAM_STR);
          $compt_view->execute();;
 
+         //Verification sur le panier est vide. Et si il est vide, cela redirige vers la page accueil du site de la boutique
          $compt=$compt_view->fetchAll();
 
          if((count($compt) == 0)){
@@ -184,9 +184,6 @@ if (!$erreur){
 
 
 	<?php
-    if (creationPanier()){
-
-
 
         while($s=$select_view->fetch(PDO::FETCH_OBJ)){
 
@@ -231,12 +228,6 @@ if (!$erreur){
             header($paypal);
           }
       
-
-
-    }
-
-
-
 	?>
 </form>
 </html>

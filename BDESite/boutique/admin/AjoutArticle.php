@@ -69,8 +69,6 @@ if(isset($_SESSION['membre_BDE'])){
 
 <?php
 
-include('../bdd.php');
-
 if(isset($_POST['submit'])){
     
     $nom = $_POST['nom'];
@@ -88,16 +86,16 @@ if(isset($_POST['submit'])){
         
         $image_ext = end($image);
         
-        if(in_array(strtolower($image_ext), array('png', 'jpg', 'jpeg')) == false){
+        if(in_array(strtolower($image_ext), array('png', 'jpg', 'jpeg')) == false){ //Verification si nous avons un bon format d'image
             echo 'Veuillez rentrer une image en .png ou .jpg ou .jpeg';
             
         }else{
             
             $image_size = getimagesize($img_tmp);
             
-            if($image_size['mime'] == 'image/jpeg'){
+            if($image_size['mime'] == 'image/jpeg'){ //Systeme qui permet de transformer l'image original dans le format attendu
                 $image_src = imagecreatefromjpeg($img_tmp);
-            }else if($image_size['mime'] == 'image/png'){
+            }else if($image_size['mime'] == 'image/png'){//Systeme qui permet de transformer l'image original dans le format attendu
                 $image_src = imagecreatefrompng($img_tmp);
             }else{
                 
@@ -115,6 +113,7 @@ if(isset($_POST['submit'])){
             $response->bindValue(':stock', $stock, PDO::PARAM_STR);
             $response->execute();
 
+            //Ici nous mettons en place pour que le nom de l'image soit avec le nom ID
             $nom = $_POST['nom'];
             $select_photos = $bdd->prepare("SELECT * FROM produits WHERE NOM=:nom");
             $select_photos->bindValue(':nom', $nom, PDO::PARAM_STR);

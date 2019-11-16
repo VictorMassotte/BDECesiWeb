@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require_once('bdd.php');
 include('../elements/menu.php');
@@ -33,7 +32,8 @@ if(isset($_SESSION['user_id'])){
     </div>
   
 <?php
-
+//--------------------------------------------------------------------------------------------------------------
+//Cette partie permet l'affichage d'un produit avec son prix, description, et son nom et le bouton pour acheter le produit
 if(isset($_GET['show'])){
     
     $product = $_GET['show'];
@@ -72,7 +72,8 @@ if(isset($_GET['show'])){
 
     
 }else{
-    
+//--------------------------------------------------------------------------------------------------------------
+//Cette partie permet l'affichage des produits en fonctions de leurs categorie
     if(isset($_GET['categorie'])){
         
         $categorie = $_GET['categorie'];
@@ -80,7 +81,7 @@ if(isset($_GET['show'])){
         $select->bindValue(':categorie', $categorie, PDO::PARAM_STR);
         $select->execute();
 
-        
+     //Ici nous avons la parti de tri et de recherche en HTML   
         ?>
     <form class="text-center" action="" method="POST">
         <button type="submit" name="asc" class="btn btn-secondary">Trier produit par le prix croissant</button>
@@ -101,7 +102,7 @@ if(isset($_GET['show'])){
 
 
         <?php
-
+//Le code en php demarere ici pour trier les produits par ordre croissant en fonction du prix
             if(isset($_POST['asc'])){
                 $select_trier =$bdd->prepare("SELECT * FROM `produits` WHERE CATEGORIE=:categorie ORDER BY `produits`.`PRIX` ASC");
                 $select_trier->bindValue(':categorie', $categorie, PDO::PARAM_STR);
@@ -131,7 +132,7 @@ if(isset($_GET['show'])){
         <?php
 
                 }
-                
+    //Le code en php demarere ici pour trier les produits par ordre decroissant en fonction du prix
             }elseif(isset($_POST['dsc'])){
 
 
@@ -163,7 +164,7 @@ if(isset($_GET['show'])){
         <?php
 
                 }
-
+//Le code en php demarere ici pour la recherche de produit
             }elseif(isset($_POST['submit_search'])){
 
                 $search = $_POST['search'];
@@ -197,7 +198,8 @@ if(isset($_GET['show'])){
     
                 
             }else{
-
+//------------------------------------------------------------------------------------------------------------------
+// Cette parti ou on affiche les produtis mais sans aucune option
                 while($s=$select->fetch(PDO::FETCH_OBJ)){
             
                     ?>
@@ -228,7 +230,8 @@ if(isset($_GET['show'])){
             }
         
     }else{
-        
+//----------------------------------------------------------------------------------------------------------------------
+//Affichage quand nous arrivons sur la page index de la boutique. Affichage des noms des categories
         $select = $bdd->prepare('SELECT * FROM categorie');
         $select->execute();
         
@@ -248,7 +251,8 @@ if(isset($_GET['show'])){
         
     }
 }
-
+//------------------------------------------------------------------------------------------------------------------------------
+//Ici nous trouvons la parti pour afficher les 3 tops ventes de toute la boutique
  $top = $bdd->prepare("SELECT * FROM `produits` ORDER BY `produits`.`NB_COMMANDE` DESC LIMIT 3");
  $top->execute();
 
