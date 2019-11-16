@@ -9,11 +9,11 @@ if(isset($_SESSION['intervenant_CESI'])){
 //get l'utilisateur (id)($user)
 if (isset($_POST['Photo'])){
    
-    
+    //on récupère le nom de la photo
     $photo = $_POST['Photo'];
     
     $body = $photo;
-    
+    //on envoie le mail à tous les membres du bde
     $headers = 'From: projet.webcesi92@gmail.com' ."\r\n".
     'MIME-Version: 1.0' ."\r\n".
     'Content-type: text/html; charset=utf-8';
@@ -32,5 +32,4 @@ if (isset($_POST['Photo'])){
 }
 
 
-//header('Location: manifpasse.php');
 ?>

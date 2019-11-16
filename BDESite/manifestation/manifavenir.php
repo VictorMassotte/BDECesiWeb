@@ -36,6 +36,7 @@ while ($ligne = $response->fetch()) {
     $dateactuelle = new DateTime('now');
     $datetime1 = new DateTime($ligne['DATEE']);
     $interval = $datetime1->diff($dateactuelle);
+    //on fait une condition pour savoir s'il s'agit d'une manifestation passé ou à venir
         if($interval->format('%R%a')<0){
             $rqt = $bdd->prepare('SELECT * FROM manifestations WHERE ID=:id');
             $rqt->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
@@ -64,11 +65,11 @@ while ($ligne = $response->fetch()) {
             $rqtSpe->execute();
             $ligne = $rqtSpe->fetch();
             if($ligne){  
-                //l'utilisateur à deja liké, on ne fait rien ou on suggère de dislike
+                //l'utilisateur est déjà inscrit
                 $message = "Inscrit"; 
             }
             else{
-                //on envoie la requête dans la bdd
+                //l'utilisateur n'est pas inscrit
                 $message = "Je m'inscrit";
             }  
             
@@ -98,10 +99,9 @@ while ($ligne = $response->fetch()) {
         }
     }
     $response->closeCursor();
+    require_once("../elements/footer.php");
 ?>
-    <footer>
-        <!--pied de page-->
-    </footer>
+    
 </body>
 </html>
 

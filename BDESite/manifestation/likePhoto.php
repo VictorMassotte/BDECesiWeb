@@ -7,14 +7,11 @@ if(isset($_SESSION['login'])){
 }
    
     //get l'utilisateur (id)($user)
-    /*$user=$_SESSION['user_id'];
-    $user_Nom=$_SESSION['user_Nom'];
-    $user_Prenom=$_SESSION['user_Prenom'];*/
-    $user=$_SESSION['user_id'];//Gauthier Sannier
+    $user=$_SESSION['user_id'];
     
     $user_mail = $_SESSION['user_Mail'];
     //get la manifestation (id)($manif)
-    $photo=$_POST['id_Photo'];//vente de crêpes
+    $photo=$_POST['id_Photo'];
    
     
 

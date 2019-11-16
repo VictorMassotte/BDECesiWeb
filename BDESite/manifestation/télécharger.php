@@ -13,6 +13,7 @@ while ($ligne = $rqt->fetch()) {
 $photo[]=$ligne['PHOTO'];
 }
 $chemin ="../boutique/admin/imgs/";
+//on crée une archive
 $zip = new ZipArchive(); 
       if($zip->open('Zip.zip', ZipArchive::CREATE) === true)
       {

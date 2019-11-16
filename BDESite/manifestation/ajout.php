@@ -14,7 +14,7 @@ if(isset($_SESSION['login'])){
     while ($ligne = $rqt->fetch()) {
         
         
-        
+        //on ne peut ajouter une photo que pour une manifestation passée
         $dateactuelle = new DateTime('now');
         $datetime1 = new DateTime($ligne['DATEE']);
         $interval = $datetime1->diff($dateactuelle);
@@ -34,13 +34,13 @@ if(isset($_SESSION['login'])){
 <?php
    $user=$_SESSION['user_id'];
     
-   //Gauthier Sannier
    $user_mail = $_SESSION['user_Mail'];
     if(isset($_POST['submit'])){
-    //$photo = $_POST['img'];
+   
     $nom = $_POST['manif'];
     $img = $_FILES['img']['name'];
     $img_tmp = $_FILES['img']['tmp_name'];
+    //on  va rajouter la photo dans le dossier imgs
     if(!empty($img_tmp)){
         echo "test";        
         $image = explode('.', $img);
@@ -68,7 +68,7 @@ if(isset($_SESSION['login'])){
             imagejpeg($image_finale,'../boutique/admin/imgs/'.$img);
             
             
-           
+           //on ajoute la photo à travers la procédure stockée
             $rqtInsertion = $bdd->exec("CALL ajout_Photo('".$nom."', '".$user_mail."', '".$img."')");
    header('Location: manifpasse.php');
         }

@@ -11,7 +11,7 @@ echo "<h1>Liste des photos</h1>
 <h4>Manifestation</h4>
 <select name=\"manif\" required>";
  $rqt = $bdd->query('SELECT DISTINCT manifestations.ID ,NOM,DATEE FROM manifestations INNER JOIN ajouter_photo ON manifestations.ID=ajouter_photo.ID ORDER BY DATEE desc ');
-
+//on récupère les manifestations qui ont des photos
 while ($ligne = $rqt->fetch()) { 
     echo "test" ;
     $nom_manif=$ligne['NOM'];
