@@ -53,7 +53,7 @@ session_destroy();
         <h4 id="Texte"> Vous êtes déconnecté </h4>  
         <button type="submit" name="Deco"  class="btn btn-primary"><a href="Connexion.php" style="color:white;">Retour à la connexion</a></button>
         </div>
-        <img  alt="" src="https://image.noelshack.com/fichiers/2019/46/5/1573816941-logo-cesi.png" width="400px" height="90px" id="ImageCesiTrois">
+        <img  alt="" src="https://image.noelshack.com/fichiers/2019/46/5/1573816941-logo-cesi.png" width="400px" height="110px" id="ImageCesiTrois">
         
 </body>     
  </html>   

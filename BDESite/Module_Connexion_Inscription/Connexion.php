@@ -52,7 +52,7 @@ if(!session_id($newid))
               <a href="Inscription.php">Je m'inscris </a>
              </form>
             </div>
-           <img  src="https://image.noelshack.com/fichiers/2019/46/5/1573816941-logo-cesi.png" width="400px" height="90px" id="ImageCesi">
+           <img  src="https://image.noelshack.com/fichiers/2019/46/5/1573816941-logo-cesi.png" width="400px" height="110px" id="ImageCesi">
           </div>
          </body>
 
