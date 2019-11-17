@@ -22,9 +22,9 @@ if(isset($_SESSION['login'])){
         <script type="text/javascript" src="../js/signalerManif.js"></script>
         <script type="text/javascript" src="../js/signaler.js"></script>
       
-        <link rel="stylesheet" href="css/fonction.css">
+        <link rel="stylesheet" href="../css/manifpasse.css">
         <title>Evenements passés</title>
-       
+        
       
 </head>
 <body>
@@ -46,13 +46,14 @@ $user_Prenom = $_SESSION['user_Prenom'];;
 $user_Mail=$_SESSION['user_Mail'];;
 $message ="";
 $messagelike = "";
-echo "<div id=\"ajout\">
-    <button type=\"button\"  class=\"btn btn-outline-primary ajout\" id=\"ajout\"><a href=\"ajout.php\">Poster une photo</a></button>
+echo "
+ <div id=\"ajout\" class=\"flex\">
+    <button type=\"button\"  class=\"btn btn-outline-secondary ajout\" id=\"ajout\" ><a href=\"ajout.php\">Poster une photo</a></button>
     
     </div>";
 if (isset($_SESSION['intervenant_CESI'])){
-    echo "<div id=\"télécharger\">
-    <button type=\"button\"  class=\"btn btn-outline-primary télécharger\" id=\"télécharger\"><a href=\"télécharger.php\">Télécharger les photos</a></button>
+    echo "<div id=\"télécharger\" class=\"flex\">
+    <button type=\"button\"  class=\"btn btn-outline-secondary télécharger\" id=\"télécharger\" ><a href=\"télécharger.php\">Télécharger les photos</a></button>
     
     </div>";
 }
@@ -123,10 +124,16 @@ while ($ligne = $response->fetch()) {
             
             //partie affichage
             echo "
-            <div class=\"card text-center text-white bg-dark\">
+            <div class=\"card text-center bg-light marge\">
             <div class=\"card-header\" id=\"nom\">
-            $nom
-            </div>
+            $nom";
+           if(isset($_SESSION['intervenant_CESI'])){
+                echo "<div id=\"signalerManif\">
+                <button type=\"button\"  class=\"btn btn-outline-secondary signalerManif\" id=\"signalerManif".$identifiant."\">Signaler</button>
+                
+                </div>";
+            }
+            echo "</div>
             <div class=\"card-body\" style=\"width: 18rem; margin-left: auto;
             margin-right: auto;\">
             <img src=\"../boutique/admin/imgs/".$urlimg."\" class=\"card-img-top\" alt=\"Image de la manifestation\">
@@ -134,12 +141,7 @@ while ($ligne = $response->fetch()) {
             <p class=\"card-text\">$desc</p>
             <p class=\"card-text text-muted\">".$interval->format('il y a %a jours')."<p>
             </div>";
-            if(isset($_SESSION['intervenant_CESI'])){
-                echo "<div id=\"signalerManif\">
-                <button type=\"button\"  class=\"btn btn-outline-primary signalerManif\" id=\"signalerManif".$identifiant."\">Signaler</button>
-                
-                </div>";
-            }
+            
             echo "<div id=\"bouton\">
             <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."-".$nom."\">".$message."</button>
             <p>".$messagelike."</p>
@@ -149,7 +151,7 @@ while ($ligne = $response->fetch()) {
             //nous allons faire la partie affichage des commentaires
                 //récupération des commentaires
             
-            $rqtcom =$bdd->prepare('SELECT * FROM commenter ORDER BY `commenter`.`DATEHEURE` DESC LIMIT 5 WHERE id=:id');
+            $rqtcom =$bdd->prepare('SELECT * FROM commenter WHERE id=:id ORDER BY `commenter`.`DATEHEURE` DESC LIMIT 5 ');
             
             $rqtcom->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
             $rqtcom->execute();
@@ -162,15 +164,16 @@ while ($ligne = $response->fetch()) {
                 $commentaire = $ligne3['MAIL']." : ".$ligne2['CONTENU']." Le : ".$ligne2['DATEHEURE'];
                 $id_com = $ligne2['ID_COMMENTAIRE'];
                 $id_user = $ligne2['ID_USERS'];
-                              
+                   
                 echo $commentaire;
-                echo "<br>";
+               
                if(isset($_SESSION['intervenant_CESI'])){
                     echo "<div id=\"signaler\">
-                    <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$id_com."\">Signaler</button>
+                    <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$id_com."\">S</button>
                     
                     </div>";
                 }
+                
             }
             }
             echo "
@@ -185,7 +188,7 @@ while ($ligne = $response->fetch()) {
             $id[]=$identifiant;
             $manif_Nom[] = $nom;
             
-echo"<br>";
+
         }
         
         

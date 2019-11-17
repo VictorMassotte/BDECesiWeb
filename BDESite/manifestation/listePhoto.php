@@ -18,8 +18,8 @@ if(isset($_SESSION['login'])){
  
         <script type="text/javascript" src="../js/signalerPhoto.js"></script>
         <script type="text/javascript" src="../js/likePhoto.js"></script>
-        
-        <link rel="stylesheet" href="css/fonction.css">
+        <link rel="stylesheet" href="../css/listePhoto.css">
+      
         <title>Liste</title>
 </head>
 <body>
@@ -55,17 +55,18 @@ while($ligne2=$select->fetch()){
             $rqtSpe->closeCursor();
     
     ?>
-    <div class="card text-center text-white bg-dark">
+    <div class="card text-center text-dark bg-light marge">
+        <?php if(isset($_SESSION['intervenant_CESI'])){
+        echo "<div id=\"signalerPhoto\">
+        <button type=\"button\"  class=\"btn btn-outline-secondary signalerPhoto\" id=\"signalerPhoto".$ligne2['PHOTO']."\">Signaler</button>
+        
+        </div>";
+    }?>
     <div class="card-body" style="width: 18rem; margin-left: auto;
   margin-right: auto;">
     <img src="../boutique/admin/imgs/<?php echo $ligne2['PHOTO']; ?>" class="card-img-top" alt="Photo ">
     </div>
-    <?php  if(isset($_SESSION['intervenant_CESI'])){
-        echo "<div id=\"signalerPhoto\">
-        <button type=\"button\"  class=\"btn btn-outline-primary signalerPhoto\" id=\"signalerPhoto".$ligne2['PHOTO']."\">Signaler</button>
-        
-        </div>";
-    }
+    <?php  
     echo "<div id=\"bouton\">
     <button type=\"button\"  class=\"btn btn-outline-primary like".$identifiant."\" id=\"like".$identifiant."\">".$message."</button>
     
@@ -75,7 +76,7 @@ while($ligne2=$select->fetch()){
    echo "<div class=\"card-footer\">
    </div>";
    
-   $rqtcom =$bdd->prepare('SELECT * FROM commenterPhoto ORDER BY `commenterphoto`.`DATEHEURE` DESC LIMIT 5 WHERE id=:id');
+   $rqtcom =$bdd->prepare('SELECT * FROM commenterPhoto WHERE id=:id   ORDER BY `commenterphoto`.`DATEHEURE` DESC LIMIT 5');
    
    $rqtcom->bindValue(':id',$identifiant, PDO::PARAM_STR);
    $rqtcom->execute();
@@ -94,7 +95,7 @@ while($ligne2=$select->fetch()){
         echo "<br>";
         if(isset($_SESSION['intervenant_CESI'])){
             echo "<div id=\"signaler\">
-            <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$id_com."\">Signaler</button>
+            <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$id_com."\">S</button>
             
             </div>";
         }
@@ -106,7 +107,7 @@ echo "
 <input type=\"submit\" value=\"Envoyer\" name=\"com\"/>
 </form>
 ";
-echo "</div><br>";
+echo "</div>";
 $id[]=$identifiant;
    
 }
