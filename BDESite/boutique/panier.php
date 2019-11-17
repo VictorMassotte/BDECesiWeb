@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('bdd.php');
-include('../elements/menu.php');
+
 
 if(isset($_SESSION['user_id'])){
     
@@ -163,9 +163,11 @@ if (!$erreur){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Boutique BDE CESI</title>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
+    <script src="../js/jquery-3.4.1.min.js"></script>
     <link href="style/boutique.css" rel="stylesheet">
-
+<?php include('../elements/menu.php');?>
   </head>
 <div class="jumbotron">
   <div class="container">

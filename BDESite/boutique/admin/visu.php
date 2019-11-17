@@ -20,6 +20,7 @@ if(isset($_SESSION['membre_BDE'])){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
     <link href="jumbotron.css" rel="stylesheet">
+    <script src="../js/jquery-3.4.1.min.js"></script>
     <link href="../style/boutique.css" rel="stylesheet">
     <title>Menu Admin Boutique</title>
 </head>

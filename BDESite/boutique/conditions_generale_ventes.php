@@ -20,6 +20,7 @@ if(isset($_SESSION['user_id'])){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>CONDITIONS D'UTILISATION ET GENERALES DE VENTE</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
+    <script src="../js/jquery-3.4.1.min.js"></script>
     <link href="style/boutique.css" rel="stylesheet">
     <script src="js/recherche.js" type="text/javascript"></script>
 
