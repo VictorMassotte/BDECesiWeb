@@ -28,8 +28,6 @@ session_destroy();
         #Reco {
             position: absolute; /* postulat de départ */
             transform: translate(-50%, -50%);
-            border-color:black;
-            border-style:solid;
             margin: auto;
             width: 500px;
             height:150px;
