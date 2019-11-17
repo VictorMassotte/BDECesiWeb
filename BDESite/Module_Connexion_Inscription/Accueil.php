@@ -64,8 +64,49 @@ En naviguant sur notre site, vous acceptez l'utilisation de cookies de type mark
         require_once("../boutique/bdd.php");
         require_once("../elements/menu.php"); ?>
     </header>
-    
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <main>
+        <br>
+    <center><h1>Bureau des Eleves du CESI</h1></center>
+<br>
+<div class="card mb-5 testhidden" style="max-width: 1920px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+            <img src="https://paris.cesi.fr/wp-content/uploads/sites/18/2018/11/Page30_Mascotte_BDE.jpg" class="card-img" alt="Image Groupe BDE">
+            </div>
+            <div class="col-md-8">
+            <div class="card-body">
+            <h2>BDE Campus Nanterre</h2>
+                <p>Le BDE du Campus de Nanterre est une association d’apprenants provenant des différentes écoles du campus avec pour objectif de les fédérer au sein de l’établissement. Les missions principales sont, entre autres, la coordination entre ses représentants, les apprenants ainsi que la direction.<p>
+                <p>Au sein du BDE, nous retrouvons différents clubs : </p> 
+                <ul>
+                    <li>Club CESI Photos/Vidéos
+                    <li>CESI Voile
+                    <li>CESI Palace (jeux de cartes)
+                    <li>CESI Boxe
+                    <li>CESI Basket-Ball
+                    <li>Césième
+                    <li>CESI Espadon (natation)
+                    <li>CESI Culture  
+                    <li>CESI Rugby 
+                    <li>CESI Foot
+                    <li>CESI LSF (Langue des Signes) 
+                    <li>CESI Pétanque 
+                    <li>CESI Workout
+                    <li>CESI Aide
+                    <li>CESI’k
+                    <li>CESI Ton Entreprise
+                    <li>CESI Manga.
+                </ul>
+                <p>Vous souhaitez participer au BDE ? Vous avez un projet ou des questions sur son fonctionnement ?</p>
+                <center><a class="btn btn-primary" href="http://localhost/BDECesiWeb/BDESite/Contact/contact.php" role="button">Nous contacter</a></center> 
+            </div>
+            </div>
+        </div>
+        </div>
+
+
+    </main>
     <!--corps du site-->
     <footer>
         <?php require_once("../elements/footer.php") ?>
