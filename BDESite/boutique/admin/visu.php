@@ -55,7 +55,10 @@ if(isset ($_GET['action'])){
         $delete->bindValue(':id', $id, PDO::PARAM_STR);
         $delete->execute();
         //header('Location: visu.php');
+        ?>
 
+        <a href="visu.php" class="btn btn-primary ">Actualiser la page</a><br>
+        <?php
 
     }
     
