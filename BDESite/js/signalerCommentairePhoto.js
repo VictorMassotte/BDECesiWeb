@@ -1,6 +1,6 @@
 $(function() {
   
-    $('#signaler button').click(function(){
+    $('#signaler input').click(function(){
         
       var x = $(this).attr('id');
       
@@ -17,7 +17,7 @@ $(function() {
         data: { ID: id_com},
       })
       .done(function (data) {
-          alert(data);
+          
        
           
         successFunction(data); })

@@ -17,7 +17,7 @@ $(function() {
         data: { Photo: photo},
       })
       .done(function (data) {
-          alert(data);
+          
        
           
         successFunction(data); })

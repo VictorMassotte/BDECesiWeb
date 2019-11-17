@@ -12,7 +12,7 @@ if (isset($_POST['ID'])){
     
     $id_com = $_POST['ID'];
     //on récupère les informations du commentaire et la personne qui l'a posté
-    $rqtSpe = $bdd->prepare('SELECT ID_COMMENTAIRE, CONTENU, users.MAIL FROM `commenter`INNER JOIN `users` ON commenter.ID_USERS=users.ID WHERE ID_COMMENTAIRE=:idc');
+    $rqtSpe = $bdd->prepare('SELECT ID_COMMENTAIRE, CONTENU, users.MAIL FROM `commenterphoto`INNER JOIN `users` ON commenterphoto.ID_USERS=users.ID WHERE ID_COMMENTAIRE=:idc');
     
     $rqtSpe->bindValue(':idc',$id_com, PDO::PARAM_STR);
     $rqtSpe->execute();

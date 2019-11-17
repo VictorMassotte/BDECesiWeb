@@ -13,9 +13,12 @@ if(isset($_SESSION['login'])){
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
        
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link href="../css/jquery.dataTables.css" type="text/css" rel="stylesheet" media="screen">
+<script src="../js/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<script type="text/javascript" charset="utf8" src="../js/jquery.dataTables.js"></script>
+ 
 
         <script type="text/javascript" src="../js/like.js"></script>
        
@@ -25,7 +28,11 @@ if(isset($_SESSION['login'])){
         <link rel="stylesheet" href="../css/manifpasse.css">
         <title>Evenements passés</title>
         
-      
+        <script type="text/javascript" charset="utf_8">
+$(document).ready(function(){
+$('.tabd').dataTable();
+})
+</script>        
 </head>
 <body>
     <header>
@@ -134,7 +141,7 @@ while ($ligne = $response->fetch()) {
                 </div>";
             }
             echo "</div>
-            <div class=\"card-body\" style=\"width: 18rem; margin-left: auto;
+            <div class=\"card-body\" style=\"width: 25rem; margin-left: auto;
             margin-right: auto;\">
             <img src=\"../boutique/admin/imgs/".$urlimg."\" class=\"card-img-top\" alt=\"Image de la manifestation\">
             <h5 class=\"card-title\"> Le $dateAffichable</h5>
@@ -151,31 +158,50 @@ while ($ligne = $response->fetch()) {
             //nous allons faire la partie affichage des commentaires
                 //récupération des commentaires
             
-            $rqtcom =$bdd->prepare('SELECT * FROM commenter WHERE id=:id ORDER BY `commenter`.`DATEHEURE` DESC LIMIT 5 ');
+            $rqtcom =$bdd->prepare('SELECT * FROM commenter WHERE id=:id ');
             
             $rqtcom->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
             $rqtcom->execute();
-            while($ligne2=$rqtcom->fetch()){
-                $rqtUser =$bdd->prepare('SELECT * FROM users WHERE id=:id');
-            
-                $rqtUser->bindValue(':id',$ligne2['ID_USERS'], PDO::PARAM_STR);
-                $rqtUser->execute();
-                if ($ligne3=$rqtUser->fetch()){
-                $commentaire = $ligne3['MAIL']." : ".$ligne2['CONTENU']." Le : ".$ligne2['DATEHEURE'];
-                $id_com = $ligne2['ID_COMMENTAIRE'];
-                $id_user = $ligne2['ID_USERS'];
-                   
-                echo $commentaire;
-               
-               if(isset($_SESSION['intervenant_CESI'])){
-                    echo "<div id=\"signaler\">
-                    <button type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$id_com."\">S</button>
-                    
-                    </div>";
-                }
-                
-            }
-            }
+            echo " <div>
+   <table class=\"tabd\"  class=\"display\" cellspacing=\"0\" width=\"100%\" >
+   <thead>
+   <tr>
+   <th>Commentaire</th>
+   <th>Signaler</th>
+   </tr>
+   </thead>
+   <tbody>";
+
+while ($ligne2=$rqtcom->fetch()){
+    $rqtUser =$bdd->prepare('SELECT * FROM users WHERE id=:id');
+    
+    $rqtUser->bindValue(':id',$ligne2['ID_USERS'], PDO::PARAM_STR);
+    $rqtUser->execute();
+    if ($ligne3=$rqtUser->fetch()){
+        $commentaire = $ligne3['MAIL']." : ".$ligne2['CONTENU']." Le : ".$ligne2['DATEHEURE'];
+        $id_com = $ligne2['ID_COMMENTAIRE'];
+        
+        $id_user = $ligne2['ID_USERS'];
+        
+       echo " <tr>
+<td>$commentaire</td>
+<td>";
+if(isset($_SESSION['intervenant_CESI'])){
+    echo "<div id=\"signaler\">
+    <input type=\"button\"  class=\"btn btn-outline-primary signaler\" id=\"signaler".$id_com."\" value=\"S\">
+    
+    </div>";
+}
+}
+echo "</td>
+
+</tr> ";
+        
+
+}echo "
+</tbody>
+</table>
+</div>";
             echo "
             <form method=\"post\">
             <textarea name=\"contenu".$identifiant."\" cols=\"70\" rows=\"1\" placeholder=\"Entrez votre commentaire\"></textarea>
