@@ -57,7 +57,7 @@ $id_user = ($_SESSION['user_id']);
 
 
       <li class="nav-item my-2 my-lg-0">
-        <a class="nav-link textmenu" href="#">Contact</a>
+        <a class="nav-link textmenu" href="http://localhost/BDECesiWeb/BDESite/Contact/contact.php">Contact</a>
       </li>
       
       <li class="nav-item my-2 my-lg-0">

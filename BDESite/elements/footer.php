@@ -25,7 +25,7 @@
       <div class="col-6 col-md">
         <h5>Contact</h5>
         <ul class="list-unstyled text-small ongletblanc">
-          <li><a class="ongletblanc" href="#">Nous contacter</a></li><!--à completer-->
+          <li><a class="ongletblanc" href="http://localhost/BDECesiWeb/BDESite/Contact/contact.php">Nous contacter</a></li><!--à completer-->
         </ul>
       </div>
     </div>

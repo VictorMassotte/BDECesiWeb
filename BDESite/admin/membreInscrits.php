@@ -12,6 +12,40 @@ if(isset($_SESSION['membre_BDE'])){
 }
 
 ?>
+<?php
+    if(isset($_POST['envoyer'])&&isset($_POST['manif'])){
+        $info = array();
+        $fichier_csv = fopen('inscrit.csv', 'w+');
+        $choixManif=$_POST['manif'];
+        $rqtListe = $bdd->prepare('SELECT users.NOM,PRENOM,MAIL,LOCALISATION FROM inscrire,manifestations,users WHERE manifestations.ID = inscrire.ID AND users.ID = inscrire.ID_USERS AND manifestations.ID=:id; ');
+        $rqtListe->bindValue(':id',$choixManif, PDO::PARAM_STR);
+        $rqtListe->execute();
+        //on crée la ligne d'en-tête
+        $entete =array("nom","prenom","mail","localisation");
+        //crétion du contenu du tableau    
+        $contenu=array();
+            $i=-1;
+            while($user=$rqtListe->fetch()){
+                $nom=$user['NOM'];
+                $prenom=$user['PRENOM'];
+                $mail=$user['MAIL'];
+                $localisation=$user['LOCALISATION'];
+                //ajout du contenu au tableau
+                $contenu[]=array($nom,$prenom,$mail,$localisation);
+                //echo $nom." ".$prenom." ".$mail." ".$localisation;
+                $info[] = $nom." ".$prenom." ".$mail." ".$localisation;
+                
+                $i=$i+1;
+            }
+        if($i==-1){
+            echo "il n'y a pas d'incrits";
+        }
+        echo "<br> fin de liste";
+        fputcsv($fichier_csv, $info, ';');
+        $rqtListe->closeCursor();
+        header('Location: inscrit.csv');
+    }
+?>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,11 +54,11 @@ if(isset($_SESSION['membre_BDE'])){
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/jumbotron/">
     <link href="jumbotron.css" rel="stylesheet">
     <link href="../style/boutique.css" rel="stylesheet">
-    <title>Menu Admin Boutique</title>
+    <title>Menu Admin Manifestation</title>
 </head>
 <?php include('../elements/menu.php'); ?>
 <div class="jumbotron">
-       <h1 class="display-4">Ajout d'un produit dans la boutique</h1>
+       <h1 class="display-4">Choix de la manifestation</h1>
     </div>
 
 <section class="text-center col-md-6 mb-3">
@@ -58,37 +92,3 @@ if(isset($_SESSION['membre_BDE'])){
 </footer>
 </html>
 
-<?php
-    if(isset($_POST['envoyer'])&&isset($_POST['manif'])){
-        $info = array();
-        $fichier_csv = fopen('inscrit.csv', 'w+');
-        $choixManif=$_POST['manif'];
-        $rqtListe = $bdd->prepare('SELECT users.NOM,PRENOM,MAIL,LOCALISATION FROM inscrire,manifestations,users WHERE manifestations.ID = inscrire.ID AND users.ID = inscrire.ID_USERS AND manifestations.ID=:id; ');
-        $rqtListe->bindValue(':id',$choixManif, PDO::PARAM_STR);
-        $rqtListe->execute();
-        //on crée la ligne d'en-tête
-        $entete =array("nom","prenom","mail","localisation");
-        //crétion du contenu du tableau    
-        $contenu=array();
-            $i=-1;
-            while($user=$rqtListe->fetch()){
-                $nom=$user['NOM'];
-                $prenom=$user['PRENOM'];
-                $mail=$user['MAIL'];
-                $localisation=$user['LOCALISATION'];
-                //ajout du contenu au tableau
-                $contenu[]=array($nom,$prenom,$mail,$localisation);
-                echo $nom." ".$prenom." ".$mail." ".$localisation;
-                $info[] = $nom." ".$prenom." ".$mail." ".$localisation;
-                
-                $i=$i+1;
-            }
-        if($i==-1){
-            echo "il n'y a pas d'incrits";
-        }
-        echo "<br> fin de liste";
-        fputcsv($fichier_csv, $info, ';');
-        $rqtListe->closeCursor();
-        header('Location: inscrit.csv');
-    }
-?>      

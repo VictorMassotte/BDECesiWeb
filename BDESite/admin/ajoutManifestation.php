@@ -163,4 +163,3 @@ if(isset($_SESSION['login'])){
 ?>
 <!--c'est ici que seront affichés les résultats de nos reqêtes-->
 <br>
-Ajout d'une partie pour la visualisation des résulats de requête

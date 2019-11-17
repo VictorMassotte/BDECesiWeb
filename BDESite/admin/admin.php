@@ -50,6 +50,7 @@ if(isset($_SESSION['membre_BDE'])){
                   <div class="dropdown-menu">
                     <a class="dropdown-item" href="suppPhoto.php">Supprimer une photo</a>
                     <a class="dropdown-item" href="supprimerCommentaireManif.php">Supprimer un commentaire</a>
+                    <a class="dropdown-item" href="suppCommentairePhoto.php">Supprimer un commentaire d'une photo</a>
                   </div>
                 </div>
             </div>

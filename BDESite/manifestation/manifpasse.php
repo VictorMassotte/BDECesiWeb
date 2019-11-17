@@ -149,7 +149,7 @@ while ($ligne = $response->fetch()) {
             //nous allons faire la partie affichage des commentaires
                 //récupération des commentaires
             
-            $rqtcom =$bdd->prepare('SELECT * FROM commenter WHERE id=:id');
+            $rqtcom =$bdd->prepare('SELECT * FROM commenter ORDER BY `commenter`.`DATEHEURE` DESC LIMIT 5 WHERE id=:id');
             
             $rqtcom->bindValue(':id',$ligne['ID'], PDO::PARAM_STR);
             $rqtcom->execute();

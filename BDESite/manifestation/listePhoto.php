@@ -75,7 +75,7 @@ while($ligne2=$select->fetch()){
    echo "<div class=\"card-footer\">
    </div>";
    
-   $rqtcom =$bdd->prepare('SELECT * FROM commenterPhoto WHERE id=:id');
+   $rqtcom =$bdd->prepare('SELECT * FROM commenterPhoto ORDER BY `commenterphoto`.`DATEHEURE` DESC LIMIT 5 WHERE id=:id');
    
    $rqtcom->bindValue(':id',$identifiant, PDO::PARAM_STR);
    $rqtcom->execute();
