@@ -14,14 +14,20 @@
         background: url("https://media.discordapp.net/attachments/491542158164099072/644147980848463912/fond_cesi.png?width=948&height=586");
         background-repeat: no-repeat;
         background-size: cover;
+        background-attachment:fixed;
+        background-position: center center;
         }
         #PremForm {
-        padding: 0px 100px 0px 100px; 
-        margin:130px 0px 0px 250px;
+            position: absolute; /* postulat de départ */
+            top: 50%; left: 50%; /* à 50%/50% du parent référent */
+            transform: translate(-50%, -50%);
         }
         #ImageCesiDeux {
-        margin:-1028px 0px 0px 0px;     
-        }
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            max-width: 100%;
+        }    
         </style>
 
         <title>Inscription</title>
@@ -67,7 +73,7 @@
         <option value="Caen">Campus de Caen</option>
         </select>
     </div>    
-   <label for="inputEmail" class="sr-only">Adresse mail</label>
+   <label for="inputEmail" class="form-control">Adresse mail</label>
    <input type="text" id="inputEmail" name="email" class="form-control" placeholder="Adresse mail" required>
    </br>
    <div class="form-group">
